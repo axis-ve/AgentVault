@@ -6,6 +6,7 @@ from cryptography.fernet import Fernet
 from agentvault_mcp.core import ContextManager
 from agentvault_mcp.wallet import AgentWalletManager
 from agentvault_mcp.strategies import send_when_gas_below, dca_once
+from agentvault_mcp.strategies import scheduled_send_once, micro_tip_equal, micro_tip_amounts
 
 
 class _W3:
@@ -90,3 +91,40 @@ async def test_dca_once_gas_ceiling():
     res = await dca_once(mgr, "c", "0x" + "1" * 40, 0.001, max_base_fee_gwei=10.0)
     assert res["action"] == "wait"
 
+
+@pytest.mark.asyncio
+async def test_scheduled_send_wait_then_sim():
+    from datetime import datetime, timedelta, timezone
+
+    ctx = ContextManager()
+    key = Fernet.generate_key().decode()
+    web3 = _Web3Adapter(base_fee_wei=1 * 10**9)
+    mgr = AgentWalletManager(ctx, web3, key)
+    await mgr.spin_up_wallet("sched")
+    future = (datetime.now(timezone.utc) + timedelta(seconds=60)).isoformat()
+    res = await scheduled_send_once(
+        mgr, "sched", "0x" + "1" * 40, 0.001, future
+    )
+    assert res["action"] == "wait"
+    past = (datetime.now(timezone.utc) - timedelta(seconds=1)).isoformat()
+    res = await scheduled_send_once(
+        mgr, "sched", "0x" + "1" * 40, 0.001, past, dry_run=True
+    )
+    assert res["action"] == "simulation"
+
+
+@pytest.mark.asyncio
+async def test_micro_tip_helpers_dry_run():
+    ctx = ContextManager()
+    key = Fernet.generate_key().decode()
+    web3 = _Web3Adapter(base_fee_wei=1 * 10**9)
+    mgr = AgentWalletManager(ctx, web3, key)
+    await mgr.spin_up_wallet("mt")
+    res = await micro_tip_equal(
+        mgr, "mt", ["0x" + "1" * 40, "0x" + "2" * 40], 0.01, dry_run=True
+    )
+    assert res["action"] == "simulation"
+    res = await micro_tip_amounts(
+        mgr, "mt", {"0x" + "1" * 40: 0.005, "0x" + "2" * 40: 0.005}, dry_run=True
+    )
+    assert res["action"] == "simulation"

@@ -30,6 +30,7 @@ dev = [
 
 [project.scripts]
 agentvault-mcp = "agentvault_mcp.server:cli"
+agentvault = "agentvault_mcp.cli:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}

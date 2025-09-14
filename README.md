@@ -82,6 +82,7 @@ You can use AgentVault MCP in two ways:
 
 - Via MCP clients (e.g., Claude Desktop) calling stdio tools.
 - Direct Python API for programmatic, sequential workflows.
+- CLI: `agentvault` for quick local control without MCP client.
 
 ### Direct Python API (Puppeteer‑style Orchestration)
 Use the wallet and adapters directly for end‑to‑end flows (create → fund →
@@ -115,6 +116,27 @@ asyncio.run(flow())
 - For “sequential thinking” workflows, compose these calls with your own
   decision logic (e.g., DCA, thresholds, rebalancing) before calling
   `execute_transfer`.
+
+### CLI Commands
+Install the package and run:
+
+```bash
+agentvault create-wallet <agent_id>
+agentvault list-wallets
+agentvault balance <agent_id>
+agentvault simulate <agent_id> <to> <amount>
+agentvault send <agent_id> <to> <amount> [--dry-run] [--confirmation-code CODE]
+agentvault faucet <agent_id> [--amount AMT]
+agentvault export-keystore <agent_id> <passphrase>
+agentvault export-privkey <agent_id> --confirmation-code CODE
+
+# Strategies (stateless)
+agentvault strategy send-when-gas-below <agent> <to> <amount> <max_gwei> [--dry-run]
+agentvault strategy dca-once <agent> <to> <amount> [--max-base-fee-gwei G] [--dry-run]
+agentvault strategy scheduled-send-once <agent> <to> <amount> <ISO8601> [--dry-run]
+agentvault strategy micro-tip-equal <agent> <addr1,addr2,...> <total_amount> [--dry-run]
+agentvault strategy micro-tip-amounts <agent> "addr1=0.01,addr2=0.02" [--dry-run]
+```
 
 ## Tools
 - `spin_up_wallet(agent_id: str) -> str`

@@ -8,6 +8,9 @@ from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
 from .strategies import dca_once as _dca_once
 from .strategies import send_when_gas_below as _send_when_gas_below
+from .strategies import scheduled_send_once as _scheduled_send_once
+from .strategies import micro_tip_equal as _micro_tip_equal
+from .strategies import micro_tip_amounts as _micro_tip_amounts
 from .strategy_manager import StrategyManager
 
 load_dotenv()
@@ -164,6 +167,66 @@ async def dca_once(
         to_address,
         amount_eth,
         max_base_fee_gwei=max_base_fee_gwei,
+        dry_run=dry_run,
+        confirmation_code=confirmation_code,
+    )
+
+
+@server.tool
+async def scheduled_send_once(
+    agent_id: str,
+    to_address: str,
+    amount_eth: float,
+    send_at_iso: str,
+    dry_run: bool = False,
+    confirmation_code: str | None = None,
+) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _scheduled_send_once(
+        _wallet_mgr,
+        agent_id,
+        to_address,
+        amount_eth,
+        send_at_iso,
+        dry_run=dry_run,
+        confirmation_code=confirmation_code,
+    )
+
+
+@server.tool
+async def micro_tip_equal(
+    agent_id: str,
+    recipients: list[str],
+    total_amount_eth: float,
+    dry_run: bool = False,
+    confirmation_code: str | None = None,
+) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _micro_tip_equal(
+        _wallet_mgr,
+        agent_id,
+        recipients,
+        total_amount_eth,
+        dry_run=dry_run,
+        confirmation_code=confirmation_code,
+    )
+
+
+@server.tool
+async def micro_tip_amounts(
+    agent_id: str,
+    items: dict[str, float],
+    dry_run: bool = False,
+    confirmation_code: str | None = None,
+) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _micro_tip_amounts(
+        _wallet_mgr,
+        agent_id,
+        items,
         dry_run=dry_run,
         confirmation_code=confirmation_code,
     )
