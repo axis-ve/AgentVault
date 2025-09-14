@@ -80,3 +80,34 @@ async def test_strategy_lifecycle(tmp_path):
     res = await sm.tick_strategy("dca1")
     assert res["action"] == "paused"
 
+
+@pytest.mark.asyncio
+async def test_list_and_delete_strategies(tmp_path):
+    ctx = ContextManager()
+    key = Fernet.generate_key().decode()
+    web3 = _Web3Adapter()
+    mgr = AgentWalletManager(ctx, web3, key, persist_path=str(tmp_path / "store.json"))
+    await mgr.spin_up_wallet("agent")
+
+    sm = StrategyManager(mgr, store_path=str(tmp_path / "strategies.json"))
+    sm.create_strategy_dca(
+        label="s1",
+        agent_id="agent",
+        to_address="0x" + "1" * 40,
+        amount_eth=0.001,
+        interval_seconds=60,
+    )
+    sm.create_strategy_dca(
+        label="s2",
+        agent_id="agent",
+        to_address="0x" + "2" * 40,
+        amount_eth=0.002,
+        interval_seconds=120,
+    )
+    all_strats = sm.list_strategies()
+    assert "s1" in all_strats and "s2" in all_strats
+
+    res = sm.delete_strategy("s1")
+    assert res["deleted"] == "s1"
+    all_strats = sm.list_strategies()
+    assert "s1" not in all_strats and "s2" in all_strats

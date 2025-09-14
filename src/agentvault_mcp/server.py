@@ -227,6 +227,23 @@ async def tick_strategy(
     )
 
 
+@server.tool
+async def list_strategies(agent_id: str | None = None) -> dict:
+    """List all strategies or those for a specific agent_id."""
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    if agent_id:
+        return _strategy_mgr.list_strategies_for_agent(agent_id)
+    return _strategy_mgr.list_strategies()
+
+
+@server.tool
+async def delete_strategy(label: str) -> dict:
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return _strategy_mgr.delete_strategy(label)
+
+
 async def main() -> None:
     global _context_mgr, _wallet_mgr
 

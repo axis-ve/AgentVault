@@ -137,6 +137,8 @@ asyncio.run(flow())
 - `tick_strategy(label: str, dry_run?: bool, confirmation_code?: str) -> {action, ...}`
   - Persisted state in `AGENTVAULT_STRATEGY_STORE`; `tick_strategy` performs
     simulate → limit checks → (optional) execute; schedules next run.
+- `list_strategies(agent_id?: str) -> {label: strategy}`
+- `delete_strategy(label: str) -> {deleted, strategy}`
 - `request_faucet_funds(agent_id: str, amount_eth?: float) -> {ok, start_balance, end_balance}`
 
 ## Optional MCP Features

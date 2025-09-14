@@ -117,6 +117,13 @@ class StrategyManager:
     def list_strategies(self) -> Dict[str, Dict[str, Any]]:
         return {label: asdict(s) for label, s in self._strategies.items()}
 
+    def list_strategies_for_agent(self, agent_id: str) -> Dict[str, Dict[str, Any]]:
+        return {
+            label: asdict(s)
+            for label, s in self._strategies.items()
+            if s.agent_id == agent_id
+        }
+
     def create_strategy_dca(
         self,
         label: str,
@@ -152,6 +159,13 @@ class StrategyManager:
         s.schedule_next()
         self._persist()
         return asdict(s)
+
+    def delete_strategy(self, label: str) -> Dict[str, Any]:
+        s = self._strategies.pop(label, None)
+        if not s:
+            raise WalletError(f"Strategy '{label}' not found")
+        self._persist()
+        return {"deleted": label, "strategy": asdict(s)}
 
     def stop_strategy(self, label: str) -> Dict[str, Any]:
         s = self._strategies.get(label)
@@ -263,4 +277,3 @@ class StrategyManager:
                 "tx_hash": tx_hash,
                 "strategy": asdict(s),
             }
-
