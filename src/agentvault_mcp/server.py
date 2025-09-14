@@ -48,9 +48,12 @@ async def query_balance(agent_id: str) -> float:
 
 
 @server.tool
-async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code: str | None = None) -> str:
+async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code: str | None = None, dry_run: bool = False) -> str | dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
+    # Dry-run path for safer UX
+    if dry_run:
+        return await _wallet_mgr.simulate_transfer(agent_id, to_address, amount_eth)
     # Enforce limit via WalletManager; pass optional confirmation
     # Note: limit is configured via env AGENTVAULT_MAX_TX_ETH/AGENTVAULT_TX_CONFIRM_CODE
     return await _wallet_mgr.execute_transfer(agent_id, to_address, amount_eth, confirmation_code)
@@ -102,6 +105,14 @@ async def simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -
     return await _wallet_mgr.simulate_transfer(agent_id, to_address, amount_eth)
 
 
+@server.tool
+async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -> dict:
+    """Request testnet faucet funds and wait for balance to increase."""
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.request_faucet_funds(agent_id, amount_eth)
+
+
 async def main() -> None:
     global _context_mgr, _wallet_mgr
 
@@ -124,16 +135,20 @@ async def main() -> None:
                 f.write(encrypt_key.encode())
 
     _context_mgr = ContextManager(max_tokens=int(os.getenv("MCP_MAX_TOKENS", 4096)))
-    # Register LLM adapter (OpenAI or a null fallback)
+    # Register LLM adapter (OpenAI, Ollama, or a null fallback)
     if api_key:
         from .adapters.openai_adapter import OpenAIAdapter as _OpenAIAdapter
         openai_adapter = _OpenAIAdapter(api_key)
         _context_mgr.register_adapter("openai", openai_adapter)
     else:
-        class _NullLLM:
-            async def call(self, context):
-                return "LLM not configured; set OPENAI_API_KEY or provide a local adapter."
-        _context_mgr.register_adapter("openai", _NullLLM())
+        try:
+            from .adapters.ollama_adapter import OllamaAdapter as _Ollama
+            _context_mgr.register_adapter("openai", _Ollama())
+        except Exception:
+            class _NullLLM:
+                async def call(self, context):
+                    return "LLM not configured; set OPENAI_API_KEY or run Ollama locally."
+            _context_mgr.register_adapter("openai", _NullLLM())
 
     web3_adapter = Web3Adapter(rpc_url)
     _context_mgr.register_adapter("web3", web3_adapter)

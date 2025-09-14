@@ -52,6 +52,7 @@ python -m agentvault_mcp.server
 - `export_wallet_keystore(agent_id: str, passphrase: str) -> str` (encrypted JSON)
 - `export_wallet_private_key(agent_id: str, confirmation_code?: str) -> str` (gated; discouraged)
 - `simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -> dict`
+- `request_faucet_funds(agent_id: str, amount_eth?: float) -> {ok, start_balance, end_balance}`
 
 ## Optional MCP Features
 - A `wallet_status` prompt is registered when the SDK supports prompts.
@@ -83,6 +84,10 @@ python -m agentvault_mcp.server
   }
 }
 ```
+
+### Local LLM (Ollama) Fallback
+- If `OPENAI_API_KEY` is unset, the server prefers a local Ollama instance.
+- Configure via `OLLAMA_HOST` and `OLLAMA_MODEL` (default `llama3.1:8b`).
 
 **Custom Agent:**
 ```python

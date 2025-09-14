@@ -244,7 +244,43 @@ class AgentWalletManager:
             "max_priority_fee_per_gas": int(priority_fee),
             "estimated_fee_eth": total_fee_eth,
             "estimated_total_eth": total_eth,
+            "insufficient_funds": float(await self.web3.w3.eth.get_balance(wallet.address)) < txn["value"] + gas_estimate * max_fee,
         }
+
+    async def request_faucet_funds(self, agent_id: str, amount_eth: float | None = None, timeout_s: int = 60) -> dict:
+        """Request testnet funds from a faucet and wait for balance change.
+
+        Requires env AGENTVAULT_FAUCET_URL. Returns a status dict.
+        """
+        faucet_url = os.getenv("AGENTVAULT_FAUCET_URL")
+        if not faucet_url:
+            raise WalletError("AGENTVAULT_FAUCET_URL not configured")
+        if agent_id not in self.wallets:
+            raise WalletError(f"No wallet for {agent_id}.")
+        addr = self.wallets[agent_id].address
+        import httpx
+        try:
+            async with httpx.AsyncClient(timeout=30) as client:
+                payload = {"address": addr}
+                if amount_eth is not None:
+                    payload["amount_eth"] = amount_eth
+                resp = await client.post(faucet_url, json=payload)
+                ok = resp.status_code in (200, 201, 202)
+                start_bal = float(self.web3.w3.from_wei(await self.web3.w3.eth.get_balance(addr), "ether"))
+                if not ok:
+                    return {"ok": False, "status": resp.status_code, "balance": start_bal}
+                # Poll for balance increase
+                import asyncio
+                end_bal = start_bal
+                deadline = asyncio.get_event_loop().time() + timeout_s
+                while asyncio.get_event_loop().time() < deadline:
+                    await asyncio.sleep(5)
+                    end_bal = float(self.web3.w3.from_wei(await self.web3.w3.eth.get_balance(addr), "ether"))
+                    if end_bal > start_bal:
+                        break
+                return {"ok": end_bal > start_bal, "start_balance": start_bal, "end_balance": end_bal}
+        except Exception as e:
+            raise WalletError(f"Faucet request failed: {e}")
 
     # ---------- Internal helpers ----------
     def _enforce_spend_limit(self, amount_eth: float, confirmation_code: str | None = None) -> None:
