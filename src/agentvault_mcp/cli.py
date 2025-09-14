@@ -15,6 +15,7 @@ from .strategies import (
     micro_tip_equal,
     micro_tip_amounts,
 )
+from .tipjar import generate_tipjar_qr
 
 
 def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
@@ -174,6 +175,14 @@ async def _cmd_strategy_micro_amounts(args):
     print(res)
 
 
+async def _cmd_tipjar(args):
+    _, mgr = _init_managers()
+    addr = await mgr.spin_up_wallet(args.agent_id)
+    out = args.out or f"tipjar-{args.agent_id}.png"
+    path = generate_tipjar_qr(addr, out, args.amount)
+    print({"address": addr, "qr": path})
+
+
 def main() -> None:  # pragma: no cover
     p = argparse.ArgumentParser(prog="agentvault", description="AgentVault CLI")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -267,6 +276,11 @@ def main() -> None:  # pragma: no cover
     s.add_argument("--confirmation-code")
     s.set_defaults(func=_cmd_strategy_micro_amounts)
 
+    s = sub.add_parser("tip-jar")
+    s.add_argument("agent_id")
+    s.add_argument("--amount", type=float)
+    s.add_argument("--out")
+    s.set_defaults(func=_cmd_tipjar)
+
     args = p.parse_args()
     asyncio.run(args.func(args))
-

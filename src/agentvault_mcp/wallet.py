@@ -85,8 +85,8 @@ class AgentWalletManager:
             raise WalletError(f"No wallet for {agent_id}—spin up first.")
         wallet = self.wallets[agent_id]
         await self.web3.ensure_connection()
-        balance_wei = await self.web3.w3.eth.get_balance(wallet.address)
-        balance_eth = self.web3.w3.from_wei(balance_wei, "ether")
+        balance_wei = await self.web3.get_balance(wallet.address)
+        balance_eth = self.web3.from_wei(balance_wei, "ether")
         self.context.update_state(f"{agent_id}_balance", float(balance_eth))
         await self.context.append_to_history(
             "system", f"Balance for {agent_id}: {balance_eth} ETH"
@@ -105,7 +105,7 @@ class AgentWalletManager:
                 raise WalletError("Key mismatch—security breach.")
             if amount_eth <= 0:
                 raise WalletError("Amount must be positive.")
-            if not self.web3.w3.is_address(to_address):
+            if not self.web3.is_address(to_address):
                 raise WalletError("Invalid recipient address.")
             # Spending limit guard
             self._enforce_spend_limit(amount_eth, confirmation_code)
@@ -113,34 +113,34 @@ class AgentWalletManager:
             async with self._get_lock(wallet.address):
                 nonce = await self.web3.get_nonce(wallet.address)
                 # EIP-1559 fee fields
-                priority_fee = await self.web3.w3.eth.max_priority_fee
-                latest_block = await self.web3.w3.eth.get_block("latest")
+                priority_fee = await self.web3.max_priority_fee()
+                latest_block = await self.web3.get_block_latest()
                 base_fee = latest_block.get("baseFeePerGas") or 0
                 # Conservative headroom for base fee spikes
                 max_fee = base_fee * 2 + priority_fee
 
                 txn = {
                     "to": to_address,
-                    "value": self.web3.w3.to_wei(amount_eth, "ether"),
+                    "value": self.web3.to_wei(amount_eth, "ether"),
                     "nonce": nonce,
                     "chainId": wallet.chain_id,
                     "maxFeePerGas": max_fee,
                     "maxPriorityFeePerGas": priority_fee,
                     "type": 2,
                 }
-                gas_estimate = await self.web3.w3.eth.estimate_gas({**txn, "from": wallet.address})
+                gas_estimate = await self.web3.estimate_gas({**txn, "from": wallet.address})
                 # Pre-check funds: amount + max fee must be available
-                bal_wei = await self.web3.w3.eth.get_balance(wallet.address)
+                bal_wei = await self.web3.get_balance(wallet.address)
                 total_cost_wei = txn["value"] + gas_estimate * max_fee
                 if bal_wei < total_cost_wei:
                     raise WalletError("Insufficient funds for amount + fees.")
                 txn["gas"] = gas_estimate
 
                 signed_txn = self.web3.w3.eth.account.sign_transaction(txn, privkey_bytes)
-                tx_hash = await self.web3.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+                tx_hash = await self.web3.send_raw_transaction(signed_txn.rawTransaction)
                 wallet.last_nonce = nonce + 1
 
-            receipt = await self.web3.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
+            receipt = await self.web3.wait_for_receipt(tx_hash, timeout=120)
             if receipt.status != 1:
                 raise WalletError("Transaction failed on-chain.")
 
@@ -219,21 +219,21 @@ class AgentWalletManager:
         if not self.web3.w3.is_address(to_address):
             raise WalletError("Invalid recipient address.")
         # Fee estimation
-        priority_fee = await self.web3.w3.eth.max_priority_fee
-        latest_block = await self.web3.w3.eth.get_block("latest")
+        priority_fee = await self.web3.max_priority_fee()
+        latest_block = await self.web3.get_block_latest()
         base_fee = latest_block.get("baseFeePerGas") or 0
         max_fee = base_fee * 2 + priority_fee
         txn = {
             "to": to_address,
-            "value": self.web3.w3.to_wei(amount_eth, "ether"),
+            "value": self.web3.to_wei(amount_eth, "ether"),
             "chainId": wallet.chain_id,
             "maxFeePerGas": max_fee,
             "maxPriorityFeePerGas": priority_fee,
             "type": 2,
         }
-        gas_estimate = await self.web3.w3.eth.estimate_gas({**txn, "from": wallet.address})
+        gas_estimate = await self.web3.estimate_gas({**txn, "from": wallet.address})
         total_fee_wei = gas_estimate * max_fee
-        total_fee_eth = float(self.web3.w3.from_wei(total_fee_wei, "ether"))
+        total_fee_eth = float(self.web3.from_wei(total_fee_wei, "ether"))
         total_eth = amount_eth + total_fee_eth
         return {
             "from": wallet.address,
@@ -244,7 +244,10 @@ class AgentWalletManager:
             "max_priority_fee_per_gas": int(priority_fee),
             "estimated_fee_eth": total_fee_eth,
             "estimated_total_eth": total_eth,
-            "insufficient_funds": float(await self.web3.w3.eth.get_balance(wallet.address)) < txn["value"] + gas_estimate * max_fee,
+            "insufficient_funds": float(
+                self.web3.from_wei(await self.web3.get_balance(wallet.address), "ether")
+            )
+            < amount_eth + total_fee_eth,
         }
 
     async def request_faucet_funds(self, agent_id: str, amount_eth: float | None = None, timeout_s: int = 60) -> dict:

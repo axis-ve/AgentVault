@@ -27,9 +27,9 @@ async def send_when_gas_below(
     Returns a dict with keys: action ('sent'|'wait'|'simulation'),
     base_fee_gwei, and either tx_hash or simulation.
     """
-    latest = await wallet.web3.w3.eth.get_block("latest")
+    latest = await wallet.web3.get_block_latest()
     base_fee_wei = latest.get("baseFeePerGas") or 0
-    base_fee_gwei = float(wallet.web3.w3.from_wei(base_fee_wei, "gwei"))
+    base_fee_gwei = float(wallet.web3.from_wei(base_fee_wei, "gwei"))
     if base_fee_gwei > max_base_fee_gwei:
         return {
             "action": "wait",
@@ -65,9 +65,9 @@ async def dca_once(
     - Dry-run returns simulation only
     """
     if max_base_fee_gwei is not None:
-        latest = await wallet.web3.w3.eth.get_block("latest")
+        latest = await wallet.web3.get_block_latest()
         base_fee_wei = latest.get("baseFeePerGas") or 0
-        base_fee_gwei = float(wallet.web3.w3.from_wei(base_fee_wei, "gwei"))
+        base_fee_gwei = float(wallet.web3.from_wei(base_fee_wei, "gwei"))
         if base_fee_gwei > max_base_fee_gwei:
             return {
                 "action": "wait",
