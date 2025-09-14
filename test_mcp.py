@@ -1,7 +1,8 @@
 import pytest
 from cryptography.fernet import Fernet
 
-from wallet_mcp_server import ContextManager, AgentWalletManager
+from agentvault_mcp.core import ContextManager
+from agentvault_mcp.wallet import AgentWalletManager
 
 @pytest.mark.asyncio
 async def test_context_trim():

@@ -3,9 +3,9 @@ requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "wallet-mcp"
+name = "agentvault-mcp"
 version = "0.1.0"
-description = "MCP server with context manager, OpenAI, and Web3 adapters"
+description = "AgentVault MCP: Secure context + wallet tools for AI agents"
 readme = "README.md"
 requires-python = ">=3.10"
 authors = [{name = "Your Name"}]
@@ -29,8 +29,10 @@ dev = [
 ]
 
 [project.scripts]
-wallet-mcp = "wallet_mcp_server:cli"
+agentvault-mcp = "agentvault_mcp.server:cli"
 
 [tool.setuptools]
-py-modules = ["wallet_mcp_server"]
+package-dir = {"" = "src"}
 
+[tool.setuptools.packages.find]
+where = ["src"]
