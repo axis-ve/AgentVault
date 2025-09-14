@@ -26,6 +26,39 @@ export ENCRYPT_KEY=$(python -c "from cryptography.fernet import Fernet;print(Fer
 python -m agentvault_mcp.server
 ```
 
+## Order of Operations (End‑to‑End)
+1) Start the MCP server
+   - `python -m agentvault_mcp.server` (stdio MCP)
+   - Purpose: launches the stdio server exposing wallet + LLM tools for MCP clients.
+2) Create a wallet for your agent
+   - Tool: `spin_up_wallet(agent_id)` → returns `address`
+   - Purpose: generates a unique ETH wallet, encrypts its key, persists it.
+3) Fund the wallet (testnet)
+   - Tool: `request_faucet_funds(agent_id)` (requires `AGENTVAULT_FAUCET_URL`)
+   - Or fund manually; then run `query_balance(agent_id)`.
+   - Purpose: ensure there are funds for gas and transfers.
+4) Dry‑run a transfer (recommended)
+   - Tool: `simulate_transfer(agent_id, to_address, amount_eth)`
+   - Or call `execute_transfer(..., dry_run=True)`
+   - Purpose: see gas, fee, and total cost; detect insufficient funds early.
+5) Execute a transfer (with optional limit gate)
+   - Tool: `execute_transfer(agent_id, to_address, amount_eth, confirmation_code?)`
+   - Purpose: signs and sends a real EIP‑1559 transaction. If
+     `AGENTVAULT_MAX_TX_ETH` is set and the amount exceeds it, you must supply
+     `confirmation_code` matching `AGENTVAULT_TX_CONFIRM_CODE`.
+6) Use the LLM
+   - Tool: `generate_response(user_message)`
+   - Purpose: produces a context‑aware reply via OpenAI (if configured) or
+     local Ollama fallback.
+7) Export/backup (optional)
+   - Tool: `export_wallet_keystore(agent_id, passphrase)` → V3 keystore JSON
+   - Tool: `export_wallet_private_key(agent_id, confirmation_code?)` (gated)
+   - Purpose: backup/portability; prefer keystore export.
+8) Manage/inspect
+   - Tool: `list_wallets()` → `{agent_id: address}`
+   - Optional prompt/resource (if supported): `wallet_status(agent_id)`,
+     `agentvault/context`.
+
 ### MCP Client Example (Claude Desktop)
 ```json
 {
@@ -43,15 +76,58 @@ python -m agentvault_mcp.server
 }
 ```
 
+## Developer Integration
+
+You can use AgentVault MCP in two ways:
+
+- Via MCP clients (e.g., Claude Desktop) calling stdio tools.
+- Direct Python API for programmatic, sequential workflows.
+
+### Direct Python API (Puppeteer‑style Orchestration)
+Use the wallet and adapters directly for end‑to‑end flows (create → fund →
+simulate → send):
+
+```python
+import asyncio, os
+from agentvault_mcp.core import ContextManager
+from agentvault_mcp.adapters.web3_adapter import Web3Adapter
+from agentvault_mcp.wallet import AgentWalletManager
+
+async def flow():
+    rpc = os.getenv("WEB3_RPC_URL") or "https://ethereum-sepolia.publicnode.com"
+    key = os.getenv("ENCRYPT_KEY") or __import__("cryptography.fernet", fromlist=["Fernet"]).Fernet.generate_key().decode()
+    ctx = ContextManager(); w3 = Web3Adapter(rpc)
+    mgr = AgentWalletManager(ctx, w3, key)
+    agent = "trader"
+    addr = await mgr.spin_up_wallet(agent)
+    print("wallet:", addr)
+    if os.getenv("AGENTVAULT_FAUCET_URL"):
+        print(await mgr.request_faucet_funds(agent))
+    print("balance:", await mgr.query_balance(agent))
+    print("simulate:", await mgr.simulate_transfer(agent, "0x"+"1"*40, 0.001))
+    # To send:
+    # await mgr.execute_transfer(agent, "0x"+"1"*40, 0.001)
+
+asyncio.run(flow())
+```
+
+- A runnable example is provided: `python examples/orchestrator.py`.
+- For “sequential thinking” workflows, compose these calls with your own
+  decision logic (e.g., DCA, thresholds, rebalancing) before calling
+  `execute_transfer`.
+
 ## Tools
 - `spin_up_wallet(agent_id: str) -> str`
 - `query_balance(agent_id: str) -> float`
-- `execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code?: str) -> str`
+- `execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code?: str, dry_run?: bool) -> str | dict`
 - `generate_response(user_message: str) -> str`
 - `list_wallets() -> {agent_id: address}`
 - `export_wallet_keystore(agent_id: str, passphrase: str) -> str` (encrypted JSON)
 - `export_wallet_private_key(agent_id: str, confirmation_code?: str) -> str` (gated; discouraged)
 - `simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -> dict`
+- `request_faucet_funds(agent_id: str, amount_eth?: float) -> {ok, start_balance, end_balance}`
+- `send_when_gas_below(agent_id: str, to_address: str, amount_eth: float, max_base_fee_gwei: float, dry_run?: bool, confirmation_code?: str) -> {action, ...}`
+- `dca_once(agent_id: str, to_address: str, amount_eth: float, max_base_fee_gwei?: float, dry_run?: bool, confirmation_code?: str) -> {action, ...}`
 - `request_faucet_funds(agent_id: str, amount_eth?: float) -> {ok, start_balance, end_balance}`
 
 ## Optional MCP Features
@@ -66,6 +142,68 @@ python -m agentvault_mcp.server
 - Wallet generation uses cryptographic randomness; addresses are checked for in-process uniqueness to prevent reuse.
 - Transfers above `AGENTVAULT_MAX_TX_ETH` require a matching `AGENTVAULT_TX_CONFIRM_CODE` passed via the `confirmation_code` argument.
 - Wallets persist to `AGENTVAULT_STORE` so they survive restarts (encrypted at rest).
+
+## Repository Structure (What Each File Does)
+- `src/agentvault_mcp/__init__.py`
+  - Defines core exceptions: `MCPError`, `ContextOverflowError`, `WalletError`.
+- `src/agentvault_mcp/core.py`
+  - ContextSchema + ContextManager: history/state handling, token counting,
+    proactive trimming, tiktoken fallback, structured logging setup.
+- `src/agentvault_mcp/adapters/openai_adapter.py`
+  - Async OpenAI chat adapter; model configurable via `OPENAI_MODEL`.
+- `src/agentvault_mcp/adapters/ollama_adapter.py`
+  - Local LLM fallback adapter using Ollama `/api/chat`; configured via
+    `OLLAMA_HOST`, `OLLAMA_MODEL`.
+- `src/agentvault_mcp/adapters/web3_adapter.py`
+  - AsyncWeb3 wrapper: HTTP provider, `ensure_connection`, `get_nonce`.
+- `src/agentvault_mcp/wallet.py`
+  - AgentWalletManager: wallet creation, encrypted key storage, persistence to
+    `AGENTVAULT_STORE`, per‑address nonce locks, EIP‑1559 fees, gas
+    estimation, balance pre‑checks, spend limits, export (keystore/plaintext
+    gated), `simulate_transfer`, `request_faucet_funds`.
+- `src/agentvault_mcp/server.py`
+  - MCP stdio server: registers tools, optional prompts/resources, CLI entry
+    (`agentvault-mcp`). Zero‑setup defaults (public RPC, persistent key),
+    OpenAI/Ollama adapter selection.
+- `src/agentvault_mcp/guardrail.py`
+  - Guardrail checker for model outputs: flags banned phrases or missing
+    unified diff envelopes.
+- `test_mcp.py`, `test_guardrail.py`
+  - Offline tests for context trimming, wallet ops (stubs), spend limits,
+    keystore export, and guardrail checks.
+- `docs/prompt-pack.md`
+  - Maintainer prompt pack: strict output contract, enforcement nudge, repo
+    constraints, and task template.
+- `pyproject.toml`
+  - Packaging/entrypoint; optional `mcp` in `dev` extras; setuptools find under
+    `src/`.
+- `requirements.txt`
+  - Development/test-time dependencies (MCP is optional via extras).
+- `.env.example`
+  - Example configuration for keys, limits, store location, faucet URL.
+- `.github/workflows/ci.yml`
+  - CI to install deps and run tests.
+
+## Environment Variables
+- Core
+  - `WEB3_RPC_URL`: Ethereum RPC URL. Default: Sepolia public RPC.
+  - `OPENAI_API_KEY`: Enables OpenAI LLM adapter if set.
+  - `ENCRYPT_KEY`: Base64 Fernet key. If absent, generated and saved as
+    `agentvault_store.key` (sidecar of `AGENTVAULT_STORE`).
+  - `AGENTVAULT_STORE`: JSON path for encrypted wallet store (default
+    `agentvault_store.json`).
+- LLM
+  - `OPENAI_MODEL`: OpenAI model name (default `gpt-4o-mini`).
+  - `OLLAMA_HOST`, `OLLAMA_MODEL`: Local LLM fallback config.
+- Safety/Limits
+  - `AGENTVAULT_MAX_TX_ETH`: Require confirmation above this amount (ETH).
+  - `AGENTVAULT_TX_CONFIRM_CODE`: Server secret needed for high‑value sends.
+  - `AGENTVAULT_ALLOW_PLAINTEXT_EXPORT` (0/1) and `AGENTVAULT_EXPORT_CODE` for
+    gated plaintext key export (discouraged).
+- Funding
+  - `AGENTVAULT_FAUCET_URL`: Faucet endpoint for `request_faucet_funds`.
+- Misc
+  - `MCP_MAX_TOKENS`, `LOG_LEVEL`, `TIMEOUT_SECONDS`.
 
 ## Development
 - Run tests: `pytest -q`
@@ -185,3 +323,6 @@ This plugin represents the future of AI-crypto integration:
 **🎯 User-Centric**: Designed for users who want AI to handle the complexity
 
 The agent doesn't just "help" with crypto—it **becomes** your autonomous crypto manager.
+- `src/agentvault_mcp/strategies.py`
+  - Stateless strategy helpers (Phase 1): `send_when_gas_below`, `dca_once`.
+    Combine simulation, gas checks, and execution into safe one‑shot flows.

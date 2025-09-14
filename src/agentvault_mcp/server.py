@@ -6,6 +6,8 @@ from .core import ContextManager, logger
 from .adapters.openai_adapter import OpenAIAdapter
 from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
+from .strategies import dca_once as _dca_once
+from .strategies import send_when_gas_below as _send_when_gas_below
 
 load_dotenv()
 
@@ -111,6 +113,58 @@ async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
     return await _wallet_mgr.request_faucet_funds(agent_id, amount_eth)
+
+
+# -------- Phase 1 strategy tools (stateless) --------
+
+
+@server.tool
+async def send_when_gas_below(
+    agent_id: str,
+    to_address: str,
+    amount_eth: float,
+    max_base_fee_gwei: float,
+    dry_run: bool = False,
+    confirmation_code: str | None = None,
+) -> dict:
+    """Send only when base fee per gas is below threshold.
+
+    Returns a dict with action and either a tx_hash or a simulation.
+    """
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _send_when_gas_below(
+        _wallet_mgr,
+        agent_id,
+        to_address,
+        amount_eth,
+        max_base_fee_gwei,
+        dry_run=dry_run,
+        confirmation_code=confirmation_code,
+    )
+
+
+@server.tool
+async def dca_once(
+    agent_id: str,
+    to_address: str,
+    amount_eth: float,
+    max_base_fee_gwei: float | None = None,
+    dry_run: bool = False,
+    confirmation_code: str | None = None,
+) -> dict:
+    """Perform a single DCA transfer if safe (simulate then send)."""
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _dca_once(
+        _wallet_mgr,
+        agent_id,
+        to_address,
+        amount_eth,
+        max_base_fee_gwei=max_base_fee_gwei,
+        dry_run=dry_run,
+        confirmation_code=confirmation_code,
+    )
 
 
 async def main() -> None:
