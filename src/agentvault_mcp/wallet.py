@@ -1,7 +1,8 @@
-from typing import Dict, Optional
+from typing import Dict
 
 from cryptography.fernet import Fernet, InvalidToken
 from eth_account import Account
+from pydantic import BaseModel
 from web3.exceptions import InvalidTransaction
 
 from . import WalletError
@@ -9,8 +10,11 @@ from .core import ContextManager, logger
 from .adapters.web3_adapter import Web3Adapter
 
 
-class WalletStateDict(dict):
-    pass
+class WalletState(BaseModel):
+    address: str
+    encrypted_privkey: bytes
+    chain_id: int
+    last_nonce: int | None = None
 
 
 class AgentWalletManager:
@@ -25,9 +29,22 @@ class AgentWalletManager:
     ):
         self.context = context_manager
         self.web3 = web3_adapter
-        self.encryptor = Fernet(encrypt_key.encode())
+        # Validate Fernet key early
+        try:
+            self.encryptor = Fernet(encrypt_key.encode())
+        except Exception as e:
+            raise WalletError("Invalid ENCRYPT_KEY: must be a base64-encoded 32-byte Fernet key") from e
         self.logger = logger.bind(component="AgentWalletManager")
-        self.wallets: Dict[str, WalletStateDict] = {}  # agent_id -> WalletState-like dict
+        self.wallets: Dict[str, WalletState] = {}  # agent_id -> WalletState
+        # Per-address nonce lock to avoid concurrent nonce races
+        import asyncio
+        self._locks: Dict[str, asyncio.Lock] = {}
+
+    def _get_lock(self, address: str):
+        import asyncio
+        if address not in self._locks:
+            self._locks[address] = asyncio.Lock()
+        return self._locks[address]
 
     async def spin_up_wallet(self, agent_id: str) -> str:
         """Generate and persist wallet for agent; store encrypted key."""
@@ -35,18 +52,14 @@ class AgentWalletManager:
         account = Account.create()
         encrypted_privkey = self.encryptor.encrypt(bytes(account.key))
         chain_id_value = await self.web3.w3.eth.chain_id
-        wallet_state = {
-            "address": account.address,
-            "encrypted_privkey": encrypted_privkey,
-            "chain_id": chain_id_value,
-            "last_nonce": None,
-        }
+        wallet_state = WalletState(
+            address=account.address,
+            encrypted_privkey=encrypted_privkey,
+            chain_id=chain_id_value,
+        )
         self.wallets[agent_id] = wallet_state
         # Persist public parts only
-        safe_state = {
-            "address": account.address,
-            "chain_id": chain_id_value,
-        }
+        safe_state = wallet_state.model_dump(exclude={"encrypted_privkey", "last_nonce"})
         self.context.update_state(f"{agent_id}_wallet", safe_state)
         await self.context.append_to_history(
             "system", f"Wallet created for {agent_id}: {account.address}"
@@ -59,7 +72,7 @@ class AgentWalletManager:
             raise WalletError(f"No wallet for {agent_id}—spin up first.")
         wallet = self.wallets[agent_id]
         await self.web3.ensure_connection()
-        balance_wei = await self.web3.w3.eth.get_balance(wallet["address"])
+        balance_wei = await self.web3.w3.eth.get_balance(wallet.address)
         balance_eth = self.web3.w3.from_wei(balance_wei, "ether")
         self.context.update_state(f"{agent_id}_balance", float(balance_eth))
         await self.context.append_to_history(
@@ -73,37 +86,38 @@ class AgentWalletManager:
             raise WalletError(f"No wallet for {agent_id}.")
         wallet = self.wallets[agent_id]
         try:
-            privkey_bytes = self.encryptor.decrypt(wallet["encrypted_privkey"])
+            privkey_bytes = self.encryptor.decrypt(wallet.encrypted_privkey)
             account = Account.from_key(privkey_bytes)
-            if account.address != wallet["address"]:
+            if account.address != wallet.address:
                 raise WalletError("Key mismatch—security breach.")
             if amount_eth <= 0:
                 raise WalletError("Amount must be positive.")
             if not self.web3.w3.is_address(to_address):
                 raise WalletError("Invalid recipient address.")
+            # Serialize per-address nonce usage
+            async with self._get_lock(wallet.address):
+                nonce = await self.web3.get_nonce(wallet.address)
+                # EIP-1559 fee fields
+                priority_fee = await self.web3.w3.eth.max_priority_fee
+                latest_block = await self.web3.w3.eth.get_block("latest")
+                base_fee = latest_block.get("baseFeePerGas") or 0
+                max_fee = base_fee + priority_fee * 2
 
-            nonce = await self.web3.get_nonce(wallet["address"])
-            # EIP-1559 fee fields
-            priority_fee = await self.web3.w3.eth.max_priority_fee
-            latest_block = await self.web3.w3.eth.get_block("latest")
-            base_fee = latest_block.get("baseFeePerGas") or 0
-            max_fee = base_fee + priority_fee * 2
+                txn = {
+                    "to": to_address,
+                    "value": self.web3.w3.to_wei(amount_eth, "ether"),
+                    "nonce": nonce,
+                    "chainId": wallet.chain_id,
+                    "maxFeePerGas": max_fee,
+                    "maxPriorityFeePerGas": priority_fee,
+                    "type": 2,
+                }
+                gas_estimate = await self.web3.w3.eth.estimate_gas({**txn, "from": wallet.address})
+                txn["gas"] = gas_estimate
 
-            txn = {
-                "to": to_address,
-                "value": self.web3.w3.to_wei(amount_eth, "ether"),
-                "nonce": nonce,
-                "chainId": wallet["chain_id"],
-                "maxFeePerGas": max_fee,
-                "maxPriorityFeePerGas": priority_fee,
-                "type": 2,
-            }
-            gas_estimate = await self.web3.w3.eth.estimate_gas({**txn, "from": wallet["address"]})
-            txn["gas"] = gas_estimate
-
-            signed_txn = self.web3.w3.eth.account.sign_transaction(txn, privkey_bytes)
-            tx_hash = await self.web3.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
-            wallet["last_nonce"] = nonce + 1
+                signed_txn = self.web3.w3.eth.account.sign_transaction(txn, privkey_bytes)
+                tx_hash = await self.web3.w3.eth.send_raw_transaction(signed_txn.rawTransaction)
+                wallet.last_nonce = nonce + 1
 
             receipt = await self.web3.w3.eth.wait_for_transaction_receipt(tx_hash, timeout=120)
             if receipt.status != 1:
@@ -125,4 +139,3 @@ class AgentWalletManager:
         except Exception as e:
             self.logger.error("Transfer failed", error=str(e), agent_id=agent_id)
             raise WalletError(f"Transfer error: {e}")
-

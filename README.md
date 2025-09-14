@@ -1,164 +1,56 @@
 # AgentVault MCP
 
-This is a **truly autonomous** Model Context Protocol (MCP) plugin that enables AI agents to independently manage Ethereum wallets without requiring any user-provided API keys or manual wallet management. The agent generates wallets, finds funding sources, and executes transactions autonomously.
+Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
 
-## What Makes This Different?
+## Features
+- ContextManager with proactive trimming and token counting (tiktoken)
+- OpenAI adapter (async, configurable model)
+- Web3 wallet ops with EIP‑1559 fees and gas estimation
+- Fernet encryption of private keys; never persisted in plain text
+- MCP stdio server registering wallet + LLM tools
 
-**❌ Old Way (What Most MCP Plugins Do):**
-- Require users to provide API keys
-- Force manual wallet creation and funding
-- User manages all crypto operations
-- Not truly autonomous
-
-**✅ New Way (This Plugin):**
-- Agent generates its own wallets automatically
-- Agent finds and suggests funding options (faucets, exchanges)
-- Agent handles all crypto operations independently
-- User only provides initial funding approval
-- **Zero API keys required from user**
-
-## How It Works - The Autonomous Flow
-
-### Step 1: Agent Generates Wallet
-```
-User: "I want to start trading crypto"
-AI: "I'll create a secure wallet for you."
-  ↓
-Agent calls: spin_up_wallet("trading_agent")
-  ↓
-✅ Wallet created: 0x1234...abcd
-✅ Funding options provided automatically
-✅ Agent ready to operate
-```
-
-### Step 2: Agent Finds Funding
-```
-AI: "Your wallet is empty. Here are funding options:"
-  ↓
-Agent calls: get_funding_options("trading_agent")
-  ↓
-📋 Faucet: https://sepoliafaucet.com/ (Free testnet ETH)
-📋 Exchange: Coinbase, Binance (Real ETH)
-✅ Agent suggests best option based on context
-```
-
-### Step 3: Agent Monitors and Acts
-```
-AI: "I see you have 0.05 ETH now. Ready to trade?"
-  ↓
-Agent calls: query_balance("trading_agent")
-  ↓
-💰 Balance: 0.05 ETH
-📊 Health: Good
-🎯 Actions: Suggest trading opportunities
-```
-
-### Step 4: Agent Executes Transactions
-```
-User: "Buy some tokens"
-AI: "Executing autonomous transaction..."
-  ↓
-Agent calls: execute_transfer("trading_agent", "0xTokenContract", 0.01)
-  ↓
-✅ Transaction signed and submitted
-✅ Confirmed on blockchain
-✅ Balance updated automatically
-```
-
-## Zero Setup Required
-
-**Before (Traditional):**
+## Quickstart
 ```bash
-# User must:
-1. Get OpenAI API key ($)
-2. Get Infura RPC key
-3. Generate encryption key
-4. Create wallet manually
-5. Fund wallet manually
-6. Provide all keys to agent
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt && pip install -e .
+cp .env.example .env  # set OPENAI_API_KEY, ENCRYPT_KEY, WEB3_RPC_URL
+python -m agentvault_mcp.server  # or: agentvault-mcp
 ```
 
-**After (Autonomous):**
-```bash
-# User just runs:
-python -m agentvault_mcp.server
-# or, after installing the package: agentvault-mcp
-
-# Agent handles everything else autonomously!
+### MCP Client Example (Claude Desktop)
+```json
+{
+  "mcpServers": {
+    "agentvault": {
+      "command": "python",
+      "args": ["-m", "agentvault_mcp.server"],
+      "env": {
+        "OPENAI_API_KEY": "...",
+        "ENCRYPT_KEY": "...",
+        "WEB3_RPC_URL": "..."
+      }
+    }
+  }
+}
 ```
 
-## Available Autonomous Tools
+## Tools
+- `spin_up_wallet(agent_id: str) -> str`
+- `query_balance(agent_id: str) -> float`
+- `execute_transfer(agent_id: str, to_address: str, amount_eth: float) -> str`
+- `generate_response(user_message: str) -> str`
 
-| Tool | Purpose | Agent Action |
-|------|---------|--------------|
-| `spin_up_wallet` | Create secure wallet | Generates HD wallet + suggests funding |
-| `query_balance` | Check ETH balance | Fetches balance + suggests actions |
-| `execute_transfer` | Send ETH | Signs and submits transaction |
-| `get_funding_options` | Find funding sources | Provides faucets + exchanges |
-| `autonomous_action` | Smart decision making | Analyzes context and acts |
+## Optional MCP Features
+- A `wallet_status` prompt is registered when the SDK supports prompts.
+- An `agentvault/context` resource is registered when resources are supported; it returns a sanitized JSON snapshot of state.
 
-## Security Architecture
+## Security Notes
+- Private keys are encrypted with a Fernet key provided via `ENCRYPT_KEY`.
+- Only public wallet info is injected into context; resource output is sanitized.
 
-```
-🔐 Private keys: Encrypted with auto-generated Fernet key
-🌐 RPC: Uses public endpoints (no API keys needed)
-⚡ Transactions: Signed locally, never exposed
-📊 Monitoring: All actions logged with structured logging
-🛡️ Validation: Addresses and amounts validated before execution
-```
-
-## Real-World Usage Examples
-
-### Example 1: New User Onboarding
-```
-User: "I'm new to crypto, help me get started"
-AI: "I'll set up everything for you autonomously"
-
-1. Creates wallet: 0x742d35Cc6634C0532925a3b844Bc454e4438f44e
-2. Provides faucet link for free testnet ETH
-3. Monitors balance until funded
-4. Suggests next steps based on balance
-```
-
-### Example 2: Autonomous Trading
-```
-User: "Start automated trading with 0.1 ETH"
-AI: "I'll manage your trading autonomously"
-
-1. Checks current balance
-2. Calculates safe trade amounts
-3. Executes trades based on market conditions
-4. Monitors profits/losses
-5. Adjusts strategy automatically
-```
-
-### Example 3: Portfolio Management
-```
-User: "Manage my crypto portfolio"
-AI: "I'll handle your portfolio autonomously"
-
-1. Tracks all wallet balances
-2. Monitors market conditions
-3. Suggests rebalancing trades
-4. Executes approved transactions
-5. Provides performance reports
-```
-
-## Installation & Usage
-
-### Quick Start (2 minutes)
-```bash
-# 1. Clone and setup
-git clone <repo>
-cd autonomous-wallet-mcp
-pip install -r requirements.txt
-
-# 2. Run autonomous server
-python -m agentvault_mcp.server
-
-# 3. Connect your AI agent (Claude, etc.)
-# Agent automatically discovers all wallet tools
-```
+## Development
+- Run tests: `pytest -q`
+- Lint/format: add ruff/black if desired.
 
 ### Integration with AI Agents
 

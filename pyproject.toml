@@ -19,6 +19,7 @@ dependencies = [
   "structlog==23.2.0",
   "aiocache==0.12.11",
   "python-dotenv==1.0.0",
+  "mcp",
 ]
 
 [project.optional-dependencies]
