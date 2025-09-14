@@ -49,7 +49,11 @@ class AgentWalletManager:
     async def spin_up_wallet(self, agent_id: str) -> str:
         """Generate and persist wallet for agent; store encrypted key."""
         await self.web3.ensure_connection()
+        # Ensure uniqueness across current process by regenerating on extremely unlikely collision
+        existing_addresses = {w.address for w in self.wallets.values()}
         account = Account.create()
+        while account.address in existing_addresses:
+            account = Account.create()
         encrypted_privkey = self.encryptor.encrypt(bytes(account.key))
         chain_id_value = await self.web3.w3.eth.chain_id
         wallet_state = WalletState(
@@ -139,3 +143,48 @@ class AgentWalletManager:
         except Exception as e:
             self.logger.error("Transfer failed", error=str(e), agent_id=agent_id)
             raise WalletError(f"Transfer error: {e}")
+
+    async def list_wallets(self) -> dict[str, str]:
+        """Return a mapping of agent_id -> wallet address (no secrets)."""
+        return {aid: ws.address for aid, ws in self.wallets.items()}
+
+    async def export_wallet_keystore(self, agent_id: str, passphrase: str) -> str:
+        """Export the specified agent's wallet as an encrypted V3 keystore JSON string.
+
+        This is safe to share or back up if the passphrase is strong. Never return
+        plaintext private keys by default.
+        """
+        if agent_id not in self.wallets:
+            raise WalletError(f"No wallet for {agent_id}.")
+        try:
+            privkey_bytes = self.encryptor.decrypt(self.wallets[agent_id].encrypted_privkey)
+            # eth-account can encrypt raw private key bytes into V3 keystore
+            keystore_dict = Account.encrypt(privkey_bytes, passphrase)
+            import json as _json
+            return _json.dumps(keystore_dict)
+        except InvalidToken:
+            raise WalletError("Decryption failed—check encrypt key.")
+        except Exception as e:
+            raise WalletError(f"Keystore export failed: {e}")
+
+    async def export_wallet_private_key(self, agent_id: str, confirmation_code: str | None = None) -> str:
+        """Export plaintext private key (hex). Strongly discouraged.
+
+        Requires AGENTVAULT_ALLOW_PLAINTEXT_EXPORT=1 and a matching AGENTVAULT_EXPORT_CODE
+        provided via the 'confirmation_code' parameter. Use export_wallet_keystore instead when possible.
+        """
+        import os
+        if os.getenv("AGENTVAULT_ALLOW_PLAINTEXT_EXPORT") != "1":
+            raise WalletError("Plaintext export disabled. Set AGENTVAULT_ALLOW_PLAINTEXT_EXPORT=1 to enable.")
+        server_code = os.getenv("AGENTVAULT_EXPORT_CODE")
+        if not server_code or not confirmation_code or confirmation_code != server_code:
+            raise WalletError("Plaintext export requires a valid confirmation code.")
+        if agent_id not in self.wallets:
+            raise WalletError(f"No wallet for {agent_id}.")
+        try:
+            privkey_bytes = self.encryptor.decrypt(self.wallets[agent_id].encrypted_privkey)
+            return "0x" + privkey_bytes.hex()
+        except InvalidToken:
+            raise WalletError("Decryption failed—check encrypt key.")
+        except Exception as e:
+            raise WalletError(f"Private key export failed: {e}")

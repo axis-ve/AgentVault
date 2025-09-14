@@ -61,6 +61,37 @@ async def generate_response(user_message: str) -> str:
     return await _context_mgr.generate_response(user_message)
 
 
+@server.tool
+async def list_wallets() -> dict[str, str]:
+    """List agent_id to address mappings (no secrets)."""
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.list_wallets()
+
+
+@server.tool
+async def export_wallet_keystore(agent_id: str, passphrase: str) -> str:
+    """Export the agent's wallet as an encrypted V3 keystore JSON string.
+
+    Safe for backup/restore. Use a strong passphrase.
+    """
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.export_wallet_keystore(agent_id, passphrase)
+
+
+@server.tool
+async def export_wallet_private_key(agent_id: str, confirmation_code: str | None = None) -> str:
+    """Export plaintext private key (hex). Strongly discouraged and gated.
+
+    Requires env AGENTVAULT_ALLOW_PLAINTEXT_EXPORT=1 and a matching AGENTVAULT_EXPORT_CODE.
+    Prefer export_wallet_keystore.
+    """
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.export_wallet_private_key(agent_id, confirmation_code)
+
+
 async def main() -> None:
     global _context_mgr, _wallet_mgr
 

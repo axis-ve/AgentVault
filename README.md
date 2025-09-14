@@ -39,6 +39,9 @@ python -m agentvault_mcp.server  # or: agentvault-mcp
 - `query_balance(agent_id: str) -> float`
 - `execute_transfer(agent_id: str, to_address: str, amount_eth: float) -> str`
 - `generate_response(user_message: str) -> str`
+- `list_wallets() -> {agent_id: address}`
+- `export_wallet_keystore(agent_id: str, passphrase: str) -> str` (encrypted JSON)
+- `export_wallet_private_key(agent_id: str, confirmation_code?: str) -> str` (gated; discouraged)
 
 ## Optional MCP Features
 - A `wallet_status` prompt is registered when the SDK supports prompts.
@@ -47,6 +50,8 @@ python -m agentvault_mcp.server  # or: agentvault-mcp
 ## Security Notes
 - Private keys are encrypted with a Fernet key provided via `ENCRYPT_KEY`.
 - Only public wallet info is injected into context; resource output is sanitized.
+- Keystore export is preferred for backups; plaintext export is gated behind envs `AGENTVAULT_ALLOW_PLAINTEXT_EXPORT=1` and `AGENTVAULT_EXPORT_CODE`.
+- Wallet generation uses cryptographic randomness; addresses are checked for in-process uniqueness to prevent reuse.
 
 ## Development
 - Run tests: `pytest -q`
