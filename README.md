@@ -71,6 +71,13 @@ python -m agentvault_mcp.server
 - Run tests: `pytest -q`
 - Lint/format: add ruff/black if desired.
 
+## Maintainer Prompt Pack
+- Use docs/prompt-pack.md as your System prompt in an MCP client to enforce
+  complete diffs with tests and docs.
+- Guardrail checker:
+  - `python -m agentvault_mcp.guardrail reply.txt`
+  - exits non‑zero if banned phrases or no unified diff are detected.
+
 ### Integration with AI Agents
 
 **Claude Desktop:**
