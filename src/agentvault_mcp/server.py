@@ -8,6 +8,7 @@ from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
 from .strategies import dca_once as _dca_once
 from .strategies import send_when_gas_below as _send_when_gas_below
+from .strategy_manager import StrategyManager
 
 load_dotenv()
 
@@ -33,6 +34,7 @@ server = Server("agentvault-mcp")
 
 _context_mgr: ContextManager | None = None
 _wallet_mgr: AgentWalletManager | None = None
+_strategy_mgr: StrategyManager | None = None
 
 
 @server.tool
@@ -167,6 +169,64 @@ async def dca_once(
     )
 
 
+# -------- Phase 2 strategy lifecycle tools (stateful) --------
+
+
+@server.tool
+async def create_strategy_dca(
+    label: str,
+    agent_id: str,
+    to_address: str,
+    amount_eth: float,
+    interval_seconds: int,
+    max_base_fee_gwei: float | None = None,
+    daily_cap_eth: float | None = None,
+) -> dict:
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return _strategy_mgr.create_strategy_dca(
+        label,
+        agent_id,
+        to_address,
+        amount_eth,
+        interval_seconds,
+        max_base_fee_gwei=max_base_fee_gwei,
+        daily_cap_eth=daily_cap_eth,
+    )
+
+
+@server.tool
+async def start_strategy(label: str) -> dict:
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return _strategy_mgr.start_strategy(label)
+
+
+@server.tool
+async def stop_strategy(label: str) -> dict:
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return _strategy_mgr.stop_strategy(label)
+
+
+@server.tool
+async def strategy_status(label: str) -> dict:
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return _strategy_mgr.strategy_status(label)
+
+
+@server.tool
+async def tick_strategy(
+    label: str, dry_run: bool = False, confirmation_code: str | None = None
+) -> dict:
+    if _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _strategy_mgr.tick_strategy(
+        label, dry_run=dry_run, confirmation_code=confirmation_code
+    )
+
+
 async def main() -> None:
     global _context_mgr, _wallet_mgr
 
@@ -207,6 +267,7 @@ async def main() -> None:
     web3_adapter = Web3Adapter(rpc_url)
     _context_mgr.register_adapter("web3", web3_adapter)
     _wallet_mgr = AgentWalletManager(_context_mgr, web3_adapter, encrypt_key)
+    _strategy_mgr = StrategyManager(_wallet_mgr)
 
     logger.info("AgentVault MCP server starting")
     # Use stdio_server context manager per MCP SDK

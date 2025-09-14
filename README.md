@@ -128,6 +128,15 @@ asyncio.run(flow())
 - `request_faucet_funds(agent_id: str, amount_eth?: float) -> {ok, start_balance, end_balance}`
 - `send_when_gas_below(agent_id: str, to_address: str, amount_eth: float, max_base_fee_gwei: float, dry_run?: bool, confirmation_code?: str) -> {action, ...}`
 - `dca_once(agent_id: str, to_address: str, amount_eth: float, max_base_fee_gwei?: float, dry_run?: bool, confirmation_code?: str) -> {action, ...}`
+  
+### Phase 2 (Stateful Lifecycle)
+- `create_strategy_dca(label: str, agent_id: str, to_address: str, amount_eth: float, interval_seconds: int, max_base_fee_gwei?: float, daily_cap_eth?: float) -> strategy`
+- `start_strategy(label: str) -> strategy`
+- `stop_strategy(label: str) -> strategy`
+- `strategy_status(label: str) -> strategy`
+- `tick_strategy(label: str, dry_run?: bool, confirmation_code?: str) -> {action, ...}`
+  - Persisted state in `AGENTVAULT_STRATEGY_STORE`; `tick_strategy` performs
+    simulate → limit checks → (optional) execute; schedules next run.
 - `request_faucet_funds(agent_id: str, amount_eth?: float) -> {ok, start_balance, end_balance}`
 
 ## Optional MCP Features
@@ -326,3 +335,6 @@ The agent doesn't just "help" with crypto—it **becomes** your autonomous crypt
 - `src/agentvault_mcp/strategies.py`
   - Stateless strategy helpers (Phase 1): `send_when_gas_below`, `dca_once`.
     Combine simulation, gas checks, and execution into safe one‑shot flows.
+- `src/agentvault_mcp/strategy_manager.py`
+  - Stateful strategy manager (Phase 2): create/start/stop/status/tick for DCA
+    strategies with interval, gas ceiling, daily caps, and persistence.
