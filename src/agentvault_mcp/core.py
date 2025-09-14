@@ -75,7 +75,10 @@ class ContextManager:
         logger: structlog.stdlib.BoundLogger = logger,
     ):
         self.schema = ContextSchema(max_tokens=max_tokens, trim_strategy=trim_strategy)
-        self.encoding = tiktoken.get_encoding(encoding_name)
+        try:
+            self.encoding = tiktoken.get_encoding(encoding_name)
+        except Exception:
+            self.encoding = tiktoken.get_encoding("cl100k_base")
         self.logger = logger.bind(component="ContextManager")
         self.adapters: Dict[str, Any] = {}
 
@@ -138,4 +141,3 @@ class ContextManager:
         """Inject state (e.g., wallet info) into schema."""
         self.schema.state[key] = value
         self.logger.debug("State updated", key=key)
-

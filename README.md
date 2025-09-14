@@ -10,11 +10,20 @@ Secure context and wallet tools for autonomous AI agents, built on the Model Con
 - MCP stdio server registering wallet + LLM tools
 
 ## Quickstart
+Zero‑setup (testnet):
 ```bash
 python -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt && pip install -e .
-cp .env.example .env  # set OPENAI_API_KEY, ENCRYPT_KEY, WEB3_RPC_URL
+# No env needed: defaults to Sepolia public RPC and will auto-generate ENCRYPT_KEY sidecar
 python -m agentvault_mcp.server  # or: agentvault-mcp
+```
+
+Pro config (custom RPC / OpenAI):
+```bash
+export WEB3_RPC_URL=https://sepolia.infura.io/v3/...
+export OPENAI_API_KEY=sk-...
+export ENCRYPT_KEY=$(python -c "from cryptography.fernet import Fernet;print(Fernet.generate_key().decode())")
+python -m agentvault_mcp.server
 ```
 
 ### MCP Client Example (Claude Desktop)
@@ -37,11 +46,12 @@ python -m agentvault_mcp.server  # or: agentvault-mcp
 ## Tools
 - `spin_up_wallet(agent_id: str) -> str`
 - `query_balance(agent_id: str) -> float`
-- `execute_transfer(agent_id: str, to_address: str, amount_eth: float) -> str`
+- `execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code?: str) -> str`
 - `generate_response(user_message: str) -> str`
 - `list_wallets() -> {agent_id: address}`
 - `export_wallet_keystore(agent_id: str, passphrase: str) -> str` (encrypted JSON)
 - `export_wallet_private_key(agent_id: str, confirmation_code?: str) -> str` (gated; discouraged)
+- `simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -> dict`
 
 ## Optional MCP Features
 - A `wallet_status` prompt is registered when the SDK supports prompts.
@@ -49,9 +59,12 @@ python -m agentvault_mcp.server  # or: agentvault-mcp
 
 ## Security Notes
 - Private keys are encrypted with a Fernet key provided via `ENCRYPT_KEY`.
+- If `ENCRYPT_KEY` is not set, a Fernet key is auto-generated and stored beside `AGENTVAULT_STORE` (e.g., `agentvault_store.key`). Keep this file safe to restore wallets.
 - Only public wallet info is injected into context; resource output is sanitized.
 - Keystore export is preferred for backups; plaintext export is gated behind envs `AGENTVAULT_ALLOW_PLAINTEXT_EXPORT=1` and `AGENTVAULT_EXPORT_CODE`.
 - Wallet generation uses cryptographic randomness; addresses are checked for in-process uniqueness to prevent reuse.
+- Transfers above `AGENTVAULT_MAX_TX_ETH` require a matching `AGENTVAULT_TX_CONFIRM_CODE` passed via the `confirmation_code` argument.
+- Wallets persist to `AGENTVAULT_STORE` so they survive restarts (encrypted at rest).
 
 ## Development
 - Run tests: `pytest -q`

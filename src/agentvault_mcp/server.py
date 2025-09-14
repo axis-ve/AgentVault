@@ -48,10 +48,12 @@ async def query_balance(agent_id: str) -> float:
 
 
 @server.tool
-async def execute_transfer(agent_id: str, to_address: str, amount_eth: float) -> str:
+async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code: str | None = None) -> str:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
-    return await _wallet_mgr.execute_transfer(agent_id, to_address, amount_eth)
+    # Enforce limit via WalletManager; pass optional confirmation
+    # Note: limit is configured via env AGENTVAULT_MAX_TX_ETH/AGENTVAULT_TX_CONFIRM_CODE
+    return await _wallet_mgr.execute_transfer(agent_id, to_address, amount_eth, confirmation_code)
 
 
 @server.tool
@@ -92,19 +94,48 @@ async def export_wallet_private_key(agent_id: str, confirmation_code: str | None
     return await _wallet_mgr.export_wallet_private_key(agent_id, confirmation_code)
 
 
+@server.tool
+async def simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -> dict:
+    """Estimate gas/fees for a transfer without broadcasting."""
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.simulate_transfer(agent_id, to_address, amount_eth)
+
+
 async def main() -> None:
     global _context_mgr, _wallet_mgr
 
     api_key = os.getenv("OPENAI_API_KEY")
-    rpc_url = os.getenv("WEB3_RPC_URL")
+    # Default to a public Sepolia endpoint to support zero-setup
+    rpc_url = os.getenv("WEB3_RPC_URL") or "https://ethereum-sepolia.publicnode.com"
     encrypt_key = os.getenv("ENCRYPT_KEY")
-    if not all([api_key, rpc_url, encrypt_key]):
-        raise ValueError("Missing env vars—check .env")
+    # Generate and persist a Fernet key if not provided
+    if not encrypt_key:
+        from cryptography.fernet import Fernet
+        store_path = os.getenv("AGENTVAULT_STORE", "agentvault_store.json")
+        import os as _os
+        key_path = _os.path.splitext(store_path)[0] + ".key"
+        if _os.path.exists(key_path):
+            with open(key_path, "rb") as f:
+                encrypt_key = f.read().decode()
+        else:
+            encrypt_key = Fernet.generate_key().decode()
+            with open(key_path, "wb") as f:
+                f.write(encrypt_key.encode())
 
     _context_mgr = ContextManager(max_tokens=int(os.getenv("MCP_MAX_TOKENS", 4096)))
-    openai_adapter = OpenAIAdapter(api_key)
+    # Register LLM adapter (OpenAI or a null fallback)
+    if api_key:
+        from .adapters.openai_adapter import OpenAIAdapter as _OpenAIAdapter
+        openai_adapter = _OpenAIAdapter(api_key)
+        _context_mgr.register_adapter("openai", openai_adapter)
+    else:
+        class _NullLLM:
+            async def call(self, context):
+                return "LLM not configured; set OPENAI_API_KEY or provide a local adapter."
+        _context_mgr.register_adapter("openai", _NullLLM())
+
     web3_adapter = Web3Adapter(rpc_url)
-    _context_mgr.register_adapter("openai", openai_adapter)
     _context_mgr.register_adapter("web3", web3_adapter)
     _wallet_mgr = AgentWalletManager(_context_mgr, web3_adapter, encrypt_key)
 

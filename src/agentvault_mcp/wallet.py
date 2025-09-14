@@ -1,4 +1,8 @@
 from typing import Dict
+import os
+import json
+import tempfile
+from pathlib import Path
 
 from cryptography.fernet import Fernet, InvalidToken
 from eth_account import Account
@@ -25,6 +29,7 @@ class AgentWalletManager:
         context_manager: ContextManager,
         web3_adapter: Web3Adapter,
         encrypt_key: str,
+        persist_path: str | None = None,
         logger=logger,
     ):
         self.context = context_manager
@@ -39,6 +44,9 @@ class AgentWalletManager:
         # Per-address nonce lock to avoid concurrent nonce races
         import asyncio
         self._locks: Dict[str, asyncio.Lock] = {}
+        # Optional persistence
+        self.persist_path = Path(persist_path or os.getenv("AGENTVAULT_STORE", "agentvault_store.json")).resolve()
+        self._load_persisted()
 
     def _get_lock(self, address: str):
         import asyncio
@@ -69,6 +77,7 @@ class AgentWalletManager:
             "system", f"Wallet created for {agent_id}: {account.address}"
         )
         self.logger.info("Wallet spun up", agent_id=agent_id, address=account.address)
+        self._persist()
         return account.address
 
     async def query_balance(self, agent_id: str) -> float:
@@ -85,7 +94,7 @@ class AgentWalletManager:
         self.logger.info("Balance queried", agent_id=agent_id, balance=balance_eth)
         return float(balance_eth)
 
-    async def execute_transfer(self, agent_id: str, to_address: str, amount_eth: float) -> str:
+    async def execute_transfer(self, agent_id: str, to_address: str, amount_eth: float, confirmation_code: str | None = None) -> str:
         if agent_id not in self.wallets:
             raise WalletError(f"No wallet for {agent_id}.")
         wallet = self.wallets[agent_id]
@@ -98,6 +107,8 @@ class AgentWalletManager:
                 raise WalletError("Amount must be positive.")
             if not self.web3.w3.is_address(to_address):
                 raise WalletError("Invalid recipient address.")
+            # Spending limit guard
+            self._enforce_spend_limit(amount_eth, confirmation_code)
             # Serialize per-address nonce usage
             async with self._get_lock(wallet.address):
                 nonce = await self.web3.get_nonce(wallet.address)
@@ -105,7 +116,8 @@ class AgentWalletManager:
                 priority_fee = await self.web3.w3.eth.max_priority_fee
                 latest_block = await self.web3.w3.eth.get_block("latest")
                 base_fee = latest_block.get("baseFeePerGas") or 0
-                max_fee = base_fee + priority_fee * 2
+                # Conservative headroom for base fee spikes
+                max_fee = base_fee * 2 + priority_fee
 
                 txn = {
                     "to": to_address,
@@ -117,6 +129,11 @@ class AgentWalletManager:
                     "type": 2,
                 }
                 gas_estimate = await self.web3.w3.eth.estimate_gas({**txn, "from": wallet.address})
+                # Pre-check funds: amount + max fee must be available
+                bal_wei = await self.web3.w3.eth.get_balance(wallet.address)
+                total_cost_wei = txn["value"] + gas_estimate * max_fee
+                if bal_wei < total_cost_wei:
+                    raise WalletError("Insufficient funds for amount + fees.")
                 txn["gas"] = gas_estimate
 
                 signed_txn = self.web3.w3.eth.account.sign_transaction(txn, privkey_bytes)
@@ -188,3 +205,109 @@ class AgentWalletManager:
             raise WalletError("Decryption failed—check encrypt key.")
         except Exception as e:
             raise WalletError(f"Private key export failed: {e}")
+
+    async def simulate_transfer(self, agent_id: str, to_address: str, amount_eth: float) -> dict:
+        """Simulate a transfer without broadcasting. Returns a summary dict.
+
+        Includes estimated gas, fees, and total cost in ETH.
+        """
+        if agent_id not in self.wallets:
+            raise WalletError(f"No wallet for {agent_id}.")
+        wallet = self.wallets[agent_id]
+        if amount_eth <= 0:
+            raise WalletError("Amount must be positive.")
+        if not self.web3.w3.is_address(to_address):
+            raise WalletError("Invalid recipient address.")
+        # Fee estimation
+        priority_fee = await self.web3.w3.eth.max_priority_fee
+        latest_block = await self.web3.w3.eth.get_block("latest")
+        base_fee = latest_block.get("baseFeePerGas") or 0
+        max_fee = base_fee * 2 + priority_fee
+        txn = {
+            "to": to_address,
+            "value": self.web3.w3.to_wei(amount_eth, "ether"),
+            "chainId": wallet.chain_id,
+            "maxFeePerGas": max_fee,
+            "maxPriorityFeePerGas": priority_fee,
+            "type": 2,
+        }
+        gas_estimate = await self.web3.w3.eth.estimate_gas({**txn, "from": wallet.address})
+        total_fee_wei = gas_estimate * max_fee
+        total_fee_eth = float(self.web3.w3.from_wei(total_fee_wei, "ether"))
+        total_eth = amount_eth + total_fee_eth
+        return {
+            "from": wallet.address,
+            "to": to_address,
+            "amount_eth": amount_eth,
+            "gas": int(gas_estimate),
+            "max_fee_per_gas": int(max_fee),
+            "max_priority_fee_per_gas": int(priority_fee),
+            "estimated_fee_eth": total_fee_eth,
+            "estimated_total_eth": total_eth,
+        }
+
+    # ---------- Internal helpers ----------
+    def _enforce_spend_limit(self, amount_eth: float, confirmation_code: str | None = None) -> None:
+        """Require confirmation above configured threshold.
+
+        Env:
+          - AGENTVAULT_MAX_TX_ETH: float threshold; if unset, no gating
+          - AGENTVAULT_TX_CONFIRM_CODE: server-side secret; must match provided code
+        """
+        max_tx_env = os.getenv("AGENTVAULT_MAX_TX_ETH")
+        if not max_tx_env:
+            return
+        try:
+            threshold = float(max_tx_env)
+        except ValueError:
+            return
+        if amount_eth <= threshold:
+            return
+        server_code = os.getenv("AGENTVAULT_TX_CONFIRM_CODE")
+        if not server_code or confirmation_code != server_code:
+            raise WalletError(
+                f"Transfer exceeds limit ({amount_eth} ETH > {threshold} ETH). Confirmation code required."
+            )
+
+    def _load_persisted(self) -> None:
+        try:
+            if not self.persist_path.exists():
+                return
+            with open(self.persist_path, "r") as f:
+                data = json.load(f)
+            loaded = 0
+            for agent_id, rec in data.items():
+                try:
+                    ws = WalletState(
+                        address=rec["address"],
+                        encrypted_privkey=bytes.fromhex(rec["encrypted_privkey_hex"]),
+                        chain_id=int(rec["chain_id"]),
+                        last_nonce=rec.get("last_nonce"),
+                    )
+                    self.wallets[agent_id] = ws
+                    loaded += 1
+                except Exception:
+                    continue
+            if loaded:
+                self.logger.info("Persisted wallets loaded", count=loaded, path=str(self.persist_path))
+        except Exception as e:
+            self.logger.warning("Failed to load persisted wallets", error=str(e))
+
+    def _persist(self) -> None:
+        try:
+            serial = {
+                agent_id: {
+                    "address": ws.address,
+                    "chain_id": ws.chain_id,
+                    "last_nonce": ws.last_nonce,
+                    "encrypted_privkey_hex": ws.encrypted_privkey.hex(),
+                }
+                for agent_id, ws in self.wallets.items()
+            }
+            self.persist_path.parent.mkdir(parents=True, exist_ok=True)
+            with tempfile.NamedTemporaryFile("w", delete=False, dir=str(self.persist_path.parent)) as tf:
+                json.dump(serial, tf, indent=2)
+                tmp_name = tf.name
+            os.replace(tmp_name, self.persist_path)
+        except Exception as e:
+            self.logger.warning("Failed to persist wallets", error=str(e))

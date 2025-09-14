@@ -41,6 +41,58 @@ async def test_wallet_spin_up():
     assert address.startswith("0x")
     assert "test_agent_wallet" in context_mgr.schema.state
 
+@pytest.mark.asyncio
+async def test_spend_limit_gate(monkeypatch):
+    class W3Stub:
+        def __init__(self):
+            class Eth:
+                async def get_transaction_count(self, *_): return 0
+                async def get_block(self, *_): return {"baseFeePerGas": 1000}
+                async def estimate_gas(self, *_): return 21000
+                async def wait_for_transaction_receipt(self, *_): return type("R", (), {"status": 1})
+                async def get_balance(self, *_): return 10**18  # 1 ETH
+                @property
+                async def max_priority_fee(self): return 1000
+                async def send_raw_transaction(self, *_): return b"\x12"
+            self.eth = Eth()
+        def is_address(self, a): return True
+        def to_wei(self, v, *_): return int(v * 10**18)
+        def from_wei(self, v, *_): return v / 10**18
+
+    class Web3AdapterStub:
+        def __init__(self): self.w3 = W3Stub()
+        async def ensure_connection(self): return True
+        async def get_nonce(self, *_): return 0
+
+    context_mgr = ContextManager()
+    encrypt_key = Fernet.generate_key().decode()
+    mgr = AgentWalletManager(context_mgr, Web3AdapterStub(), encrypt_key)
+    aid = "agent_limit"
+    await mgr.spin_up_wallet(aid)
+    # Gate above threshold
+    import os
+    os.environ["AGENTVAULT_MAX_TX_ETH"] = "0.1"
+    with pytest.raises(Exception):
+        await mgr.execute_transfer(aid, "0x" + "1"*40, 0.2)
+    # Allow with correct code
+    os.environ["AGENTVAULT_TX_CONFIRM_CODE"] = "ok"
+    await mgr.execute_transfer(aid, "0x" + "1"*40, 0.2, confirmation_code="ok")
+
+@pytest.mark.asyncio
+async def test_keystore_export_roundtrip():
+    class Web3AdapterStub:
+        class _W3: eth = type("E", (), {"chain_id": 11155111})
+        w3 = _W3()
+        async def ensure_connection(self): return True
+
+    ctx = ContextManager()
+    key = Fernet.generate_key().decode()
+    mgr = AgentWalletManager(ctx, Web3AdapterStub(), key)
+    aid = "k1"
+    await mgr.spin_up_wallet(aid)
+    ks = await mgr.export_wallet_keystore(aid, "pass")
+    assert "\"crypto\"" in ks
+
 
 @pytest.mark.asyncio
 async def test_generate_response_with_fake_adapter():
