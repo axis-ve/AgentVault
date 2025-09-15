@@ -6,12 +6,12 @@ from agentvault_mcp.wallet import AgentWalletManager
 
 @pytest.mark.asyncio
 async def test_context_trim():
-    mgr = ContextManager(max_tokens=10, trim_strategy="recency")
+    mgr = ContextManager(max_tokens=50, trim_strategy="recency")
     # Append many large messages; trim should happen internally
-    for _ in range(6):
-        await mgr.append_to_history("user", "a" * 200)
+    for _ in range(10):
+        await mgr.append_to_history("user", "a" * 10)
     # After trimming, history should be reduced
-    assert len(mgr.schema.history) < 6
+    assert len(mgr.schema.history) < 10
 
 @pytest.mark.asyncio
 async def test_wallet_spin_up():

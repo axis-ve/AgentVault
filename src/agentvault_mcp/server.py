@@ -15,48 +15,66 @@ from .strategy_manager import StrategyManager
 load_dotenv()
 
 try:
-    from mcp.server import Server
-    try:
-        from mcp.server.stdio import stdio_server  # context manager variant
-    except Exception:  # Alternative API name
-        stdio_server = None  # type: ignore
+    from mcp.server.fastmcp import FastMCP
+    mcp_available = True
 except ImportError:  # Provide lightweight stubs so tests can import without MCP SDK
     class _ServerStub:
         def __init__(self, *_args, **_kwargs):
             pass
-        def tool(self, func=None, **_kwargs):
-            def _decorator(f):
-                return f
-            return _decorator if func is None else func
-    class _StdioStub:
-        def run_server(self, _server):
+        def tool(self, *args, **kwargs):
+            """Tool decorator stub that works for both @server.tool() and @server.tool()"""
+            def decorator(func):
+                return func
+            if len(args) == 1 and callable(args[0]):
+                # Called as @server.tool() (without parentheses)
+                return decorator(args[0])
+            else:
+                # Called as @server.tool() (with parentheses)
+                return decorator
+        def prompt(self, *args, **kwargs):
+            def decorator(func):
+                return func
+            if len(args) == 1 and callable(args[0]):
+                return decorator(args[0])
+            else:
+                return decorator
+        def resource(self, *args, **kwargs):
+            def decorator(func):
+                return func
+            if len(args) == 1 and callable(args[0]):
+                return decorator(args[0])
+            else:
+                return decorator
+        async def run_stdio_async(self):
             raise RuntimeError("MCP SDK not installed: 'mcp' package missing")
-    Server = _ServerStub  # type: ignore
-    stdio_server = _StdioStub()  # type: ignore
+    FastMCP = _ServerStub  # type: ignore
+    mcp_available = False
 
 
-server = Server("agentvault-mcp")
+server = FastMCP("agentvault-mcp")
 
 _context_mgr: ContextManager | None = None
 _wallet_mgr: AgentWalletManager | None = None
 _strategy_mgr: StrategyManager | None = None
 
 
-@server.tool
+# Tool functions will be registered in main() after initialization
+
+@server.tool()
 async def spin_up_wallet(agent_id: str) -> str:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
     return await _wallet_mgr.spin_up_wallet(agent_id)
 
 
-@server.tool
+@server.tool()
 async def query_balance(agent_id: str) -> float:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
     return await _wallet_mgr.query_balance(agent_id)
 
 
-@server.tool
+@server.tool()
 async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code: str | None = None, dry_run: bool = False) -> str | dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -68,14 +86,14 @@ async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, co
     return await _wallet_mgr.execute_transfer(agent_id, to_address, amount_eth, confirmation_code)
 
 
-@server.tool
+@server.tool()
 async def generate_response(user_message: str) -> str:
     if _context_mgr is None:
         raise RuntimeError("Server not initialized")
     return await _context_mgr.generate_response(user_message)
 
 
-@server.tool
+@server.tool()
 async def list_wallets() -> dict[str, str]:
     """List agent_id to address mappings (no secrets)."""
     if _wallet_mgr is None:
@@ -83,7 +101,7 @@ async def list_wallets() -> dict[str, str]:
     return await _wallet_mgr.list_wallets()
 
 
-@server.tool
+@server.tool()
 async def export_wallet_keystore(agent_id: str, passphrase: str) -> str:
     """Export the agent's wallet as an encrypted V3 keystore JSON string.
 
@@ -94,7 +112,7 @@ async def export_wallet_keystore(agent_id: str, passphrase: str) -> str:
     return await _wallet_mgr.export_wallet_keystore(agent_id, passphrase)
 
 
-@server.tool
+@server.tool()
 async def export_wallet_private_key(agent_id: str, confirmation_code: str | None = None) -> str:
     """Export plaintext private key (hex). Strongly discouraged and gated.
 
@@ -106,7 +124,7 @@ async def export_wallet_private_key(agent_id: str, confirmation_code: str | None
     return await _wallet_mgr.export_wallet_private_key(agent_id, confirmation_code)
 
 
-@server.tool
+@server.tool()
 async def simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -> dict:
     """Estimate gas/fees for a transfer without broadcasting."""
     if _wallet_mgr is None:
@@ -114,7 +132,7 @@ async def simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -
     return await _wallet_mgr.simulate_transfer(agent_id, to_address, amount_eth)
 
 
-@server.tool
+@server.tool()
 async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -> dict:
     """Request testnet faucet funds and wait for balance to increase."""
     if _wallet_mgr is None:
@@ -125,7 +143,7 @@ async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -
 # -------- Phase 1 strategy tools (stateless) --------
 
 
-@server.tool
+@server.tool()
 async def send_when_gas_below(
     agent_id: str,
     to_address: str,
@@ -151,7 +169,7 @@ async def send_when_gas_below(
     )
 
 
-@server.tool
+@server.tool()
 async def dca_once(
     agent_id: str,
     to_address: str,
@@ -174,7 +192,7 @@ async def dca_once(
     )
 
 
-@server.tool
+@server.tool()
 async def scheduled_send_once(
     agent_id: str,
     to_address: str,
@@ -196,7 +214,7 @@ async def scheduled_send_once(
     )
 
 
-@server.tool
+@server.tool()
 async def micro_tip_equal(
     agent_id: str,
     recipients: list[str],
@@ -216,7 +234,7 @@ async def micro_tip_equal(
     )
 
 
-@server.tool
+@server.tool()
 async def micro_tip_amounts(
     agent_id: str,
     items: dict[str, float],
@@ -237,7 +255,7 @@ async def micro_tip_amounts(
 # -------- Phase 2 strategy lifecycle tools (stateful) --------
 
 
-@server.tool
+@server.tool()
 async def create_strategy_dca(
     label: str,
     agent_id: str,
@@ -260,28 +278,28 @@ async def create_strategy_dca(
     )
 
 
-@server.tool
+@server.tool()
 async def start_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
     return _strategy_mgr.start_strategy(label)
 
 
-@server.tool
+@server.tool()
 async def stop_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
     return _strategy_mgr.stop_strategy(label)
 
 
-@server.tool
+@server.tool()
 async def strategy_status(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
     return _strategy_mgr.strategy_status(label)
 
 
-@server.tool
+@server.tool()
 async def tick_strategy(
     label: str, dry_run: bool = False, confirmation_code: str | None = None
 ) -> dict:
@@ -292,7 +310,7 @@ async def tick_strategy(
     )
 
 
-@server.tool
+@server.tool()
 async def list_strategies(agent_id: str | None = None) -> dict:
     """List all strategies or those for a specific agent_id."""
     if _strategy_mgr is None:
@@ -302,7 +320,7 @@ async def list_strategies(agent_id: str | None = None) -> dict:
     return _strategy_mgr.list_strategies()
 
 
-@server.tool
+@server.tool()
 async def delete_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -352,59 +370,41 @@ async def main() -> None:
     _strategy_mgr = StrategyManager(_wallet_mgr)
 
     logger.info("AgentVault MCP server starting")
-    # Use available stdio transport API across SDK variants
-    try:
-        if callable(stdio_server):  # context manager factory
-            async with stdio_server() as (read, write):  # type: ignore[operator]
-                await server.run(read, write)
-            return
-    except Exception:
-        pass
-    # Try serve_stdio(server)
-    try:
-        from mcp.server.stdio import serve_stdio
-        res = serve_stdio(server)
-        if hasattr(res, "__await__"):
-            await res
-        return
-    except Exception:
-        pass
-    # Fallback legacy run_server
-    try:
-        stdio_server.run_server(server)  # type: ignore[attr-defined]
-    except Exception as e:  # final error with guidance
-        raise RuntimeError(
-            "Could not start MCP stdio server; update 'mcp' package or use a supported version"
-        ) from e
+    if not mcp_available:
+        raise RuntimeError("MCP SDK not installed: 'mcp' package missing")
+
+    # Use FastMCP stdio transport
+    await server.run_stdio_async()
 
 
 def cli() -> None:
     asyncio.run(main())
 
-# Optional: register prompts/resources if SDK supports them
-if hasattr(server, "prompt"):
-    @server.prompt  # type: ignore[attr-defined]
-    async def wallet_status(agent_id: str) -> str:
-        """Summarize wallet status for an agent."""
-        if _wallet_mgr is None:
-            return "Server not initialized"
+# Register prompts and resources using FastMCP API
+@server.prompt()
+async def wallet_status(agent_id: str) -> list:
+    """Summarize wallet status for an agent."""
+    if _wallet_mgr is None:
+        content = "Server not initialized"
+    else:
         try:
             bal = await _wallet_mgr.query_balance(agent_id)
             state = _context_mgr.schema.state if _context_mgr else {}
             addr = state.get(f"{agent_id}_wallet", {}).get("address", "<none>")
-            return f"Agent {agent_id}: address={addr}, balance={bal} ETH"
+            content = f"Agent {agent_id}: address={addr}, balance={bal} ETH"
         except Exception as e:
-            return f"Error fetching status for {agent_id}: {e}"
+            content = f"Error fetching status for {agent_id}: {e}"
 
-if hasattr(server, "resource"):
-    @server.resource("agentvault/context")  # type: ignore[attr-defined]
-    async def agentvault_context() -> str:
-        """Expose a sanitized snapshot of context state."""
-        if _context_mgr is None:
-            return "{}"
-        s = _context_mgr.schema.model_dump()
-        state = s.get("state", {})
-        safe_state = {k: v for k, v in state.items() if not (k.endswith("_wallet") or k.endswith("_balance"))}
-        s["state"] = safe_state
-        import json as _json
-        return _json.dumps(s)
+    return [{"role": "user", "content": {"type": "text", "text": content}}]
+
+@server.resource("agentvault://context")
+async def agentvault_context() -> str:
+    """Expose a sanitized snapshot of context state."""
+    if _context_mgr is None:
+        return "{}"
+    s = _context_mgr.schema.model_dump()
+    state = s.get("state", {})
+    safe_state = {k: v for k, v in state.items() if not (k.endswith("_wallet") or k.endswith("_balance"))}
+    s["state"] = safe_state
+    import json as _json
+    return _json.dumps(s)

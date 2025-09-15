@@ -35,9 +35,9 @@ html, body { margin:0; padding:0; background:var(--bg); color:var(--fg);
 
 def _svg_qr_for_uri(uri: str) -> str:
     qr = segno.make(uri, micro=False)
-    buff = io.StringIO()
+    buff = io.BytesIO()
     qr.save(buff, kind="svg", xmldecl=False)
-    return buff.getvalue()
+    return buff.getvalue().decode('utf-8')
 
 
 def tipjar_page_html(address: str, amount_eth: Optional[float] = None) -> str:
@@ -52,28 +52,28 @@ def tipjar_page_html(address: str, amount_eth: Optional[float] = None) -> str:
 <style>{_STYLE}</style>
 <script>
 // Theme toggle with localStorage
-(function(){
+(function(){{
   const key = 'av-theme';
   const root = document.documentElement;
   const saved = localStorage.getItem(key);
-  if(saved){ root.setAttribute('data-theme', saved); }
-  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+  if(saved){{ root.setAttribute('data-theme', saved); }}
+  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){{
     root.setAttribute('data-theme','dark');
-  }
-  window._avToggleTheme = function(){
+  }}
+  window._avToggleTheme = function(){{
     const cur = root.getAttribute('data-theme')==='dark'?'light':'dark';
     root.setAttribute('data-theme', cur); localStorage.setItem(key, cur);
-  }
-  window._avCopy = function(txt, el){
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(txt).then(()=>{ if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); } });
-    } else {
+  }}
+  window._avCopy = function(txt, el){{
+    if(navigator.clipboard && navigator.clipboard.writeText){{
+      navigator.clipboard.writeText(txt).then(()=>{{ if(el){{ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); }} }});
+    }} else {{
       const ta = document.createElement('textarea'); ta.value = txt;
-      document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); } finally{ document.body.removeChild(ta); }
-      if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); }
-    }
-  }
-})();
+      document.body.appendChild(ta); ta.select(); try{{ document.execCommand('copy'); }} finally{{ document.body.removeChild(ta); }}
+      if(el){{ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); }}
+    }}
+  }}
+}})();
 </script>
 <div class="wrap">
   <div class="topbar">
@@ -145,16 +145,16 @@ def dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -
 <title>AgentVault Dashboard</title>
 <style>{_STYLE}</style>
 <script>
-(function(){
+(function(){{
   const key='av-theme'; const root=document.documentElement;
   const saved=localStorage.getItem(key);
-  if(saved){ root.setAttribute('data-theme', saved); }
-  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+  if(saved){{ root.setAttribute('data-theme', saved); }}
+  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){{
     root.setAttribute('data-theme','dark');
-  }
-  window._avToggleTheme=function(){ const cur=root.getAttribute('data-theme')==='dark'?'light':'dark'; root.setAttribute('data-theme',cur); localStorage.setItem(key,cur); };
-  window._avCopy=function(txt,el){ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(()=>{ if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); } }); } else { const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); } finally{ document.body.removeChild(ta); } if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); } } };
-})();
+  }}
+  window._avToggleTheme=function(){{ const cur=root.getAttribute('data-theme')==='dark'?'light':'dark'; root.setAttribute('data-theme',cur); localStorage.setItem(key,cur); }};
+  window._avCopy=function(txt,el){{ if(navigator.clipboard&&navigator.clipboard.writeText){{ navigator.clipboard.writeText(txt).then(()=>{{ if(el){{ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); }} }}); }} else {{ const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{{ document.execCommand('copy'); }} finally{{ document.body.removeChild(ta); }} if(el){{ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); }} }} }};
+}})();
 </script>
 <div class="wrap">
   <div class="topbar">

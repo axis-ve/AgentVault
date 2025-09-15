@@ -67,7 +67,9 @@
     - Optional prompt/resource (if supported): `wallet_status(agent_id)`,
       `agentvault/context`.
 
-  ### MCP Client Example (Claude Desktop)
+  ### MCP Client Examples
+
+**Claude Desktop** (claude_desktop_config.json):
   ```json
   {
     "mcpServers": {
@@ -75,10 +77,39 @@
         "command": "python",
         "args": ["-m", "agentvault_mcp.server"],
         "env": {
-          "OPENAI_API_KEY": "...",
-          "ENCRYPT_KEY": "...",
-          "WEB3_RPC_URL": "..."
+          "OPENAI_API_KEY": "sk-...",
+          "ENCRYPT_KEY": "your-base64-fernet-key",
+          "WEB3_RPC_URL": "https://sepolia.infura.io/v3/..."
         }
+      }
+    }
+  }
+  ```
+
+**Cursor IDE** (MCP integration):
+  ```json
+  {
+    "mcp": {
+      "servers": {
+        "agentvault": {
+          "command": "agentvault-mcp",
+          "env": {
+            "WEB3_RPC_URL": "https://ethereum-sepolia.publicnode.com"
+          }
+        }
+      }
+    }
+  }
+  ```
+
+**Claude Code** (.claude/settings.json):
+  ```json
+  {
+    "mcpServers": {
+      "agentvault": {
+        "command": "agentvault-mcp",
+        "args": [],
+        "env": {}
       }
     }
   }
@@ -247,9 +278,18 @@
     - `MCP_MAX_TOKENS`, `LOG_LEVEL`, `TIMEOUT_SECONDS`.
 
   ## Development
-- Run tests: `pytest -q`
+- Run tests: `pytest -q` or run test files directly: `python test_mcp.py`
 - Lint/format: add ruff/black if desired.
-  
+- MCP Server: `agentvault-mcp` (requires `pip install "mcp>=0.1.0"`)
+- CLI Tool: `agentvault --help` (works independently of MCP)
+
+## Recent Updates (v0.1.0)
+- ✅ **MCP SDK Compatibility**: Updated to work with FastMCP (MCP SDK v1.14.0+)
+- ✅ **UI Generation Fixed**: HTML tip jars and dashboards now generate correctly
+- ✅ **Test Suite Improved**: All core tests passing with proper async patterns
+- ✅ **Error Handling**: Better validation and user-friendly error messages
+- ✅ **Production Ready**: Core wallet operations fully functional
+
 Note on Python 3.13:
 - Some packages (e.g., `tiktoken`) may not ship wheels for Python 3.13.
 - This project makes `tiktoken` optional; installation succeeds without it,

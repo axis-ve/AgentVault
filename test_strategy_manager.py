@@ -12,6 +12,10 @@ class _Web3:
         async def get_block(self, *_):
             return {"baseFeePerGas": 1 * 10**9}
 
+        @property
+        async def chain_id(self):
+            return 11155111
+
     eth = Eth()
 
     def from_wei(self, v, unit):
@@ -67,6 +71,10 @@ async def test_strategy_lifecycle(tmp_path):
 
     s = sm.start_strategy("dca1")
     assert s["enabled"] is True
+
+    # Wait a moment to ensure strategy is due
+    import asyncio
+    await asyncio.sleep(1.1)
 
     res = await sm.tick_strategy("dca1", dry_run=True)
     assert res["action"] == "simulation"
