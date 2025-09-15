@@ -28,3 +28,8 @@ def test_dashboard_html_contains_sections():
     assert "0x" in html
     assert "Toggle Theme" in html
     assert "Copy" in html
+import os
+import sys
+
+# Allow running tests directly via `python test_ui.py` without installing pkg
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))

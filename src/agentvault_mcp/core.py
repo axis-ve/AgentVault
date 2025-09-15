@@ -3,7 +3,10 @@ import logging
 from typing import Any, Dict, List, Optional, Literal
 
 import structlog
-import tiktoken
+try:
+    import tiktoken  # type: ignore
+except Exception:  # Optional dependency; fallback used if unavailable
+    tiktoken = None  # type: ignore
 from pydantic import BaseModel, Field, field_validator
 
 from . import MCPError, ContextOverflowError
@@ -75,10 +78,16 @@ class ContextManager:
         logger: structlog.stdlib.BoundLogger = logger,
     ):
         self.schema = ContextSchema(max_tokens=max_tokens, trim_strategy=trim_strategy)
-        try:
-            self.encoding = tiktoken.get_encoding(encoding_name)
-        except Exception:
-            self.encoding = tiktoken.get_encoding("cl100k_base")
+        self.encoding_name = encoding_name
+        self.encoding = None
+        if tiktoken is not None:
+            try:
+                self.encoding = tiktoken.get_encoding(encoding_name)
+            except Exception:
+                try:
+                    self.encoding = tiktoken.get_encoding("cl100k_base")
+                except Exception:
+                    self.encoding = None
         self.logger = logger.bind(component="ContextManager")
         self.adapters: Dict[str, Any] = {}
 
@@ -117,11 +126,18 @@ class ContextManager:
                 )
 
     def _calculate_tokens(self) -> int:
-        sys_tokens = len(self.encoding.encode(self.schema.system_prompt))
-        hist_tokens = sum(
-            len(self.encoding.encode(msg["content"])) for msg in self.schema.history
-        )
-        return sys_tokens + hist_tokens + len(self.schema.state) * 10  # Rough state overhead
+        # Prefer tiktoken when available; otherwise use a heuristic
+        if self.encoding is not None:
+            sys_tokens = len(self.encoding.encode(self.schema.system_prompt))
+            hist_tokens = sum(
+                len(self.encoding.encode(msg["content"]))
+                for msg in self.schema.history
+            )
+            return sys_tokens + hist_tokens + len(self.schema.state) * 10
+        # Heuristic fallback: ~4 chars per token
+        sys_tokens = max(1, len(self.schema.system_prompt) // 4)
+        hist_tokens = sum(max(1, len(msg["content"]) // 4) for msg in self.schema.history)
+        return sys_tokens + hist_tokens + len(self.schema.state) * 10
 
     async def generate_response(
         self, user_message: str, adapter_name: str = "openai"

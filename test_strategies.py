@@ -128,3 +128,8 @@ async def test_micro_tip_helpers_dry_run():
         mgr, "mt", {"0x" + "1" * 40: 0.005, "0x" + "2" * 40: 0.005}, dry_run=True
     )
     assert res["action"] == "simulation"
+import os
+import sys
+
+# Allow running directly via `python test_strategies.py` without installing pkg
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))

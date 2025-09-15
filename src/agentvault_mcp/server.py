@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 
 from .core import ContextManager, logger
-from .adapters.openai_adapter import OpenAIAdapter
 from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
 from .strategies import dca_once as _dca_once
@@ -17,7 +16,10 @@ load_dotenv()
 
 try:
     from mcp.server import Server
-    from mcp.server.stdio import stdio_server
+    try:
+        from mcp.server.stdio import stdio_server  # context manager variant
+    except Exception:  # Alternative API name
+        stdio_server = None  # type: ignore
 except ImportError:  # Provide lightweight stubs so tests can import without MCP SDK
     class _ServerStub:
         def __init__(self, *_args, **_kwargs):
@@ -350,13 +352,30 @@ async def main() -> None:
     _strategy_mgr = StrategyManager(_wallet_mgr)
 
     logger.info("AgentVault MCP server starting")
-    # Use stdio_server context manager per MCP SDK
+    # Use available stdio transport API across SDK variants
     try:
-        async with stdio_server() as (read, write):  # type: ignore[operator]
-            await server.run(read, write)
-    except TypeError:
-        # Fallback for older SDK variants exposing run_server(server)
+        if callable(stdio_server):  # context manager factory
+            async with stdio_server() as (read, write):  # type: ignore[operator]
+                await server.run(read, write)
+            return
+    except Exception:
+        pass
+    # Try serve_stdio(server)
+    try:
+        from mcp.server.stdio import serve_stdio
+        res = serve_stdio(server)
+        if hasattr(res, "__await__"):
+            await res
+        return
+    except Exception:
+        pass
+    # Fallback legacy run_server
+    try:
         stdio_server.run_server(server)  # type: ignore[attr-defined]
+    except Exception as e:  # final error with guidance
+        raise RuntimeError(
+            "Could not start MCP stdio server; update 'mcp' package or use a supported version"
+        ) from e
 
 
 def cli() -> None:

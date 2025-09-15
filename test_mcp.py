@@ -110,3 +110,8 @@ async def test_generate_response_with_fake_adapter():
     # History should contain both user and assistant messages
     roles = [m["role"] for m in mgr.schema.history]
     assert roles.count("user") == 1 and roles.count("assistant") == 1
+import os
+import sys
+
+# Allow running directly via `python test_mcp.py` without installing pkg
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))

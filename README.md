@@ -3,7 +3,8 @@
   Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
 
   ## Features
-  - ContextManager with proactive trimming and token counting (tiktoken)
+- ContextManager with proactive trimming and token counting (tiktoken)
+  - If `tiktoken` is not installed, a heuristic fallback is used.
   - OpenAI adapter (async, configurable model)
   - Web3 wallet ops with EIP‑1559 fees and gas estimation
   - Fernet encryption of private keys; never persisted in plain text
@@ -239,8 +240,13 @@
     - `MCP_MAX_TOKENS`, `LOG_LEVEL`, `TIMEOUT_SECONDS`.
 
   ## Development
-  - Run tests: `pytest -q`
-  - Lint/format: add ruff/black if desired.
+- Run tests: `pytest -q`
+- Lint/format: add ruff/black if desired.
+  
+Note on Python 3.13:
+- Some packages (e.g., `tiktoken`) may not ship wheels for Python 3.13.
+- This project makes `tiktoken` optional; installation succeeds without it,
+  and token counting falls back to a heuristic.
 
   ## Maintainer Prompt Pack
   - Use docs/prompt-pack.md as your System prompt in an MCP client to enforce

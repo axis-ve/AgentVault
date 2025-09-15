@@ -111,3 +111,8 @@ async def test_list_and_delete_strategies(tmp_path):
     assert res["deleted"] == "s1"
     all_strats = sm.list_strategies()
     assert "s1" not in all_strats and "s2" in all_strats
+import os
+import sys
+
+# Allow running directly via `python test_strategy_manager.py`
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "src"))
