@@ -3,6 +3,9 @@
 [![PyPI](https://img.shields.io/pypi/v/agentvault-mcp.svg)](https://pypi.org/project/agentvault-mcp/)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue.svg)](#)
+[![CI](https://github.com/axis-ve/AgentVault/actions/workflows/ci.yml/badge.svg)](https://github.com/axis-ve/AgentVault/actions/workflows/ci.yml)
+[![Release](https://github.com/axis-ve/AgentVault/actions/workflows/release.yml/badge.svg)](https://github.com/axis-ve/AgentVault/actions/workflows/release.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/axis-ve/AgentVault?include_prereleases&label=github)](https://github.com/axis-ve/AgentVault/releases)
 
   Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
 
