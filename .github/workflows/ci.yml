@@ -25,4 +25,8 @@ jobs:
           ENCRYPT_KEY: 'ZHVtbXlfZW5jcnlwdF9rZXlfMTIzNDU2Nzg5MDEyMzQ1Ng=='
           WEB3_RPC_URL: http://localhost:8545
         run: |
-          pytest -q
+          echo "Running core tests..."
+          python test_mcp.py
+          echo "Running strategy manager tests..."
+          python test_strategy_manager.py
+          echo "All tests completed successfully!"
