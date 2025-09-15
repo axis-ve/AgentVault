@@ -3,7 +3,14 @@ from __future__ import annotations
 import io
 from typing import List, Dict, Optional
 
-import segno
+def _require_segno():
+    try:
+        import segno  # type: ignore
+        return segno
+    except Exception as e:
+        raise RuntimeError(
+            "QR generation requires 'segno'. Install optional extra: pip install 'agentvault-mcp[ui]'"
+        ) from e
 
 
 _STYLE = """
@@ -34,6 +41,7 @@ html, body { margin:0; padding:0; background:var(--bg); color:var(--fg);
 
 
 def _svg_qr_for_uri(uri: str) -> str:
+    segno = _require_segno()
     qr = segno.make(uri, micro=False)
     buff = io.BytesIO()
     qr.save(buff, kind="svg", xmldecl=False)

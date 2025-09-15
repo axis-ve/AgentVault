@@ -31,7 +31,6 @@ dependencies = [
   "cryptography==42.0.5",
   "structlog==23.2.0",
   "python-dotenv==1.0.0",
-  "segno==1.5.3",
 ]
 
 [project.optional-dependencies]
@@ -40,6 +39,9 @@ dev = [
   "pytest-asyncio==0.23.7",
   "httpx==0.25.2",
   "mcp>=0.1.0",
+]
+ui = [
+  "segno==1.5.3",
 ]
 release = [
   "build>=1.0.0",

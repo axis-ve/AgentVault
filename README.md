@@ -9,6 +9,10 @@
 
 Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
 
+## MCP‑First Philosophy
+- The MCP server and tools are the core engine. Integrate with Claude Desktop, Cursor, Claude Code, or your own agents to drive wallet ops, transfers, and strategies.
+- UI helpers are optional utilities for convenience only; agents should primarily call MCP tools and resources.
+
 ## 🚀 Quick Start for New Users
 
 ### 1. Installation
@@ -78,24 +82,31 @@ agentvault send agent1 0x1234...5678 0.001
 ### 4. What You Get
 - **21 MCP Tools** for wallet operations, transfers, DCA strategies
 - **Secure Wallet Management** with encrypted private keys
-- **UI Generation** for tip jars and dashboards with QR codes
+- **Optional UI** helpers (CLI + MCP tools) for tip jars and dashboards
 - **Context-Aware LLM** integration with automatic trimming
 - **Production Ready** with comprehensive error handling and testing
 
 ### 5. Core Workflows
-```bash
-# Create wallet and check balance
-agentvault create-wallet myagent
-agentvault balance myagent
+  ```bash
+  # Create wallet and check balance
+  agentvault create-wallet myagent
+  agentvault balance myagent
+  
+  # Generate tip jar page
+  agentvault tip-jar-page myagent --amount 0.01 --out tipjar.html
 
-# Generate tip jar page
-agentvault tipjar myagent tipjar.html
-
-# Setup DCA strategy
-agentvault strategy dca-once myagent 0x1234...5678 0.001
-```
+  # Setup DCA strategy
+  agentvault strategy dca-once myagent 0x1234...5678 0.001
+  ```
 
 Ready to build autonomous crypto agents! See [Integration Examples](#integration-with-ai-agents) below.
+
+### Optional UI Extra
+If you plan to use QR/HTML generation, install the optional UI extra:
+```bash
+pip install 'agentvault-mcp[ui]'
+```
+Without it, CLI UI commands will print a helpful message to install the extra.
 
   ## Features
 - ContextManager with proactive trimming and token counting (tiktoken)

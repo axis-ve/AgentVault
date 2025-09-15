@@ -11,6 +11,7 @@ from .strategies import scheduled_send_once as _scheduled_send_once
 from .strategies import micro_tip_equal as _micro_tip_equal
 from .strategies import micro_tip_amounts as _micro_tip_amounts
 from .strategy_manager import StrategyManager
+from .ui import tipjar_page_html, dashboard_html
 
 load_dotenv()
 
@@ -327,26 +328,88 @@ async def delete_strategy(label: str) -> dict:
     return _strategy_mgr.delete_strategy(label)
 
 
+# -------- UI helpers (HTML returned directly; no filesystem writes) --------
+
+
+@server.tool()
+async def generate_tipjar_page(agent_id: str, amount_eth: float | None = None) -> str:
+    """Return a minimal tip jar HTML page for the agent's wallet."""
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    addr = await _wallet_mgr.spin_up_wallet(agent_id)
+    return tipjar_page_html(addr, amount_eth)
+
+
+@server.tool()
+async def generate_dashboard_page() -> str:
+    """Return a static HTML dashboard of known wallets and strategies."""
+    if _wallet_mgr is None or _strategy_mgr is None:
+        raise RuntimeError("Server not initialized")
+    # Build wallet summaries with balances when possible
+    wallets = []
+    for aid, ws in _wallet_mgr.wallets.items():
+        try:
+            bal = await _wallet_mgr.query_balance(aid)
+        except Exception:
+            bal = "?"
+        wallets.append({"agent_id": aid, "address": ws.address, "balance_eth": bal})
+    return dashboard_html(wallets, _strategy_mgr.list_strategies())
+
+
 async def main() -> None:
     global _context_mgr, _wallet_mgr
 
     api_key = os.getenv("OPENAI_API_KEY")
-    # Default to a public Sepolia endpoint to support zero-setup
-    rpc_url = os.getenv("WEB3_RPC_URL") or "https://ethereum-sepolia.publicnode.com"
+    # Default to a public Sepolia endpoint to support zero-setup; prefer explicit Alchemy config
+    def _alchemy_http_default() -> str | None:
+        key = os.getenv("ALCHEMY_API_KEY")
+        if not key:
+            return None
+        network = os.getenv("ALCHEMY_NETWORK", "sepolia").strip()
+        return f"https://eth-{network}.g.alchemy.com/v2/{key}"
+
+    rpc_url = (
+        os.getenv("WEB3_RPC_URL")
+        or os.getenv("ALCHEMY_HTTP_URL")
+        or _alchemy_http_default()
+        or "https://ethereum-sepolia.publicnode.com"
+    )
     encrypt_key = os.getenv("ENCRYPT_KEY")
-    # Generate and persist a Fernet key if not provided
+    # Generate and persist a Fernet key if not provided; validate if provided
+    from cryptography.fernet import Fernet as _Fernet
+    store_path = os.getenv("AGENTVAULT_STORE", "agentvault_store.json")
+    import os as _os
+    key_path = _os.path.splitext(store_path)[0] + ".key"
     if not encrypt_key:
-        from cryptography.fernet import Fernet
-        store_path = os.getenv("AGENTVAULT_STORE", "agentvault_store.json")
-        import os as _os
-        key_path = _os.path.splitext(store_path)[0] + ".key"
         if _os.path.exists(key_path):
             with open(key_path, "rb") as f:
                 encrypt_key = f.read().decode()
         else:
-            encrypt_key = Fernet.generate_key().decode()
+            encrypt_key = _Fernet.generate_key().decode()
             with open(key_path, "wb") as f:
                 f.write(encrypt_key.encode())
+            try:
+                _os.chmod(key_path, 0o600)
+            except Exception:
+                pass
+    else:
+        try:
+            _Fernet(encrypt_key.encode())
+        except Exception:
+            logger.warning(
+                "Invalid ENCRYPT_KEY provided; falling back to sidecar or generated key"
+            )
+            if _os.path.exists(key_path):
+                with open(key_path, "rb") as f:
+                    encrypt_key = f.read().decode()
+            else:
+                encrypt_key = _Fernet.generate_key().decode()
+                with open(key_path, "wb") as f:
+                    f.write(encrypt_key.encode())
+                try:
+                    _os.chmod(key_path, 0o600)
+                except Exception:
+                    pass
 
     _context_mgr = ContextManager(max_tokens=int(os.getenv("MCP_MAX_TOKENS", 4096)))
     # Register LLM adapter (OpenAI, Ollama, or a null fallback)

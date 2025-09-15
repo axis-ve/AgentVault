@@ -5,7 +5,7 @@ import asyncio
 import os
 from typing import Dict
 
-from .core import ContextManager
+from .core import ContextManager, logger
 from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
 from .strategies import (
@@ -20,14 +20,23 @@ from .strategy_manager import StrategyManager
 from .ui import write_tipjar_page, write_dashboard_page
 
 
-def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
-    rpc_url = os.getenv("WEB3_RPC_URL") or "https://ethereum-sepolia.publicnode.com"
-    encrypt_key = os.getenv("ENCRYPT_KEY")
-    if not encrypt_key:
-        from cryptography.fernet import Fernet
+def _resolve_alchemy_http_default() -> str | None:
+    key = os.getenv("ALCHEMY_API_KEY")
+    if not key:
+        return None
+    network = os.getenv("ALCHEMY_NETWORK", "sepolia").strip()
+    # Default to Ethereum Sepolia family; user can override fully via ALCHEMY_HTTP_URL
+    return f"https://eth-{network}.g.alchemy.com/v2/{key}"
 
-        store_path = os.getenv("AGENTVAULT_STORE", "agentvault_store.json")
-        key_path = os.path.splitext(store_path)[0] + ".key"
+
+def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
+    rpc_url = os.getenv("WEB3_RPC_URL") or os.getenv("ALCHEMY_HTTP_URL") or _resolve_alchemy_http_default() or "https://ethereum-sepolia.publicnode.com"
+    encrypt_key = os.getenv("ENCRYPT_KEY")
+    from cryptography.fernet import Fernet
+    store_path = os.getenv("AGENTVAULT_STORE", "agentvault_store.json")
+    key_path = os.path.splitext(store_path)[0] + ".key"
+    if not encrypt_key:
+        # Auto-generate or reuse sidecar key
         if os.path.exists(key_path):
             with open(key_path, "rb") as f:
                 encrypt_key = f.read().decode()
@@ -35,6 +44,29 @@ def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
             encrypt_key = Fernet.generate_key().decode()
             with open(key_path, "wb") as f:
                 f.write(encrypt_key.encode())
+            try:
+                os.chmod(key_path, 0o600)
+            except Exception:
+                pass
+    else:
+        # Validate provided key; if invalid, fall back to sidecar or generate
+        try:
+            Fernet(encrypt_key.encode())
+        except Exception:
+            logger.warning(
+                "Invalid ENCRYPT_KEY provided; falling back to sidecar or generated key"
+            )
+            if os.path.exists(key_path):
+                with open(key_path, "rb") as f:
+                    encrypt_key = f.read().decode()
+            else:
+                encrypt_key = Fernet.generate_key().decode()
+                with open(key_path, "wb") as f:
+                    f.write(encrypt_key.encode())
+                try:
+                    os.chmod(key_path, 0o600)
+                except Exception:
+                    pass
     ctx = ContextManager()
     w3 = Web3Adapter(rpc_url)
     mgr = AgentWalletManager(ctx, w3, encrypt_key)

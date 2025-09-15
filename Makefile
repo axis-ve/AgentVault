@@ -10,7 +10,7 @@ dev:
 	$(PIP) install -r requirements.txt && $(PIP) install -e .[dev]
 
 test:
-	pytest -q
+	PYTEST_DISABLE_PLUGIN_AUTOLOAD=1 pytest -q
 
 serve:
 	$(PYTHON) -m agentvault_mcp.server
@@ -29,4 +29,3 @@ upload-test:
 
 upload:
 	$(PYTHON) -m twine upload dist/*
-

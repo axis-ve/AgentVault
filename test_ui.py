@@ -1,6 +1,14 @@
+import pytest
+try:
+    import segno  # type: ignore
+    _HAS_SEGNO = True
+except Exception:
+    _HAS_SEGNO = False
+
 from agentvault_mcp.ui import tipjar_page_html, eth_uri, dashboard_html
 
 
+@pytest.mark.skipif(not _HAS_SEGNO, reason="segno not installed; UI tests optional")
 def test_tipjar_page_html_contains_svg_and_uri():
     html = tipjar_page_html("0x" + "1" * 40, 0.01)
     assert "ethereum:" in html
@@ -9,6 +17,7 @@ def test_tipjar_page_html_contains_svg_and_uri():
     assert "Copy" in html
 
 
+@pytest.mark.skipif(not _HAS_SEGNO, reason="segno not installed; UI tests optional")
 def test_dashboard_html_contains_sections():
     wallets = [
         {"agent_id": "a", "address": "0x" + "1" * 40, "balance_eth": 0.0},

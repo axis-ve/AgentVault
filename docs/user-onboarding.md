@@ -117,7 +117,7 @@ Once MCP is configured, try these workflows:
 ```bash
 agentvault create-wallet trader1
 agentvault balance trader1
-agentvault tipjar trader1 tipjar.html
+agentvault tip-jar-page trader1 --amount 0.01 --out tipjar.html
 ```
 
 ## Step 5: Advanced Configuration (Optional)
@@ -134,8 +134,14 @@ nano .env
 
 Key environment variables:
 - `WEB3_RPC_URL`: Your Ethereum RPC endpoint
+- `ALCHEMY_API_KEY` or `ALCHEMY_HTTP_URL`/`ALCHEMY_WS_URL`: Preferred Alchemy config
 - `OPENAI_API_KEY`: For LLM integration
 - `ENCRYPT_KEY`: For wallet encryption (auto-generated if not set)
+  
+Optional UI extra (for QR/HTML):
+```bash
+pip install 'agentvault-mcp[ui]'
+```
 
 ## Available MCP Tools
 
@@ -185,7 +191,7 @@ result = await agent.call_tool("send_when_gas_below", {
 
 ### 3. UI Generation
 ```python
-# Create tip jar with QR code
+# Create tip jar with QR code via MCP tool
 html = await agent.call_tool("generate_tipjar_page", {
     "agent_id": "creator",
     "amount_eth": 0.005

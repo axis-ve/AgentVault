@@ -11,18 +11,35 @@ class Web3Adapter:
     """Adapter for Ethereum interactions with basic retry and RPC rotation."""
 
     def __init__(self, rpc_url: str):
-        urls = [u.strip() for u in os.getenv("WEB3_RPC_URLS", "").split(",") if u.strip()]
+        # Gather URLs from explicit arg, optional Alchemy URLs, and fallbacks
+        urls_env = [u.strip() for u in os.getenv("WEB3_RPC_URLS", "").split(",") if u.strip()]
+        alchemy_http = os.getenv("ALCHEMY_HTTP_URL")
+        alchemy_ws = os.getenv("ALCHEMY_WS_URL")
+        urls: list[str] = []
         if rpc_url:
-            urls = [rpc_url] + [u for u in urls if u != rpc_url]
+            urls.append(rpc_url)
+        if alchemy_http:
+            urls.append(alchemy_http)
+        if alchemy_ws:
+            urls.append(alchemy_ws)
+        urls.extend(urls_env)
+        # Deduplicate preserving order
+        seen = set()
+        urls = [u for u in urls if not (u in seen or seen.add(u))]
         if not urls:
             raise RuntimeError("No RPC URLs provided")
         self._urls = urls
         self._idx = 0
-        self.w3 = AsyncWeb3(AsyncWeb3.AsyncHTTPProvider(self._urls[self._idx]))
+        self.w3 = AsyncWeb3(self._make_provider(self._urls[self._idx]))
+
+    def _make_provider(self, url: str):
+        if url.startswith("ws://") or url.startswith("wss://"):
+            return AsyncWeb3.AsyncWebsocketProvider(url)
+        return AsyncWeb3.AsyncHTTPProvider(url)
 
     def _rotate(self) -> None:
         self._idx = (self._idx + 1) % len(self._urls)
-        self.w3 = AsyncWeb3(AsyncWeb3.AsyncHTTPProvider(self._urls[self._idx]))
+        self.w3 = AsyncWeb3(self._make_provider(self._urls[self._idx]))
 
     async def ensure_connection(self) -> bool:
         # Try all providers until one connects

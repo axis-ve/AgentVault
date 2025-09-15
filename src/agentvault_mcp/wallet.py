@@ -63,7 +63,10 @@ class AgentWalletManager:
         while account.address in existing_addresses:
             account = Account.create()
         encrypted_privkey = self.encryptor.encrypt(bytes(account.key))
-        chain_id_value = await self.web3.w3.eth.chain_id
+        # Accept both sync and awaitable chain_id
+        import asyncio as _asyncio
+        cid = self.web3.w3.eth.chain_id
+        chain_id_value = await cid if _asyncio.iscoroutine(cid) else cid
         wallet_state = WalletState(
             address=account.address,
             encrypted_privkey=encrypted_privkey,
