@@ -1,4 +1,8 @@
-  # AgentVault MCP
+# AgentVault MCP
+
+[![PyPI](https://img.shields.io/pypi/v/agentvault-mcp.svg)](https://pypi.org/project/agentvault-mcp/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/python-%3E%3D3.10-blue.svg)](#)
 
   Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
 

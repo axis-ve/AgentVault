@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "AgentVault MCP: Secure context + wallet tools for AI agents"
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{name = "AgentVault Team"}]
+authors = [{name = "veritas axis studio", email = "studio.ve.axis@gmail.com"}]
 license = {text = "MIT"}
 keywords = ["mcp", "model context protocol", "web3", "ethereum", "wallet", "agent", "llm"]
 classifiers = [
