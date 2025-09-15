@@ -8,7 +8,21 @@ version = "0.1.0"
 description = "AgentVault MCP: Secure context + wallet tools for AI agents"
 readme = "README.md"
 requires-python = ">=3.10"
-authors = [{name = "Your Name"}]
+authors = [{name = "AgentVault Team"}]
+license = {text = "MIT"}
+keywords = ["mcp", "model context protocol", "web3", "ethereum", "wallet", "agent", "llm"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Internet",
+]
 dependencies = [
   "pydantic>=2.8,<3",
   "openai==1.20.0",
@@ -26,6 +40,10 @@ dev = [
   "pytest-asyncio==0.23.7",
   "httpx==0.25.2",
   "mcp>=0.1.0",
+]
+release = [
+  "build>=1.0.0",
+  "twine>=5.0.0",
 ]
 
 [project.scripts]

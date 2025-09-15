@@ -216,7 +216,7 @@ class AgentWalletManager:
         wallet = self.wallets[agent_id]
         if amount_eth <= 0:
             raise WalletError("Amount must be positive.")
-        if not self.web3.w3.is_address(to_address):
+        if not self.web3.is_address(to_address):
             raise WalletError("Invalid recipient address.")
         # Fee estimation
         priority_fee = await self.web3.max_priority_fee()
@@ -269,7 +269,7 @@ class AgentWalletManager:
                     payload["amount_eth"] = amount_eth
                 resp = await client.post(faucet_url, json=payload)
                 ok = resp.status_code in (200, 201, 202)
-                start_bal = float(self.web3.w3.from_wei(await self.web3.w3.eth.get_balance(addr), "ether"))
+                start_bal = float(self.web3.from_wei(await self.web3.get_balance(addr), "ether"))
                 if not ok:
                     return {"ok": False, "status": resp.status_code, "balance": start_bal}
                 # Poll for balance increase
@@ -278,7 +278,7 @@ class AgentWalletManager:
                 deadline = asyncio.get_event_loop().time() + timeout_s
                 while asyncio.get_event_loop().time() < deadline:
                     await asyncio.sleep(5)
-                    end_bal = float(self.web3.w3.from_wei(await self.web3.w3.eth.get_balance(addr), "ether"))
+                    end_bal = float(self.web3.from_wei(await self.web3.get_balance(addr), "ether"))
                     if end_bal > start_bal:
                         break
                 return {"ok": end_bal > start_bal, "start_balance": start_bal, "end_balance": end_bal}
