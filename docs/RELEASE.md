@@ -1,4 +1,4 @@
-# Release Guide (v0.1.0)
+# Release Guide (v0.1.1)
 
 ## Prerequisites
 - Python 3.10+ (3.13 supported)
@@ -35,7 +35,7 @@ pip install -i https://test.pypi.org/simple/ agentvault-mcp
 ## Tag Release
 ```bash
 ./scripts/tag_version.sh
-git push origin v0.1.0
+git push origin v0.1.1
 ```
 
 ## Post-Release

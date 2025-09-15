@@ -7,7 +7,95 @@
 [![Release](https://github.com/axis-ve/AgentVault/actions/workflows/release.yml/badge.svg)](https://github.com/axis-ve/AgentVault/actions/workflows/release.yml)
 [![GitHub Release](https://img.shields.io/github/v/release/axis-ve/AgentVault?include_prereleases&label=github)](https://github.com/axis-ve/AgentVault/releases)
 
-  Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
+Secure context and wallet tools for autonomous AI agents, built on the Model Context Protocol (MCP). Exposes stdio MCP tools for Ethereum wallet management and a context-aware LLM, with structured logging and safe context trimming.
+
+## 🚀 Quick Start for New Users
+
+### 1. Installation
+```bash
+git clone https://github.com/axis-ve/AgentVault.git
+cd AgentVault
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt && pip install -e .
+```
+
+### 2. Basic Usage (No Setup Required)
+```bash
+# Start MCP server (works with public testnet RPC)
+python -m agentvault_mcp.server
+
+# Or use CLI directly
+agentvault create-wallet agent1
+agentvault balance agent1
+agentvault send agent1 0x1234...5678 0.001
+```
+
+### 3. MCP Client Integration
+
+**Claude Desktop** (add to `~/.config/claude-desktop/claude_desktop_config.json`):
+```json
+{
+  "mcpServers": {
+    "agentvault": {
+      "command": "python",
+      "args": ["-m", "agentvault_mcp.server"],
+      "env": {
+        "WEB3_RPC_URL": "https://ethereum-sepolia.publicnode.com"
+      }
+    }
+  }
+}
+```
+
+**Cursor IDE** (MCP settings):
+```json
+{
+  "mcp": {
+    "servers": {
+      "agentvault": {
+        "command": "agentvault-mcp",
+        "env": {
+          "WEB3_RPC_URL": "https://ethereum-sepolia.publicnode.com"
+        }
+      }
+    }
+  }
+}
+```
+
+**Claude Code** (`.claude/settings.json`):
+```json
+{
+  "mcpServers": {
+    "agentvault": {
+      "command": "python",
+      "args": ["-m", "agentvault_mcp.server"]
+    }
+  }
+}
+```
+
+### 4. What You Get
+- **21 MCP Tools** for wallet operations, transfers, DCA strategies
+- **Secure Wallet Management** with encrypted private keys
+- **UI Generation** for tip jars and dashboards with QR codes
+- **Context-Aware LLM** integration with automatic trimming
+- **Production Ready** with comprehensive error handling and testing
+
+### 5. Core Workflows
+```bash
+# Create wallet and check balance
+agentvault create-wallet myagent
+agentvault balance myagent
+
+# Generate tip jar page
+agentvault tipjar myagent tipjar.html
+
+# Setup DCA strategy
+agentvault strategy dca-once myagent 0x1234...5678 0.001
+```
+
+Ready to build autonomous crypto agents! See [Integration Examples](#integration-with-ai-agents) below.
 
   ## Features
 - ContextManager with proactive trimming and token counting (tiktoken)
@@ -283,7 +371,7 @@
 - MCP Server: `agentvault-mcp` (requires `pip install "mcp>=0.1.0"`)
 - CLI Tool: `agentvault --help` (works independently of MCP)
 
-## Recent Updates (v0.1.0)
+## Recent Updates (v0.1.1)
 - ✅ **MCP SDK Compatibility**: Updated to work with FastMCP (MCP SDK v1.14.0+)
 - ✅ **UI Generation Fixed**: HTML tip jars and dashboards now generate correctly
 - ✅ **Test Suite Improved**: All core tests passing with proper async patterns
