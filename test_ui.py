@@ -27,3 +27,4 @@ def test_dashboard_html_contains_sections():
     assert "Wallets" in html and "Strategies" in html
     assert "0x" in html
     assert "Toggle Theme" in html
+    assert "Copy" in html

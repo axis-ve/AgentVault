@@ -117,19 +117,25 @@ def eth_uri(address: str, amount_eth: Optional[float] = None) -> str:
 
 def dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -> str:
     w_rows = "".join(
-        f"<div class='card'><div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>"
-        f"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div></div>"
-        f"<div class='row'><div class='label'>Balance</div><div class='mono'>{w.get('balance_eth','?')} ETH</div></div></div>"
+        f"<div class='card'>"
+        f"<div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>"
+        f"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div>"
+        f"<button class='btn small' onclick=\"_avCopy('{w.get('address')}', this)\">Copy</button></div>"
+        f"<div class='row'><div class='label'>Balance</div><div class='mono'>{w.get('balance_eth','?')} ETH</div></div>"
+        f"</div>"
         for w in wallets
     )
     s_rows = "".join(
-        f"<div class='card'><div class='row'><div class='label'>Label</div><div class='mono'>{k}</div></div>"
+        f"<div class='card'>"
+        f"<div class='row'><div class='label'>Label</div><div class='mono'>{k}</div></div>"
         f"<div class='row'><div class='label'>Agent</div><div class='mono'>{v.get('agent_id')}</div></div>"
-        f"<div class='row'><div class='label'>To</div><div class='mono'>{v.get('to_address')}</div></div>"
+        f"<div class='row'><div class='label'>To</div><div class='mono'>{v.get('to_address')}</div>"
+        f"<button class='btn small' onclick=\"_avCopy('{v.get('to_address')}', this)\">Copy</button></div>"
         f"<div class='row'><div class='label'>Amount</div><div class='mono'>{v.get('amount_eth')} ETH</div></div>"
         f"<div class='row'><div class='label'>Interval</div><div class='mono'>{v.get('interval_seconds')} s</div></div>"
         f"<div class='row'><div class='label'>Enabled</div><div class='mono'>{v.get('enabled')}</div></div>"
-        f"<div class='row'><div class='label'>Next Run</div><div class='mono'>{v.get('next_run_at')}</div></div></div>"
+        f"<div class='row'><div class='label'>Next Run</div><div class='mono'>{v.get('next_run_at')}</div></div>"
+        f"</div>"
         for k, v in strategies.items()
     )
     return f"""
