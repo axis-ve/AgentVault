@@ -16,6 +16,8 @@ from .strategies import (
     micro_tip_amounts,
 )
 from .tipjar import generate_tipjar_qr
+from .strategy_manager import StrategyManager
+from .ui import write_tipjar_page, write_dashboard_page
 
 
 def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
@@ -183,6 +185,30 @@ async def _cmd_tipjar(args):
     print({"address": addr, "qr": path})
 
 
+async def _cmd_tipjar_page(args):
+    _, mgr = _init_managers()
+    addr = await mgr.spin_up_wallet(args.agent_id)
+    out = args.out or f"tipjar-{args.agent_id}.html"
+    path = write_tipjar_page(out, addr, args.amount)
+    print({"address": addr, "page": path})
+
+
+async def _cmd_dashboard(args):
+    _, mgr = _init_managers()
+    sm = StrategyManager(mgr)
+    wallets = []
+    # Use in-memory wallets loaded from store
+    for aid, ws in mgr.wallets.items():
+        try:
+            bal = await mgr.query_balance(aid)
+        except Exception:
+            bal = "?"
+        wallets.append({"agent_id": aid, "address": ws.address, "balance_eth": bal})
+    out = args.out or "agentvault-dashboard.html"
+    path = write_dashboard_page(out, wallets, sm.list_strategies())
+    print({"page": path})
+
+
 def main() -> None:  # pragma: no cover
     p = argparse.ArgumentParser(prog="agentvault", description="AgentVault CLI")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -281,6 +307,16 @@ def main() -> None:  # pragma: no cover
     s.add_argument("--amount", type=float)
     s.add_argument("--out")
     s.set_defaults(func=_cmd_tipjar)
+
+    s = sub.add_parser("tip-jar-page")
+    s.add_argument("agent_id")
+    s.add_argument("--amount", type=float)
+    s.add_argument("--out")
+    s.set_defaults(func=_cmd_tipjar_page)
+
+    s = sub.add_parser("dashboard")
+    s.add_argument("--out")
+    s.set_defaults(func=_cmd_dashboard)
 
     args = p.parse_args()
     asyncio.run(args.func(args))

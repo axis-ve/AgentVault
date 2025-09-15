@@ -35,6 +35,16 @@ Tip Jar (QR):
 - `tip-jar <agent_id> [--amount ETH] [--out path.png]`
   - Creates a wallet if needed, generates a PNG QR code with `ethereum:...` URI.
 
+Tip Jar (HTML page):
+- `tip-jar-page <agent_id> [--amount ETH] [--out path.html]`
+  - Generates a minimal, brutalist‑style static HTML page with embedded QR.
+
+Dashboard (HTML):
+- `dashboard [--out path.html]`
+  - Builds a static HTML dashboard listing wallets (with balances) and
+    strategies with their current status. Balance fetches may take a moment on
+    slow RPCs.
+
 Examples:
 ```bash
 agentvault create-wallet alice
