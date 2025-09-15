@@ -7,21 +7,29 @@ import segno
 
 
 _STYLE = """
-:root { --bg:#fff; --fg:#111; --muted:#666; --accent:#0a0; }
+:root { --bg:#ffffff; --fg:#111111; --muted:#666666; --card:#ffffff; }
+[data-theme="dark"] { --bg:#0c0c0c; --fg:#f5f5f5; --muted:#9a9a9a; --card:#111111; }
 * { box-sizing: border-box; }
 html, body { margin:0; padding:0; background:var(--bg); color:var(--fg);
-  font: 16px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
+  font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,
+    Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }
 .wrap { max-width: 880px; margin: 0 auto; padding: 24px; }
-.card { border: 3px solid var(--fg); padding: 20px; margin: 16px 0; background:#fff; }
+.card { border: 3px solid var(--fg); padding: 20px; margin: 16px 0;
+  background:var(--card); }
 .title { font-weight: 800; font-size: 28px; letter-spacing: .2px; }
-.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+.mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+  "Liberation Mono", "Courier New", monospace; word-break: break-all; }
 .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.row { display:flex; gap:12px; align-items:center; }
+.row { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
 .label { color: var(--muted); min-width: 110px; }
-.btn { display:inline-block; border:2px solid var(--fg); padding:10px 12px; text-decoration:none; color:var(--fg); }
+.btn { display:inline-block; border:2px solid var(--fg); padding:8px 10px;
+  text-decoration:none; color:var(--fg); background:transparent; cursor:pointer; }
+.btn.small { font-size: 13px; padding:6px 8px; }
 .qr { border:2px solid var(--fg); background:#fff; padding:8px; display:inline-block; }
 .section { margin-top: 28px; }
 .small { font-size: 13px; color: var(--muted); }
+.topbar { display:flex; justify-content:space-between; align-items:center;
+  margin-bottom: 16px; }
 """
 
 
@@ -42,11 +50,47 @@ def tipjar_page_html(address: str, amount_eth: Optional[float] = None) -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tip Jar</title>
 <style>{_STYLE}</style>
+<script>
+// Theme toggle with localStorage
+(function(){
+  const key = 'av-theme';
+  const root = document.documentElement;
+  const saved = localStorage.getItem(key);
+  if(saved){ root.setAttribute('data-theme', saved); }
+  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark');
+  }
+  window._avToggleTheme = function(){
+    const cur = root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme', cur); localStorage.setItem(key, cur);
+  }
+  window._avCopy = function(txt, el){
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(()=>{ if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); } });
+    } else {
+      const ta = document.createElement('textarea'); ta.value = txt;
+      document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); } finally{ document.body.removeChild(ta); }
+      if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); }
+    }
+  }
+})();
+</script>
 <div class="wrap">
-  <div class="title">Tip Jar</div>
+  <div class="topbar">
+    <div class="title">Tip Jar</div>
+    <button class="btn small" onclick="_avToggleTheme()">Toggle Theme</button>
+  </div>
   <div class="card">
-    <div class="row"><div class="label">Address</div><div class="mono">{address}</div></div>
-    <div class="row"><div class="label">URI</div><div class="mono">{uri}</div></div>
+    <div class="row">
+      <div class="label">Address</div>
+      <div class="mono">{address}</div>
+      <button class="btn small" onclick="_avCopy('{address}', this)">Copy</button>
+    </div>
+    <div class="row">
+      <div class="label">URI</div>
+      <div class="mono">{uri}</div>
+      <button class="btn small" onclick="_avCopy('{uri}', this)">Copy</button>
+    </div>
     <div class="section">
       <div class="label">Scan to tip{amt_txt}</div>
       <div class="qr">{svg}</div>
@@ -94,15 +138,34 @@ def dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>AgentVault Dashboard</title>
 <style>{_STYLE}</style>
+<script>
+(function(){
+  const key='av-theme'; const root=document.documentElement;
+  const saved=localStorage.getItem(key);
+  if(saved){ root.setAttribute('data-theme', saved); }
+  else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark');
+  }
+  window._avToggleTheme=function(){ const cur=root.getAttribute('data-theme')==='dark'?'light':'dark'; root.setAttribute('data-theme',cur); localStorage.setItem(key,cur); };
+  window._avCopy=function(txt,el){ if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(txt).then(()=>{ if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); } }); } else { const ta=document.createElement('textarea'); ta.value=txt; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); } finally{ document.body.removeChild(ta); } if(el){ el.innerText='Copied'; setTimeout(()=>el.innerText='Copy',1200); } } };
+})();
+</script>
 <div class="wrap">
-  <div class="title">AgentVault Dashboard</div>
+  <div class="topbar">
+    <div class="title">AgentVault Dashboard</div>
+    <button class="btn small" onclick="_avToggleTheme()">Toggle Theme</button>
+  </div>
   <div class="section">
     <h3>Wallets</h3>
-    {w_rows}
+    <div>
+      {w_rows}
+    </div>
   </div>
   <div class="section">
     <h3>Strategies</h3>
-    {s_rows}
+    <div>
+      {s_rows}
+    </div>
   </div>
   <div class="small">Generated by AgentVault MCP</div>
 </div>
@@ -116,4 +179,3 @@ def write_dashboard_page(
     with open(path, "w", encoding="utf-8") as f:
         f.write(html)
     return path
-
