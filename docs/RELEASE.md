@@ -16,25 +16,25 @@ python -m agentvault_mcp.server  # ensure server starts
 
 ## Build Artifacts
 ```bash
-make build
+./scripts/build.sh
 ls dist/
 ```
 
 ## Upload to TestPyPI (recommended first)
 ```bash
-make upload-test
+./scripts/upload_testpypi.sh
 # Test install (new venv)
 pip install -i https://test.pypi.org/simple/ agentvault-mcp
 ```
 
 ## Upload to PyPI
 ```bash
-make upload
+./scripts/upload_pypi.sh
 ```
 
 ## Tag Release
 ```bash
-git tag v0.1.0
+./scripts/tag_version.sh
 git push origin v0.1.0
 ```
 
@@ -42,3 +42,6 @@ git push origin v0.1.0
 - Update README badges (downloads, version) if desired
 - Announce: include zero‑setup demo steps and tip‑jar/dashboard screenshots
 
+## GitHub Actions release
+- Pushing a tag `v*` triggers `.github/workflows/release.yml` to build and
+  publish to PyPI using the repository secret `PYPI_API_TOKEN`.
