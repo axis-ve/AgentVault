@@ -1,11 +1,14 @@
-from typing import Dict
+from typing import Dict, Any
 import os
 import json
 import tempfile
 from pathlib import Path
+import asyncio
 
 from cryptography.fernet import Fernet, InvalidToken
 from eth_account import Account
+from eth_account.hdaccount import generate_mnemonic
+from eth_account.messages import encode_defunct, encode_typed_data
 from pydantic import BaseModel
 from web3.exceptions import InvalidTransaction
 
@@ -62,26 +65,152 @@ class AgentWalletManager:
         account = Account.create()
         while account.address in existing_addresses:
             account = Account.create()
-        encrypted_privkey = self.encryptor.encrypt(bytes(account.key))
-        # Accept both sync and awaitable chain_id
-        import asyncio as _asyncio
         cid = self.web3.w3.eth.chain_id
-        chain_id_value = await cid if _asyncio.iscoroutine(cid) else cid
+        chain_id_value = await cid if asyncio.iscoroutine(cid) else cid
+        return await self._store_wallet(
+            agent_id, account, chain_id_value, event="created"
+        )
+
+    def _load_account(self, agent_id: str) -> Account:
+        if agent_id not in self.wallets:
+            raise WalletError(f"No wallet for {agent_id}.")
+        try:
+            privkey_bytes = self.encryptor.decrypt(self.wallets[agent_id].encrypted_privkey)
+            return Account.from_key(privkey_bytes)
+        except InvalidToken as exc:
+            raise WalletError("Decryption failed—check encrypt key.") from exc
+
+    async def _store_wallet(
+        self, agent_id: str, account: Account, chain_id: int, *, event: str
+    ) -> str:
+        encrypted_privkey = self.encryptor.encrypt(bytes(account.key))
         wallet_state = WalletState(
             address=account.address,
             encrypted_privkey=encrypted_privkey,
-            chain_id=chain_id_value,
+            chain_id=chain_id,
         )
         self.wallets[agent_id] = wallet_state
-        # Persist public parts only
         safe_state = wallet_state.model_dump(exclude={"encrypted_privkey", "last_nonce"})
         self.context.update_state(f"{agent_id}_wallet", safe_state)
         await self.context.append_to_history(
-            "system", f"Wallet created for {agent_id}: {account.address}"
+            "system", f"Wallet {event} for {agent_id}: {account.address}"
         )
-        self.logger.info("Wallet spun up", agent_id=agent_id, address=account.address)
+        self.logger.info("Wallet %s", event, agent_id=agent_id, address=account.address)
         self._persist()
         return account.address
+
+    async def import_wallet_from_private_key(
+        self, agent_id: str, private_key: str, *, rotate: bool = False
+    ) -> str:
+        """Import an existing wallet from a raw private key."""
+        if agent_id in self.wallets and not rotate:
+            raise WalletError(f"Wallet for {agent_id} already exists—pass rotate=True to overwrite.")
+        await self.web3.ensure_connection()
+        account = Account.from_key(private_key)
+        chain_id = self.web3.w3.eth.chain_id
+        chain_id_value = await chain_id if asyncio.iscoroutine(chain_id) else chain_id
+        return await self._store_wallet(agent_id, account, chain_id_value, event="imported_from_private_key")
+
+    async def import_wallet_from_mnemonic(
+        self,
+        agent_id: str,
+        mnemonic: str,
+        *,
+        path: str | None = None,
+        passphrase: str | None = None,
+        rotate: bool = False,
+    ) -> str:
+        """Import a wallet from a BIP-39 mnemonic phrase."""
+        if agent_id in self.wallets and not rotate:
+            raise WalletError(f"Wallet for {agent_id} already exists—pass rotate=True to overwrite.")
+        await self.web3.ensure_connection()
+        account = Account.from_mnemonic(mnemonic, account_path=path, passphrase=passphrase or "")
+        chain_id = self.web3.w3.eth.chain_id
+        chain_id_value = await chain_id if asyncio.iscoroutine(chain_id) else chain_id
+        return await self._store_wallet(agent_id, account, chain_id_value, event="imported_from_mnemonic")
+
+    async def import_wallet_from_encrypted_json(
+        self, agent_id: str, encrypted_json: str, password: str, *, rotate: bool = False
+    ) -> str:
+        """Import a wallet from an encrypted JSON keystore."""
+        if agent_id in self.wallets and not rotate:
+            raise WalletError(f"Wallet for {agent_id} already exists—pass rotate=True to overwrite.")
+        try:
+            account = Account.from_key(Account.decrypt(encrypted_json, password))
+        except Exception as exc:
+            raise WalletError(f"Failed to decrypt keystore: {exc}") from exc
+        await self.web3.ensure_connection()
+        chain_id = self.web3.w3.eth.chain_id
+        chain_id_value = await chain_id if asyncio.iscoroutine(chain_id) else chain_id
+        return await self._store_wallet(agent_id, account, chain_id_value, event="imported_from_keystore")
+
+    async def generate_mnemonic(self, *, num_words: int = 12, language: str = "english") -> str:
+        """Generate a mnemonic phrase using BIP-39 wordlists."""
+        return generate_mnemonic(num_words=num_words, lang=language)
+
+    async def encrypt_wallet_json(self, agent_id: str, password: str) -> str:
+        """Export the wallet as an encrypted JSON keystore (V3)."""
+        if agent_id not in self.wallets:
+            raise WalletError(f"No wallet for {agent_id}.")
+        privkey = self.encryptor.decrypt(self.wallets[agent_id].encrypted_privkey)
+        try:
+            keystore = Account.encrypt(privkey, password)
+        except Exception as exc:
+            raise WalletError(f"Failed to encrypt wallet: {exc}") from exc
+        return json.dumps(keystore)
+
+    async def decrypt_wallet_json(self, encrypted_json: str, password: str) -> Dict[str, Any]:
+        """Decrypt an encrypted JSON keystore and return wallet metadata."""
+        try:
+            priv_bytes = Account.decrypt(encrypted_json, password)
+            account = Account.from_key(priv_bytes)
+        except Exception as exc:
+            raise WalletError(f"Failed to decrypt keystore: {exc}") from exc
+        return {"address": account.address, "private_key": "0x" + priv_bytes.hex()}
+
+    async def sign_message(self, agent_id: str, message: str) -> Dict[str, Any]:
+        """Sign an arbitrary string message using EIP-191."""
+        account = self._load_account(agent_id)
+        signable = encode_defunct(text=message)
+        signature = account.sign_message(signable)
+        return {
+            "signature": signature.signature.hex(),
+            "message_hash": signature.message_hash.hex(),
+        }
+
+    async def verify_message(self, address: str, message: str, signature: str) -> Dict[str, Any]:
+        """Verify a signed message."""
+        signable = encode_defunct(text=message)
+        recovered = Account.recover_message(signable, signature=signature)
+        return {
+            "valid": recovered.lower() == address.lower(),
+            "recovered_address": recovered,
+        }
+
+    async def sign_typed_data(self, agent_id: str, typed_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Sign EIP-712 typed data."""
+        account = self._load_account(agent_id)
+        if isinstance(typed_data, str):
+            typed_data = json.loads(typed_data)
+        signable = encode_typed_data(full_message=typed_data)
+        signature = account.sign_message(signable)
+        return {
+            "signature": signature.signature.hex(),
+            "message_hash": signature.message_hash.hex(),
+        }
+
+    async def verify_typed_data(
+        self, address: str, typed_data: Dict[str, Any], signature: str
+    ) -> Dict[str, Any]:
+        """Verify a signed EIP-712 typed data payload."""
+        if isinstance(typed_data, str):
+            typed_data = json.loads(typed_data)
+        signable = encode_typed_data(full_message=typed_data)
+        recovered = Account.recover_message(signable, signature=signature)
+        return {
+            "valid": recovered.lower() == address.lower(),
+            "recovered_address": recovered,
+        }
 
     async def query_balance(self, agent_id: str) -> float:
         if agent_id not in self.wallets:

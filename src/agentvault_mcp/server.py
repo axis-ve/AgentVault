@@ -1,4 +1,5 @@
 import asyncio
+import json
 import os
 from dotenv import load_dotenv
 
@@ -114,6 +115,68 @@ async def export_wallet_keystore(agent_id: str, passphrase: str) -> str:
 
 
 @server.tool()
+async def generate_mnemonic(num_words: int = 12, language: str = "english") -> str:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.generate_mnemonic(num_words=num_words, language=language)
+
+
+@server.tool()
+async def import_wallet_from_private_key(
+    agent_id: str, private_key: str, rotate: bool = False
+) -> str:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.import_wallet_from_private_key(
+        agent_id, private_key, rotate=rotate
+    )
+
+
+@server.tool()
+async def import_wallet_from_mnemonic(
+    agent_id: str,
+    mnemonic: str,
+    path: str | None = None,
+    passphrase: str | None = None,
+    rotate: bool = False,
+) -> str:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.import_wallet_from_mnemonic(
+        agent_id,
+        mnemonic,
+        path=path,
+        passphrase=passphrase,
+        rotate=rotate,
+    )
+
+
+@server.tool()
+async def import_wallet_from_encrypted_json(
+    agent_id: str, encrypted_json: str, password: str, rotate: bool = False
+) -> str:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.import_wallet_from_encrypted_json(
+        agent_id, encrypted_json, password, rotate=rotate
+    )
+
+
+@server.tool()
+async def encrypt_wallet_keystore(agent_id: str, password: str) -> str:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.encrypt_wallet_json(agent_id, password)
+
+
+@server.tool()
+async def decrypt_wallet_keystore(encrypted_json: str, password: str) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.decrypt_wallet_json(encrypted_json, password)
+
+
+@server.tool()
 async def export_wallet_private_key(agent_id: str, confirmation_code: str | None = None) -> str:
     """Export plaintext private key (hex). Strongly discouraged and gated.
 
@@ -123,6 +186,40 @@ async def export_wallet_private_key(agent_id: str, confirmation_code: str | None
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
     return await _wallet_mgr.export_wallet_private_key(agent_id, confirmation_code)
+
+
+@server.tool()
+async def sign_message(agent_id: str, message: str) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.sign_message(agent_id, message)
+
+
+@server.tool()
+async def verify_message(address: str, message: str, signature: str) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.verify_message(address, message, signature)
+
+
+@server.tool()
+async def sign_typed_data(agent_id: str, typed_data: dict | str) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    payload = typed_data
+    if isinstance(payload, str):
+        payload = json.loads(payload)
+    return await _wallet_mgr.sign_typed_data(agent_id, payload)
+
+
+@server.tool()
+async def verify_typed_data(address: str, typed_data: dict | str, signature: str) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    payload = typed_data
+    if isinstance(payload, str):
+        payload = json.loads(payload)
+    return await _wallet_mgr.verify_typed_data(address, payload, signature)
 
 
 @server.tool()
