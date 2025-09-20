@@ -23,6 +23,8 @@ Commands:
 - `faucet <agent_id> [--amount AMT]`: request faucet funds
 - `export-keystore <agent_id> <passphrase>`: V3 keystore JSON
 - `export-privkey <agent_id> --confirmation-code CODE`: plaintext (gated)
+- `provider-info`: show active RPC URL, chain id, base fee, and client version
+- `inspect-contract <address>`: inspect bytecode size, balance, ERC-20 metadata
 
 Strategies:
 - `strategy send-when-gas-below <agent> <to> <amount> <max_gwei> [--dry-run]`
@@ -54,6 +56,8 @@ agentvault simulate alice 0x1111111111111111111111111111111111111111 0.001
 agentvault send alice 0x1111111111111111111111111111111111111111 0.001 --dry-run
 agentvault strategy send-when-gas-below alice 0x111... 0.001 12.0 --dry-run
 agentvault tip-jar alice --amount 0.01 --out alice-tip.png
+agentvault provider-info
+agentvault inspect-contract 0xUniversalRouterAddress
 ```
 
 Notes:

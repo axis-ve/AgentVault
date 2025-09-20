@@ -1,0 +1,1424 @@
+[
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "Web3Adapter",
+        "importPath": "agentvault_mcp.adapters.web3_adapter",
+        "description": "agentvault_mcp.adapters.web3_adapter",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.adapters.web3_adapter",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Literal",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Tuple",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "httpx",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "httpx",
+        "description": "httpx",
+        "detail": "httpx",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncOpenAI",
+        "importPath": "openai",
+        "description": "openai",
+        "isExtraImport": true,
+        "detail": "openai",
+        "documentation": {}
+    },
+    {
+        "label": "random",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "random",
+        "description": "random",
+        "detail": "random",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncWeb3",
+        "importPath": "web3",
+        "description": "web3",
+        "isExtraImport": true,
+        "detail": "web3",
+        "documentation": {}
+    },
+    {
+        "label": "Web3",
+        "importPath": "web3",
+        "description": "web3",
+        "isExtraImport": true,
+        "detail": "web3",
+        "documentation": {}
+    },
+    {
+        "label": "Web3",
+        "importPath": "web3",
+        "description": "web3",
+        "isExtraImport": true,
+        "detail": "web3",
+        "documentation": {}
+    },
+    {
+        "label": "Web3Exception",
+        "importPath": "web3.exceptions",
+        "description": "web3.exceptions",
+        "isExtraImport": true,
+        "detail": "web3.exceptions",
+        "documentation": {}
+    },
+    {
+        "label": "InvalidTransaction",
+        "importPath": "web3.exceptions",
+        "description": "web3.exceptions",
+        "isExtraImport": true,
+        "detail": "web3.exceptions",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "argparse",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "argparse",
+        "description": "argparse",
+        "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "structlog",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "structlog",
+        "description": "structlog",
+        "detail": "structlog",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "field_validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "time",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "time",
+        "description": "time",
+        "detail": "time",
+        "documentation": {}
+    },
+    {
+        "label": "Account",
+        "importPath": "eth_account",
+        "description": "eth_account",
+        "isExtraImport": true,
+        "detail": "eth_account",
+        "documentation": {}
+    },
+    {
+        "label": "Account",
+        "importPath": "eth_account",
+        "description": "eth_account",
+        "isExtraImport": true,
+        "detail": "eth_account",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_deployment",
+        "importPath": "eth_defi.uniswap_v3.deployment",
+        "description": "eth_defi.uniswap_v3.deployment",
+        "isExtraImport": true,
+        "detail": "eth_defi.uniswap_v3.deployment",
+        "documentation": {}
+    },
+    {
+        "label": "swap_with_slippage_protection",
+        "importPath": "eth_defi.uniswap_v3.swap",
+        "description": "eth_defi.uniswap_v3.swap",
+        "isExtraImport": true,
+        "detail": "eth_defi.uniswap_v3.swap",
+        "documentation": {}
+    },
+    {
+        "label": "get_onchain_price",
+        "importPath": "eth_defi.uniswap_v3.price",
+        "description": "eth_defi.uniswap_v3.price",
+        "isExtraImport": true,
+        "detail": "eth_defi.uniswap_v3.price",
+        "documentation": {}
+    },
+    {
+        "label": "supply",
+        "importPath": "eth_defi.aave_v3.loan",
+        "description": "eth_defi.aave_v3.loan",
+        "isExtraImport": true,
+        "detail": "eth_defi.aave_v3.loan",
+        "documentation": {}
+    },
+    {
+        "label": "aave_v3_get_deposit_balance",
+        "importPath": "eth_defi.aave_v3.balances",
+        "description": "eth_defi.aave_v3.balances",
+        "isExtraImport": true,
+        "detail": "eth_defi.aave_v3.balances",
+        "documentation": {}
+    },
+    {
+        "label": "encode",
+        "importPath": "eth_abi",
+        "description": "eth_abi",
+        "isExtraImport": true,
+        "detail": "eth_abi",
+        "documentation": {}
+    },
+    {
+        "label": "to_checksum_address",
+        "importPath": "eth_utils",
+        "description": "eth_utils",
+        "isExtraImport": true,
+        "detail": "eth_utils",
+        "documentation": {}
+    },
+    {
+        "label": "re",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "re",
+        "description": "re",
+        "detail": "re",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "asdict",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
+        "isExtraImport": true,
+        "detail": "dataclasses",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "segno",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "segno",
+        "description": "segno",
+        "detail": "segno",
+        "documentation": {}
+    },
+    {
+        "label": "io",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "io",
+        "description": "io",
+        "detail": "io",
+        "documentation": {}
+    },
+    {
+        "label": "tempfile",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "tempfile",
+        "description": "tempfile",
+        "detail": "tempfile",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "InvalidToken",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "generate_mnemonic",
+        "importPath": "eth_account.hdaccount",
+        "description": "eth_account.hdaccount",
+        "isExtraImport": true,
+        "detail": "eth_account.hdaccount",
+        "documentation": {}
+    },
+    {
+        "label": "encode_defunct",
+        "importPath": "eth_account.messages",
+        "description": "eth_account.messages",
+        "isExtraImport": true,
+        "detail": "eth_account.messages",
+        "documentation": {}
+    },
+    {
+        "label": "encode_typed_data",
+        "importPath": "eth_account.messages",
+        "description": "eth_account.messages",
+        "isExtraImport": true,
+        "detail": "eth_account.messages",
+        "documentation": {}
+    },
+    {
+        "label": "pytest",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "pytest",
+        "description": "pytest",
+        "detail": "pytest",
+        "documentation": {}
+    },
+    {
+        "label": "check_text",
+        "importPath": "agentvault_mcp.guardrail",
+        "description": "agentvault_mcp.guardrail",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "send_when_gas_below",
+        "importPath": "agentvault_mcp.strategies",
+        "description": "agentvault_mcp.strategies",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.strategies",
+        "documentation": {}
+    },
+    {
+        "label": "dca_once",
+        "importPath": "agentvault_mcp.strategies",
+        "description": "agentvault_mcp.strategies",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.strategies",
+        "documentation": {}
+    },
+    {
+        "label": "scheduled_send_once",
+        "importPath": "agentvault_mcp.strategies",
+        "description": "agentvault_mcp.strategies",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.strategies",
+        "documentation": {}
+    },
+    {
+        "label": "micro_tip_equal",
+        "importPath": "agentvault_mcp.strategies",
+        "description": "agentvault_mcp.strategies",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.strategies",
+        "documentation": {}
+    },
+    {
+        "label": "micro_tip_amounts",
+        "importPath": "agentvault_mcp.strategies",
+        "description": "agentvault_mcp.strategies",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.strategies",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyManager",
+        "importPath": "agentvault_mcp.strategy_manager",
+        "description": "agentvault_mcp.strategy_manager",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "tipjar_page_html",
+        "importPath": "agentvault_mcp.ui",
+        "description": "agentvault_mcp.ui",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "eth_uri",
+        "importPath": "agentvault_mcp.ui",
+        "description": "agentvault_mcp.ui",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_html",
+        "importPath": "agentvault_mcp.ui",
+        "description": "agentvault_mcp.ui",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "OllamaAdapter",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.adapters.ollama_adapter",
+        "description": "src.agentvault_mcp.adapters.ollama_adapter",
+        "peekOfCode": "class OllamaAdapter:\n    \"\"\"Minimal async adapter for a local Ollama server.\n    Uses the /api/chat endpoint. Configure with OLLAMA_HOST and OLLAMA_MODEL.\n    \"\"\"\n    def __init__(self, host: Optional[str] = None, model: Optional[str] = None):\n        self.host = (host or os.getenv(\"OLLAMA_HOST\") or \"http://127.0.0.1:11434\").rstrip(\"/\")\n        self.model = model or os.getenv(\"OLLAMA_MODEL\", \"llama3.1:8b\")\n    async def call(self, context: ContextSchema) -> str:\n        msgs = []\n        if context.system_prompt:",
+        "detail": "src.agentvault_mcp.adapters.ollama_adapter",
+        "documentation": {}
+    },
+    {
+        "label": "OpenAIAdapter",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.adapters.openai_adapter",
+        "description": "src.agentvault_mcp.adapters.openai_adapter",
+        "peekOfCode": "class OpenAIAdapter:\n    \"\"\"Adapter for OpenAI LLM calls (async).\"\"\"\n    def __init__(self, api_key: str, model: Optional[str] = None):\n        self.client = AsyncOpenAI(api_key=api_key)\n        self.model = model or os.getenv(\"OPENAI_MODEL\", \"gpt-4o-mini\")\n    async def call(self, context: ContextSchema) -> str:\n        messages = [{\"role\": \"system\", \"content\": context.system_prompt}] + context.history\n        response = await self.client.chat.completions.create(\n            model=self.model,\n            messages=messages,",
+        "detail": "src.agentvault_mcp.adapters.openai_adapter",
+        "documentation": {}
+    },
+    {
+        "label": "Web3Adapter",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.adapters.web3_adapter",
+        "description": "src.agentvault_mcp.adapters.web3_adapter",
+        "peekOfCode": "class Web3Adapter:\n    \"\"\"Adapter for Ethereum interactions with basic retry and RPC rotation.\"\"\"\n    def __init__(self, rpc_url: str):\n        # Gather URLs from explicit arg, optional Alchemy URLs, and fallbacks\n        urls_env = [u.strip() for u in os.getenv(\"WEB3_RPC_URLS\", \"\").split(\",\") if u.strip()]\n        alchemy_http = os.getenv(\"ALCHEMY_HTTP_URL\")\n        alchemy_ws = os.getenv(\"ALCHEMY_WS_URL\")\n        urls: list[str] = []\n        if rpc_url:\n            urls.append(rpc_url)",
+        "detail": "src.agentvault_mcp.adapters.web3_adapter",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.cli",
+        "description": "src.agentvault_mcp.cli",
+        "peekOfCode": "def main() -> None:  # pragma: no cover\n    p = argparse.ArgumentParser(prog=\"agentvault\", description=\"AgentVault CLI\")\n    sub = p.add_subparsers(dest=\"cmd\", required=True)\n    s = sub.add_parser(\"create-wallet\")\n    s.add_argument(\"agent_id\")\n    s.set_defaults(func=_cmd_create_wallet)\n    s = sub.add_parser(\"list-wallets\")\n    s.set_defaults(func=_cmd_list_wallets)\n    s = sub.add_parser(\"balance\")\n    s.add_argument(\"agent_id\")",
+        "detail": "src.agentvault_mcp.cli",
+        "documentation": {}
+    },
+    {
+        "label": "ContextSchema",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.core",
+        "description": "src.agentvault_mcp.core",
+        "peekOfCode": "class ContextSchema(BaseModel):\n    \"\"\"MCP Protocol Schema: Validates and structures context.\"\"\"\n    history: List[Dict[str, str]] = Field(\n        default_factory=list, description=\"Conversation history.\"\n    )\n    system_prompt: str = Field(\n        default=\"\", description=\"System-level instructions.\"\n    )\n    state: Dict[str, Any] = Field(\n        default_factory=dict, description=\"Persistent state (e.g., wallet info).\"",
+        "detail": "src.agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.core",
+        "description": "src.agentvault_mcp.core",
+        "peekOfCode": "class ContextManager:\n    \"\"\"Core MCP: Manages context with trimming and state injection.\"\"\"\n    def __init__(\n        self,\n        max_tokens: int = 4096,\n        trim_strategy: str = \"recency\",\n        encoding_name: str = \"o200k_base\",  # Recommended for GPT-4o\n        logger: structlog.stdlib.BoundLogger = logger,\n    ):\n        self.schema = ContextSchema(max_tokens=max_tokens, trim_strategy=trim_strategy)",
+        "detail": "src.agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "_log_level",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.core",
+        "description": "src.agentvault_mcp.core",
+        "peekOfCode": "_log_level = os.getenv(\"LOG_LEVEL\", \"INFO\").upper()\nlogging.basicConfig(level=getattr(logging, _log_level, logging.INFO))\n# Structured logging setup\nstructlog.configure(\n    processors=[\n        structlog.stdlib.filter_by_level,\n        structlog.stdlib.add_logger_name,\n        structlog.stdlib.add_log_level,\n        structlog.stdlib.PositionalArgumentsFormatter(),\n        structlog.processors.TimeStamper(fmt=\"iso\"),",
+        "detail": "src.agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "logger",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.core",
+        "description": "src.agentvault_mcp.core",
+        "peekOfCode": "logger = structlog.get_logger(\"agentvault_mcp\")\nclass ContextSchema(BaseModel):\n    \"\"\"MCP Protocol Schema: Validates and structures context.\"\"\"\n    history: List[Dict[str, str]] = Field(\n        default_factory=list, description=\"Conversation history.\"\n    )\n    system_prompt: str = Field(\n        default=\"\", description=\"System-level instructions.\"\n    )\n    state: Dict[str, Any] = Field(",
+        "detail": "src.agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "DeFiManager",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "class DeFiManager:\n    \"\"\"Manages DeFi operations for AgentVault.\"\"\"\n    def __init__(self, web3: Web3, chain_id: int = 1):\n        try:\n            self.chain_config: ChainConfig = load_chain_config(chain_id)\n        except ConfigError as exc:\n            raise ValueError(str(exc)) from exc\n        self.web3 = web3\n        self.chain_id = chain_id\n    async def _run(self, func, *args, **kwargs):",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "NATIVE_ETH",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "NATIVE_ETH = \"0x0000000000000000000000000000000000000000\"\nERC20_METADATA_ABI = [\n    {\n        \"constant\": True,\n        \"inputs\": [],\n        \"name\": \"symbol\",\n        \"outputs\": [{\"name\": \"\", \"type\": \"string\"}],\n        \"type\": \"function\",\n    },\n    {",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "ERC20_METADATA_ABI",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "ERC20_METADATA_ABI = [\n    {\n        \"constant\": True,\n        \"inputs\": [],\n        \"name\": \"symbol\",\n        \"outputs\": [{\"name\": \"\", \"type\": \"string\"}],\n        \"type\": \"function\",\n    },\n    {\n        \"constant\": True,",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "V3_POOL_ABI",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "V3_POOL_ABI = json.loads(\n    \"\"\"\n    [\n      {\n        \"inputs\": [],\n        \"name\": \"slot0\",\n        \"outputs\": [\n          {\"internalType\": \"uint160\", \"name\": \"sqrtPriceX96\", \"type\": \"uint160\"},\n          {\"internalType\": \"int24\", \"name\": \"tick\", \"type\": \"int24\"},\n          {\"internalType\": \"uint16\", \"name\": \"observationIndex\", \"type\": \"uint16\"},",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "ERC20_ALLOWANCE_ABI",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "ERC20_ALLOWANCE_ABI = json.loads(\n    \"\"\"\n    [\n      {\"inputs\": [{\"internalType\": \"address\", \"name\": \"owner\", \"type\": \"address\"}, {\"internalType\": \"address\", \"name\": \"spender\", \"type\": \"address\"}], \"name\": \"allowance\", \"outputs\": [{\"internalType\": \"uint256\", \"name\": \"\", \"type\": \"uint256\"}], \"stateMutability\": \"view\", \"type\": \"function\"},\n      {\"inputs\": [{\"internalType\": \"address\", \"name\": \"spender\", \"type\": \"address\"}, {\"internalType\": \"uint256\", \"name\": \"value\", \"type\": \"uint256\"}], \"name\": \"approve\", \"outputs\": [{\"internalType\": \"bool\", \"name\": \"\", \"type\": \"bool\"}], \"stateMutability\": \"nonpayable\", \"type\": \"function\"}\n    ]\n    \"\"\"\n)\nUNIVERSAL_ROUTER_ABI = json.loads(\n    \"\"\"",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "UNIVERSAL_ROUTER_ABI",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "UNIVERSAL_ROUTER_ABI = json.loads(\n    \"\"\"\n    [\n      {\n        \"inputs\": [\n          {\"internalType\": \"bytes\", \"name\": \"commands\", \"type\": \"bytes\"},\n          {\"internalType\": \"bytes[]\", \"name\": \"inputs\", \"type\": \"bytes[]\"},\n          {\"internalType\": \"uint256\", \"name\": \"deadline\", \"type\": \"uint256\"}\n        ],\n        \"name\": \"execute\",",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "PERMIT2_ABI",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "PERMIT2_ABI = json.loads(\n    \"\"\"\n    [\n      {\n        \"inputs\": [\n          {\"internalType\": \"address\", \"name\": \"owner\", \"type\": \"address\"},\n          {\"internalType\": \"address\", \"name\": \"token\", \"type\": \"address\"},\n          {\"internalType\": \"address\", \"name\": \"spender\", \"type\": \"address\"}\n        ],\n        \"name\": \"allowance\",",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "PERMIT2_MAX_AMOUNT",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "PERMIT2_MAX_AMOUNT = (1 << 160) - 1\nPERMIT2_MAX_EXPIRATION = (1 << 48) - 1\nclass DeFiManager:\n    \"\"\"Manages DeFi operations for AgentVault.\"\"\"\n    def __init__(self, web3: Web3, chain_id: int = 1):\n        try:\n            self.chain_config: ChainConfig = load_chain_config(chain_id)\n        except ConfigError as exc:\n            raise ValueError(str(exc)) from exc\n        self.web3 = web3",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "PERMIT2_MAX_EXPIRATION",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.defi",
+        "description": "src.agentvault_mcp.defi",
+        "peekOfCode": "PERMIT2_MAX_EXPIRATION = (1 << 48) - 1\nclass DeFiManager:\n    \"\"\"Manages DeFi operations for AgentVault.\"\"\"\n    def __init__(self, web3: Web3, chain_id: int = 1):\n        try:\n            self.chain_config: ChainConfig = load_chain_config(chain_id)\n        except ConfigError as exc:\n            raise ValueError(str(exc)) from exc\n        self.web3 = web3\n        self.chain_id = chain_id",
+        "detail": "src.agentvault_mcp.defi",
+        "documentation": {}
+    },
+    {
+        "label": "check_text",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.guardrail",
+        "description": "src.agentvault_mcp.guardrail",
+        "peekOfCode": "def check_text(text: str) -> List[str]:\n    \"\"\"Return a list of issues found in text.\n    Issues include banned phrases and missing patch envelope.\n    \"\"\"\n    issues: List[str] = []\n    banned = _load_banned()\n    for pat in banned:\n        if re.search(pat, text, re.IGNORECASE):\n            issues.append(f\"banned phrase matched: {pat}\")\n    has_begin = \"*** Begin Patch\" in text",
+        "detail": "src.agentvault_mcp.guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.guardrail",
+        "description": "src.agentvault_mcp.guardrail",
+        "peekOfCode": "def main(argv: List[str] | None = None) -> int:\n    argv = argv if argv is not None else sys.argv[1:]\n    text = _read_all(argv)\n    issues = check_text(text)\n    if issues:\n        for i in issues:\n            print(i, file=sys.stderr)\n        return 1\n    print(\"guardrail: ok\")\n    return 0",
+        "detail": "src.agentvault_mcp.guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_BANNED",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.guardrail",
+        "description": "src.agentvault_mcp.guardrail",
+        "peekOfCode": "DEFAULT_BANNED = [\n    r\"\\bTODO\\b\",\n    r\"\\bplaceholder\\b\",\n    r\"\\bskeleton\\b\",\n    r\"pseudo-?code\",\n    r\"\\.\\.\\.\",  # ellipses\n]\ndef _load_banned() -> List[str]:\n    raw = os.getenv(\"AGENTVAULT_BANNED\")\n    if not raw:",
+        "detail": "src.agentvault_mcp.guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "ChainConfig",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.network_config",
+        "description": "src.agentvault_mcp.network_config",
+        "peekOfCode": "class ChainConfig:\n    chain_id: int\n    name: str\n    tokens: Dict[str, str]\n    swap_mode: str  # e.g. \"legacy_v3\" or \"universal_router\"\n    uniswap: Dict[str, Any]\n    aave: Dict[str, Any]\nclass ConfigError(RuntimeError):\n    pass\ndef load_chain_config(chain_id: int) -> ChainConfig:",
+        "detail": "src.agentvault_mcp.network_config",
+        "documentation": {}
+    },
+    {
+        "label": "ConfigError",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.network_config",
+        "description": "src.agentvault_mcp.network_config",
+        "peekOfCode": "class ConfigError(RuntimeError):\n    pass\ndef load_chain_config(chain_id: int) -> ChainConfig:\n    if chain_id == 11155111:\n        return _load_sepolia()\n    if chain_id == 1:\n        return ChainConfig(\n            chain_id=1,\n            name=\"ethereum\",\n            tokens={",
+        "detail": "src.agentvault_mcp.network_config",
+        "documentation": {}
+    },
+    {
+        "label": "load_chain_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.network_config",
+        "description": "src.agentvault_mcp.network_config",
+        "peekOfCode": "def load_chain_config(chain_id: int) -> ChainConfig:\n    if chain_id == 11155111:\n        return _load_sepolia()\n    if chain_id == 1:\n        return ChainConfig(\n            chain_id=1,\n            name=\"ethereum\",\n            tokens={\n                \"ETH\": \"0x0000000000000000000000000000000000000000\",\n                \"WETH\": \"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2\",",
+        "detail": "src.agentvault_mcp.network_config",
+        "documentation": {}
+    },
+    {
+        "label": "cli",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.server",
+        "description": "src.agentvault_mcp.server",
+        "peekOfCode": "def cli() -> None:\n    asyncio.run(main())\n# Register prompts and resources using FastMCP API\n@server.prompt()\nasync def wallet_status(agent_id: str) -> list:\n    \"\"\"Summarize wallet status for an agent.\"\"\"\n    if _wallet_mgr is None:\n        content = \"Server not initialized\"\n    else:\n        try:",
+        "detail": "src.agentvault_mcp.server",
+        "documentation": {}
+    },
+    {
+        "label": "server",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.server",
+        "description": "src.agentvault_mcp.server",
+        "peekOfCode": "server = FastMCP(\"agentvault-mcp\")\n_context_mgr: ContextManager | None = None\n_wallet_mgr: AgentWalletManager | None = None\n_strategy_mgr: StrategyManager | None = None\n# Tool functions will be registered in main() after initialization\n@server.tool()\nasync def spin_up_wallet(agent_id: str) -> str:\n    if _wallet_mgr is None:\n        raise RuntimeError(\"Server not initialized\")\n    return await _wallet_mgr.spin_up_wallet(agent_id)",
+        "detail": "src.agentvault_mcp.server",
+        "documentation": {}
+    },
+    {
+        "label": "DcaStrategy",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.strategy_manager",
+        "description": "src.agentvault_mcp.strategy_manager",
+        "peekOfCode": "class DcaStrategy:\n    label: str\n    agent_id: str\n    to_address: str\n    amount_eth: float\n    interval_seconds: int\n    enabled: bool = False\n    max_base_fee_gwei: Optional[float] = None\n    daily_cap_eth: Optional[float] = None\n    next_run_at: Optional[str] = None  # ISO8601",
+        "detail": "src.agentvault_mcp.strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyManager",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.strategy_manager",
+        "description": "src.agentvault_mcp.strategy_manager",
+        "peekOfCode": "class StrategyManager:\n    def __init__(self, wallet: AgentWalletManager, store_path: Optional[str] = None):\n        self.wallet = wallet\n        path = store_path or os.getenv(\n            \"AGENTVAULT_STRATEGY_STORE\", \"agentvault_strategies.json\"\n        )\n        self.path = Path(path).resolve()\n        self._locks: Dict[str, asyncio.Lock] = {}\n        self._strategies: Dict[str, DcaStrategy] = {}\n        self._load()",
+        "detail": "src.agentvault_mcp.strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "eth_payment_uri",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.tipjar",
+        "description": "src.agentvault_mcp.tipjar",
+        "peekOfCode": "def eth_payment_uri(address: str, amount_eth: Optional[float] = None) -> str:\n    \"\"\"Build an EIP-681-ish payment URI.\n    Uses decimal wei for value if amount provided.\n    \"\"\"\n    addr = address\n    if amount_eth is None:\n        return f\"ethereum:{addr}\"\n    wei = int(amount_eth * 10**18)\n    return f\"ethereum:{addr}?value={wei}\"\ndef generate_tipjar_qr(",
+        "detail": "src.agentvault_mcp.tipjar",
+        "documentation": {}
+    },
+    {
+        "label": "generate_tipjar_qr",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.tipjar",
+        "description": "src.agentvault_mcp.tipjar",
+        "peekOfCode": "def generate_tipjar_qr(\n    address: str, out_path: str, amount_eth: Optional[float] = None\n) -> str:\n    \"\"\"Generate a QR PNG for an ETH payment URI and save to out_path.\n    Returns the output path.\n    \"\"\"\n    uri = eth_payment_uri(address, amount_eth)\n    qr = segno.make(uri, micro=False)\n    qr.save(out_path, scale=5, border=2)\n    return out_path",
+        "detail": "src.agentvault_mcp.tipjar",
+        "documentation": {}
+    },
+    {
+        "label": "tipjar_page_html",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.ui",
+        "description": "src.agentvault_mcp.ui",
+        "peekOfCode": "def tipjar_page_html(address: str, amount_eth: Optional[float] = None) -> str:\n    uri = eth_uri(address, amount_eth)\n    svg = _svg_qr_for_uri(uri)\n    amt_txt = f\" for {amount_eth} ETH\" if amount_eth is not None else \"\"\n    return f\"\"\"\n<!doctype html>\n<meta charset=\"utf-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n<title>Tip Jar</title>\n<style>{_STYLE}</style>",
+        "detail": "src.agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "write_tipjar_page",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.ui",
+        "description": "src.agentvault_mcp.ui",
+        "peekOfCode": "def write_tipjar_page(path: str, address: str, amount_eth: Optional[float] = None) -> str:\n    html = tipjar_page_html(address, amount_eth)\n    with open(path, \"w\", encoding=\"utf-8\") as f:\n        f.write(html)\n    return path\ndef eth_uri(address: str, amount_eth: Optional[float] = None) -> str:\n    if amount_eth is None:\n        return f\"ethereum:{address}\"\n    wei = int(amount_eth * 10**18)\n    return f\"ethereum:{address}?value={wei}\"",
+        "detail": "src.agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "eth_uri",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.ui",
+        "description": "src.agentvault_mcp.ui",
+        "peekOfCode": "def eth_uri(address: str, amount_eth: Optional[float] = None) -> str:\n    if amount_eth is None:\n        return f\"ethereum:{address}\"\n    wei = int(amount_eth * 10**18)\n    return f\"ethereum:{address}?value={wei}\"\ndef dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -> str:\n    w_rows = \"\".join(\n        f\"<div class='card'>\"\n        f\"<div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>\"\n        f\"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div>\"",
+        "detail": "src.agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "dashboard_html",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.ui",
+        "description": "src.agentvault_mcp.ui",
+        "peekOfCode": "def dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -> str:\n    w_rows = \"\".join(\n        f\"<div class='card'>\"\n        f\"<div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>\"\n        f\"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div>\"\n        f\"<button class='btn small' onclick=\\\"_avCopy('{w.get('address')}', this)\\\">Copy</button></div>\"\n        f\"<div class='row'><div class='label'>Balance</div><div class='mono'>{w.get('balance_eth','?')} ETH</div></div>\"\n        f\"</div>\"\n        for w in wallets\n    )",
+        "detail": "src.agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "write_dashboard_page",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.ui",
+        "description": "src.agentvault_mcp.ui",
+        "peekOfCode": "def write_dashboard_page(\n    path: str, wallets: List[Dict[str, str]], strategies: Dict[str, Dict]\n) -> str:\n    html = dashboard_html(wallets, strategies)\n    with open(path, \"w\", encoding=\"utf-8\") as f:\n        f.write(html)\n    return path",
+        "detail": "src.agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "_STYLE",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.ui",
+        "description": "src.agentvault_mcp.ui",
+        "peekOfCode": "_STYLE = \"\"\"\n:root { --bg:#ffffff; --fg:#111111; --muted:#666666; --card:#ffffff; }\n[data-theme=\"dark\"] { --bg:#0c0c0c; --fg:#f5f5f5; --muted:#9a9a9a; --card:#111111; }\n* { box-sizing: border-box; }\nhtml, body { margin:0; padding:0; background:var(--bg); color:var(--fg);\n  font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu,\n    Cantarell, Noto Sans, Helvetica, Arial, sans-serif; }\n.wrap { max-width: 880px; margin: 0 auto; padding: 24px; }\n.card { border: 3px solid var(--fg); padding: 20px; margin: 16px 0;\n  background:var(--card); }",
+        "detail": "src.agentvault_mcp.ui",
+        "documentation": {}
+    },
+    {
+        "label": "WalletState",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.wallet",
+        "description": "src.agentvault_mcp.wallet",
+        "peekOfCode": "class WalletState(BaseModel):\n    address: str\n    encrypted_privkey: bytes\n    chain_id: int\n    last_nonce: int | None = None\nclass AgentWalletManager:\n    \"\"\"Wallet-specific MCP layer: Secure, async wallet ops with context integration.\"\"\"\n    def __init__(\n        self,\n        context_manager: ContextManager,",
+        "detail": "src.agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.wallet",
+        "description": "src.agentvault_mcp.wallet",
+        "peekOfCode": "class AgentWalletManager:\n    \"\"\"Wallet-specific MCP layer: Secure, async wallet ops with context integration.\"\"\"\n    def __init__(\n        self,\n        context_manager: ContextManager,\n        web3_adapter: Web3Adapter,\n        encrypt_key: str,\n        persist_path: str | None = None,\n        logger=logger,\n    ):",
+        "detail": "src.agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "_ERC20_METADATA_ABI",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.wallet",
+        "description": "src.agentvault_mcp.wallet",
+        "peekOfCode": "_ERC20_METADATA_ABI = [\n    {\n        \"constant\": True,\n        \"inputs\": [],\n        \"name\": \"symbol\",\n        \"outputs\": [{\"name\": \"\", \"type\": \"string\"}],\n        \"type\": \"function\",\n    },\n    {\n        \"constant\": True,",
+        "detail": "src.agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3AdapterStub",
+        "kind": 6,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "class _Web3AdapterStub:\n    class _W3:\n        class eth:\n            chain_id = 11155111\n            @staticmethod\n            async def get_block(identifier):\n                return {\n                    \"baseFeePerGas\": 0,\n                    \"number\": 100,\n                    \"timestamp\": 1700000000,",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_import_private_key_and_sign",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_import_private_key_and_sign(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        priv = \"0xfb4222fce02fa5e3d33ec08294b5fbeee428028532133116ff1d84fe8be9719f\"\n        address = await mgr.import_wallet_from_private_key(\"imported\", priv)\n        assert address == \"0xC4504EE5091e093499a0586Ca7525A0F20520747\"\n        sign = await mgr.sign_message(\"imported\", \"hello\")\n        verify = await mgr.verify_message(address, \"hello\", sign[\"signature\"])\n        assert verify[\"valid\"]\n    asyncio.run(runner())",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_encrypt_and_decrypt_keystore",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_encrypt_and_decrypt_keystore(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        priv = \"0xfb4222fce02fa5e3d33ec08294b5fbeee428028532133116ff1d84fe8be9719f\"\n        await mgr.import_wallet_from_private_key(\"imported\", priv)\n        encrypted = await mgr.encrypt_wallet_json(\"imported\", \"pass123\")\n        data = await mgr.decrypt_wallet_json(encrypted, \"pass123\")\n        assert data[\"address\"].lower() == \"0xc4504ee5091e093499a0586ca7525a0f20520747\".lower()\n        assert data[\"private_key\"].lower() == priv.lower()\n    asyncio.run(runner())",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_sign_typed_data",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_sign_typed_data(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        priv = \"0xfb4222fce02fa5e3d33ec08294b5fbeee428028532133116ff1d84fe8be9719f\"\n        address = await mgr.import_wallet_from_private_key(\"imported\", priv)\n        typed_data = {\n            \"types\": {\n                \"EIP712Domain\": [\n                    {\"name\": \"name\", \"type\": \"string\"},\n                    {\"name\": \"version\", \"type\": \"string\"},",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_generate_mnemonic",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_generate_mnemonic(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        phrase = await mgr.generate_mnemonic()\n        assert isinstance(phrase, str)\n        assert len(phrase.split()) == 12\n    asyncio.run(runner())\ndef test_provider_status(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_provider_status",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_provider_status(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        info = await mgr.provider_status()\n        assert info[\"chain_id\"] == 11155111\n        assert info[\"latest_block_number\"] == 321\n        assert info[\"rpc_url\"] == \"http://stub\"\n    asyncio.run(runner())\ndef test_inspect_contract(tmp_path):\n    async def runner():",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_inspect_contract",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_inspect_contract(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        data = await mgr.inspect_contract(CONTRACT_ADDR)\n        assert data[\"is_contract\"] is True\n        assert data[\"bytecode_length\"] > 0\n        assert data[\"erc20_metadata\"][\"symbol\"] == \"TOK\"\n    asyncio.run(runner())\ndef test_inspect_contract_for_eoa(tmp_path):\n    async def runner():",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_inspect_contract_for_eoa",
+        "kind": 2,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "def test_inspect_contract_for_eoa(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        data = await mgr.inspect_contract(\"0x1111111111111111111111111111111111111111\")\n        assert data[\"is_contract\"] is False\n        assert data[\"bytecode_length\"] == 0\n    asyncio.run(runner())",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "CONTRACT_ADDR",
+        "kind": 5,
+        "importPath": "tests.test_wallet_extended",
+        "description": "tests.test_wallet_extended",
+        "peekOfCode": "CONTRACT_ADDR = \"0x2222222222222222222222222222222222222222\"\nclass _Web3AdapterStub:\n    class _W3:\n        class eth:\n            chain_id = 11155111\n            @staticmethod\n            async def get_block(identifier):\n                return {\n                    \"baseFeePerGas\": 0,\n                    \"number\": 100,",
+        "detail": "tests.test_wallet_extended",
+        "documentation": {}
+    },
+    {
+        "label": "test_guardrail_ok_with_patch",
+        "kind": 2,
+        "importPath": "test_guardrail",
+        "description": "test_guardrail",
+        "peekOfCode": "def test_guardrail_ok_with_patch():\n    txt = (\n        \"*** Begin Patch\\n*** Update File: a.py\\n@@\\n- a\\n+ b\\n*** End Patch\\n\"\n    )\n    assert check_text(txt) == []\ndef test_guardrail_flags_banned_and_missing_patch():\n    txt = \"This is a TODO with ... and no patch\"\n    issues = check_text(txt)\n    assert any(\"banned\" in i for i in issues)\n    assert any(\"no unified diff\" in i for i in issues)",
+        "detail": "test_guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "test_guardrail_flags_banned_and_missing_patch",
+        "kind": 2,
+        "importPath": "test_guardrail",
+        "description": "test_guardrail",
+        "peekOfCode": "def test_guardrail_flags_banned_and_missing_patch():\n    txt = \"This is a TODO with ... and no patch\"\n    issues = check_text(txt)\n    assert any(\"banned\" in i for i in issues)\n    assert any(\"no unified diff\" in i for i in issues)",
+        "detail": "test_guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "_W3",
+        "kind": 6,
+        "importPath": "test_strategies",
+        "description": "test_strategies",
+        "peekOfCode": "class _W3:\n    def __init__(self, base_fee_wei: int):\n        class Eth:\n            def __init__(self, base_fee):\n                self._base_fee = base_fee\n            async def get_block(self, *_):\n                return {\"baseFeePerGas\": self._base_fee}\n        self.eth = Eth(base_fee_wei)\n    def from_wei(self, v, unit):\n        if unit == \"gwei\":",
+        "detail": "test_strategies",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3Adapter",
+        "kind": 6,
+        "importPath": "test_strategies",
+        "description": "test_strategies",
+        "peekOfCode": "class _Web3Adapter:\n    def __init__(self, base_fee_wei: int):\n        self.w3 = _W3(base_fee_wei)\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\n@pytest.mark.asyncio\nasync def test_send_when_gas_below_waits():\n    ctx = ContextManager()",
+        "detail": "test_strategies",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3",
+        "kind": 6,
+        "importPath": "test_strategy_manager",
+        "description": "test_strategy_manager",
+        "peekOfCode": "class _Web3:\n    class Eth:\n        async def get_block(self, *_):\n            return {\"baseFeePerGas\": 1 * 10**9}\n        @property\n        async def chain_id(self):\n            return 11155111\n    eth = Eth()\n    def from_wei(self, v, unit):\n        if unit == \"gwei\":",
+        "detail": "test_strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3Adapter",
+        "kind": 6,
+        "importPath": "test_strategy_manager",
+        "description": "test_strategy_manager",
+        "peekOfCode": "class _Web3Adapter:\n    def __init__(self):\n        self.w3 = _Web3()\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\n@pytest.mark.asyncio\nasync def test_strategy_lifecycle(tmp_path):\n    # Wallet manager with stub web3",
+        "detail": "test_strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "test_tipjar_page_html_contains_svg_and_uri",
+        "kind": 2,
+        "importPath": "test_ui",
+        "description": "test_ui",
+        "peekOfCode": "def test_tipjar_page_html_contains_svg_and_uri():\n    html = tipjar_page_html(\"0x\" + \"1\" * 40, 0.01)\n    assert \"ethereum:\" in html\n    assert \"<svg\" in html\n    assert \"Toggle Theme\" in html\n    assert \"Copy\" in html\n@pytest.mark.skipif(not _HAS_SEGNO, reason=\"segno not installed; UI tests optional\")\ndef test_dashboard_html_contains_sections():\n    wallets = [\n        {\"agent_id\": \"a\", \"address\": \"0x\" + \"1\" * 40, \"balance_eth\": 0.0},",
+        "detail": "test_ui",
+        "documentation": {}
+    },
+    {
+        "label": "test_dashboard_html_contains_sections",
+        "kind": 2,
+        "importPath": "test_ui",
+        "description": "test_ui",
+        "peekOfCode": "def test_dashboard_html_contains_sections():\n    wallets = [\n        {\"agent_id\": \"a\", \"address\": \"0x\" + \"1\" * 40, \"balance_eth\": 0.0},\n        {\"agent_id\": \"b\", \"address\": \"0x\" + \"2\" * 40, \"balance_eth\": 1.23},\n    ]\n    strategies = {\n        \"s1\": {\n            \"agent_id\": \"a\",\n            \"to_address\": \"0x\" + \"3\" * 40,\n            \"amount_eth\": 0.1,",
+        "detail": "test_ui",
+        "documentation": {}
+    }
+]

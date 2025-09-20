@@ -238,6 +238,20 @@ async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -
     return await _wallet_mgr.request_faucet_funds(agent_id, amount_eth)
 
 
+@server.tool()
+async def provider_status() -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.provider_status()
+
+
+@server.tool()
+async def inspect_contract(address: str) -> dict:
+    if _wallet_mgr is None:
+        raise RuntimeError("Server not initialized")
+    return await _wallet_mgr.inspect_contract(address)
+
+
 # -------- Phase 1 strategy tools (stateless) --------
 
 

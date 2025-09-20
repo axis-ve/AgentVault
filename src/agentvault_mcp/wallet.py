@@ -10,11 +10,36 @@ from eth_account import Account
 from eth_account.hdaccount import generate_mnemonic
 from eth_account.messages import encode_defunct, encode_typed_data
 from pydantic import BaseModel
+from web3 import Web3
 from web3.exceptions import InvalidTransaction
 
 from . import WalletError
 from .core import ContextManager, logger
 from .adapters.web3_adapter import Web3Adapter
+
+_ERC20_METADATA_ABI = [
+    {
+        "constant": True,
+        "inputs": [],
+        "name": "symbol",
+        "outputs": [{"name": "", "type": "string"}],
+        "type": "function",
+    },
+    {
+        "constant": True,
+        "inputs": [],
+        "name": "name",
+        "outputs": [{"name": "", "type": "string"}],
+        "type": "function",
+    },
+    {
+        "constant": True,
+        "inputs": [],
+        "name": "decimals",
+        "outputs": [{"name": "", "type": "uint8"}],
+        "type": "function",
+    },
+]
 
 
 class WalletState(BaseModel):
@@ -482,3 +507,80 @@ class AgentWalletManager:
             os.replace(tmp_name, self.persist_path)
         except Exception as e:
             self.logger.warning("Failed to persist wallets", error=str(e))
+
+    async def provider_status(self) -> Dict[str, Any]:
+        await self.web3.ensure_connection()
+        chain_id_val = self.web3.w3.eth.chain_id
+        chain_id = await chain_id_val if asyncio.iscoroutine(chain_id_val) else chain_id_val
+        latest_block = await self.web3.get_block_latest()
+        block_number = latest_block.get("number")
+        block_time = latest_block.get("timestamp")
+        base_fee = latest_block.get("baseFeePerGas")
+        priority_fee = None
+        try:
+            priority_fee = await self.web3.max_priority_fee()
+        except Exception:
+            priority_fee = None
+        gas_price_gwei = None
+        if base_fee is not None:
+            base_fee_gwei = float(self.web3.from_wei(base_fee, "gwei"))
+            priority_gwei = (
+                float(self.web3.from_wei(priority_fee, "gwei")) if priority_fee else 0.0
+            )
+            gas_price_gwei = base_fee_gwei + priority_gwei
+        try:
+            client_version = self.web3.w3.client_version
+            client_version = await client_version if asyncio.iscoroutine(client_version) else client_version
+        except Exception:
+            client_version = None
+        info = {
+            "chain_id": chain_id,
+            "rpc_url": getattr(self.web3, "current_rpc_url", None),
+            "client_version": client_version,
+            "latest_block_number": block_number,
+            "latest_block_timestamp": block_time,
+        }
+        if base_fee is not None:
+            info["base_fee_per_gas_gwei"] = float(self.web3.from_wei(base_fee, "gwei"))
+        if priority_fee is not None:
+            info["max_priority_fee_per_gas_gwei"] = float(
+                self.web3.from_wei(priority_fee, "gwei")
+            )
+        if gas_price_gwei is not None:
+            info["estimated_gas_price_gwei"] = gas_price_gwei
+        self.context.update_state("provider_status", info)
+        await self.context.append_to_history(
+            "system",
+            f"Provider status refreshed (chain_id={chain_id}, block={block_number})",
+        )
+        return info
+
+    async def inspect_contract(self, address: str) -> Dict[str, Any]:
+        if not self.web3.is_address(address):
+            raise WalletError("Invalid contract address.")
+        checksum = Web3.to_checksum_address(address)
+        await self.web3.ensure_connection()
+        code = await self.web3.get_code(checksum)
+        is_contract = bool(code and code != b"\x00")
+        balance_wei = await self.web3.get_balance(checksum)
+        result: Dict[str, Any] = {
+            "address": checksum,
+            "is_contract": is_contract,
+            "balance_eth": float(self.web3.from_wei(balance_wei, "ether")),
+            "bytecode_length": len(code or b"") if code else 0,
+        }
+        if not is_contract:
+            return result
+        result["bytecode_hash"] = Web3.keccak(code).hex()
+        metadata: Dict[str, Any] = {}
+        for field in ("symbol", "name", "decimals"):
+            try:
+                value = await self.web3.call_contract_function(
+                    checksum, _ERC20_METADATA_ABI, field
+                )
+                metadata[field] = value
+            except Exception:
+                continue
+        if metadata:
+            result["erc20_metadata"] = metadata
+        return result

@@ -30,7 +30,8 @@ class Web3Adapter:
             raise RuntimeError("No RPC URLs provided")
         self._urls = urls
         self._idx = 0
-        self.w3 = AsyncWeb3(self._make_provider(self._urls[self._idx]))
+        self._current_url = self._urls[self._idx]
+        self.w3 = AsyncWeb3(self._make_provider(self._current_url))
 
     def _make_provider(self, url: str):
         if url.startswith("ws://") or url.startswith("wss://"):
@@ -39,7 +40,12 @@ class Web3Adapter:
 
     def _rotate(self) -> None:
         self._idx = (self._idx + 1) % len(self._urls)
-        self.w3 = AsyncWeb3(self._make_provider(self._urls[self._idx]))
+        self._current_url = self._urls[self._idx]
+        self.w3 = AsyncWeb3(self._make_provider(self._current_url))
+
+    @property
+    def current_rpc_url(self) -> str:
+        return self._current_url
 
     async def ensure_connection(self) -> bool:
         # Try all providers until one connects
@@ -94,6 +100,16 @@ class Web3Adapter:
 
     async def get_balance(self, address: str) -> int:
         return await self._call(lambda: self.w3.eth.get_balance(address))
+
+    async def get_code(self, address: str) -> bytes:
+        return await self._call(lambda: self.w3.eth.get_code(address))
+
+    async def call_contract_function(
+        self, address: str, abi: list[dict[str, Any]], method: str, *args: Any
+    ) -> Any:
+        contract = self.w3.eth.contract(address=address, abi=abi)
+        func = getattr(contract.functions, method)(*args)
+        return await self._call(lambda: func.call())
 
     # Pure helpers
     def to_wei(self, v: float, unit: str) -> int:

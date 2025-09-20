@@ -8,6 +8,7 @@ AgentVault MCP is an MCP-native toolkit that lets autonomous agents create and o
 - **Dynamic chain metadata** – Uniswap and Aave deployments are resolved per chain at startup (Ethereum, Base, Arbitrum, Sepolia) so new networks can be toggled via environment configuration without code changes.
 - **Universal Router support** – Sepolia swaps use Uniswap’s Universal Router with automatic Permit2 and ERC‑20 approvals before broadcasting real transactions.
 - **Strategy automation** – Stateless helpers (`dca_once`, `send_when_gas_below`, `micro_tip_*`) and a stateful scheduler (`StrategyManager`) for recurring operations.
+- **Network inspection** – Query RPC health and inspect deployed contracts (bytecode, ERC-20 metadata) directly from MCP or the CLI.
 - **MCP-first architecture** – Every capability is exposed as an MCP tool; the CLI simply calls the server, ensuring identical behaviour in headless agent deployments.
 
 ## Requirements
@@ -77,7 +78,15 @@ agentvault strategy send-when-gas-below mybot 0xRecipient... 0.01 25
 # DeFi (Sepolia Universal Router)
 agentvault swap-tokens mybot WETH USDC 0.001 --dry-run
 agentvault swap-tokens mybot WETH USDC 0.001   # executes Permit2 + swap
+
+# inspection
+agentvault provider-info
+agentvault inspect-contract 0xUniversalRouterAddress
 ```
+
+Key MCP tools mirror the CLI surface: `provider_status` reports chain ID, client
+version, base fee, and latest block data; `inspect_contract` fetches bytecode
+length, on-chain balance, and best-effort ERC-20 metadata when available.
 
 ### DeFi specifics
 

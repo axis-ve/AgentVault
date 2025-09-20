@@ -1,9 +1,13 @@
+
 import asyncio
 
 from cryptography.fernet import Fernet
 
 from agentvault_mcp.core import ContextManager
 from agentvault_mcp.wallet import AgentWalletManager
+
+
+CONTRACT_ADDR = "0x2222222222222222222222222222222222222222"
 
 
 class _Web3AdapterStub:
@@ -13,7 +17,13 @@ class _Web3AdapterStub:
 
             @staticmethod
             async def get_block(identifier):
-                return {"baseFeePerGas": 0}
+                return {
+                    "baseFeePerGas": 0,
+                    "number": 100,
+                    "timestamp": 1700000000,
+                }
+
+        client_version = "Stub/v1"
 
         def to_wei(self, v, unit):
             return int(v * 10**18)
@@ -23,11 +33,12 @@ class _Web3AdapterStub:
 
     def __init__(self):
         self.w3 = self._W3()
+        self.current_rpc_url = "http://stub"
 
     async def ensure_connection(self):
         return True
 
-    async def get_balance(self, *_):
+    async def get_balance(self, address, *_):
         return 10**21
 
     async def estimate_gas(self, *_):
@@ -37,7 +48,11 @@ class _Web3AdapterStub:
         return 1_000_000_000
 
     async def get_block_latest(self):
-        return {"baseFeePerGas": 1_000_000_000}
+        return {
+            "baseFeePerGas": 1_000_000_000,
+            "number": 321,
+            "timestamp": 1700000123,
+        }
 
     async def get_nonce(self, *_):
         return 0
@@ -48,14 +63,38 @@ class _Web3AdapterStub:
     async def wait_for_receipt(self, *_ , timeout=120):
         return type("R", (), {"status": 1})()
 
+    def from_wei(self, value, unit):
+        return self.w3.from_wei(value, unit)
+
+    def to_wei(self, value, unit):
+        return self.w3.to_wei(value, unit)
+
     def is_address(self, a):
         return True
+
+    async def get_code(self, address):
+        if address.lower() == CONTRACT_ADDR.lower():
+            return b"``"
+        return b""
+
+    async def call_contract_function(self, address, abi, method, *args):
+        if address.lower() != CONTRACT_ADDR.lower():
+            raise RuntimeError("no contract")
+        data = {"symbol": "TOK", "name": "Token", "decimals": 18}
+        if method not in data:
+            raise RuntimeError("unknown method")
+        return data[method]
 
 
 def _make_manager(tmp_path):
     ctx = ContextManager()
     key = Fernet.generate_key().decode()
-    return AgentWalletManager(ctx, _Web3AdapterStub(), key, persist_path=str(tmp_path / "store.json"))
+    return AgentWalletManager(
+        ctx,
+        _Web3AdapterStub(),
+        key,
+        persist_path=str(tmp_path / "store.json"),
+    )
 
 
 def test_import_private_key_and_sign(tmp_path):
@@ -142,5 +181,37 @@ def test_generate_mnemonic(tmp_path):
         phrase = await mgr.generate_mnemonic()
         assert isinstance(phrase, str)
         assert len(phrase.split()) == 12
+
+    asyncio.run(runner())
+
+
+def test_provider_status(tmp_path):
+    async def runner():
+        mgr = _make_manager(tmp_path)
+        info = await mgr.provider_status()
+        assert info["chain_id"] == 11155111
+        assert info["latest_block_number"] == 321
+        assert info["rpc_url"] == "http://stub"
+
+    asyncio.run(runner())
+
+
+def test_inspect_contract(tmp_path):
+    async def runner():
+        mgr = _make_manager(tmp_path)
+        data = await mgr.inspect_contract(CONTRACT_ADDR)
+        assert data["is_contract"] is True
+        assert data["bytecode_length"] > 0
+        assert data["erc20_metadata"]["symbol"] == "TOK"
+
+    asyncio.run(runner())
+
+
+def test_inspect_contract_for_eoa(tmp_path):
+    async def runner():
+        mgr = _make_manager(tmp_path)
+        data = await mgr.inspect_contract("0x1111111111111111111111111111111111111111")
+        assert data["is_contract"] is False
+        assert data["bytecode_length"] == 0
 
     asyncio.run(runner())

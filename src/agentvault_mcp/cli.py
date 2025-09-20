@@ -241,6 +241,18 @@ async def _cmd_dashboard(args):
     print({"page": path})
 
 
+async def _cmd_provider_status(args):
+    _, mgr = _init_managers()
+    info = await mgr.provider_status()
+    print(info)
+
+
+async def _cmd_inspect_contract(args):
+    _, mgr = _init_managers()
+    details = await mgr.inspect_contract(args.address)
+    print(details)
+
+
 def main() -> None:  # pragma: no cover
     p = argparse.ArgumentParser(prog="agentvault", description="AgentVault CLI")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -349,6 +361,13 @@ def main() -> None:  # pragma: no cover
     s = sub.add_parser("dashboard")
     s.add_argument("--out")
     s.set_defaults(func=_cmd_dashboard)
+
+    s = sub.add_parser("provider-info")
+    s.set_defaults(func=_cmd_provider_status)
+
+    s = sub.add_parser("inspect-contract")
+    s.add_argument("address")
+    s.set_defaults(func=_cmd_inspect_contract)
 
     args = p.parse_args()
     asyncio.run(args.func(args))

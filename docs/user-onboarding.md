@@ -198,6 +198,18 @@ html = await agent.call_tool("generate_tipjar_page", {
 })
 ```
 
+### 4. Inspect Network State
+```python
+status = await agent.call_tool("provider_status", {})
+print(status["chain_id"], status["latest_block_number"], status["base_fee_per_gas_gwei"])
+
+contract = await agent.call_tool("inspect_contract", {
+    "address": "0xUniversalRouter..."
+})
+if contract["is_contract"]:
+    print(contract.get("erc20_metadata"))
+```
+
 ## Security Notes
 
 - **Private keys** are encrypted with Fernet and never stored in plaintext
