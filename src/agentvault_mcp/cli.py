@@ -4,13 +4,14 @@ import argparse
 import asyncio
 import os
 from typing import Dict
+from datetime import datetime, timedelta, timezone
 
 import uvicorn
 
 from .core import ContextManager, logger
 from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
-from .policy import PolicyConfig, PolicyEngine
+from .policy import DEFAULT_POLICY_PATH, PolicyConfig, PolicyEngine
 from .db.repositories import EventRepository
 from .admin_api import create_app
 from .strategies import (
@@ -75,7 +76,9 @@ def _init_managers() -> tuple[ContextManager, AgentWalletManager, PolicyEngine]:
     ctx = ContextManager()
     w3 = Web3Adapter(rpc_url)
     mgr = AgentWalletManager(ctx, w3, encrypt_key)
-    policy_engine = PolicyEngine(mgr.session_maker, PolicyConfig.load())
+    policy_path = os.getenv("VAULTPILOT_POLICY_PATH", DEFAULT_POLICY_PATH)
+    policy_config = PolicyConfig.load(policy_path)
+    policy_engine = PolicyEngine(mgr.session_maker, policy_config, config_path=policy_path)
     return ctx, mgr, policy_engine
 
 
@@ -255,7 +258,8 @@ async def _cmd_dashboard(args):
             }
             for rec in await repo.list_events(50)
         ]
-    path = write_dashboard_page(out, wallets, strategies, events)
+        usage = await repo.aggregate_usage(datetime.now(timezone.utc) - timedelta(hours=24))
+    path = write_dashboard_page(out, wallets, strategies, events, usage)
     print({"page": path})
 
 
@@ -273,7 +277,6 @@ async def _cmd_inspect_contract(args):
 
 async def _cmd_admin_api(args):
     _, mgr, policy_engine = _init_managers()
-    sm = StrategyManager(mgr)
     app = create_app(policy_engine)
 
     config = uvicorn.Config(

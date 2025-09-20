@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date, datetime, timezone
 from typing import Any, Iterable
 
-from sqlalchemy import select, update
+from sqlalchemy import select, update, func
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import func
 
@@ -177,6 +177,12 @@ class EventRepository:
         )
         return list(result.scalars())
 
+    async def get_event(self, event_id: str) -> MCPEvent | None:
+        result = await self.session.execute(
+            select(MCPEvent).where(MCPEvent.id == event_id)
+        )
+        return result.scalar_one_or_none()
+
     async def count_events_since(
         self, tool_name: str, agent_id: str | None, cutoff: datetime
     ) -> int:
@@ -186,3 +192,26 @@ class EventRepository:
         stmt = stmt.where(MCPEvent.occurred_at >= cutoff)
         result = await self.session.execute(stmt)
         return int(result.scalar_one())
+
+    async def aggregate_usage(self, cutoff: datetime) -> list[dict[str, Any]]:
+        stmt = (
+            select(
+                MCPEvent.agent_id,
+                MCPEvent.tool_name,
+                func.count(MCPEvent.id).label("count"),
+            )
+            .where(MCPEvent.occurred_at >= cutoff)
+            .group_by(MCPEvent.agent_id, MCPEvent.tool_name)
+            .order_by(func.count(MCPEvent.id).desc())
+        )
+        result = await self.session.execute(stmt)
+        rows = []
+        for agent_id, tool_name, count in result:
+            rows.append(
+                {
+                    "agent_id": agent_id,
+                    "tool_name": tool_name,
+                    "count": int(count),
+                }
+            )
+        return rows

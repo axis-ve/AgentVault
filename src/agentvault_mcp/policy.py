@@ -54,9 +54,16 @@ class PolicyConfig:
 
 
 class PolicyEngine:
-    def __init__(self, session_maker, config: PolicyConfig) -> None:
+    def __init__(
+        self,
+        session_maker,
+        config: PolicyConfig,
+        *,
+        config_path: Optional[str] = None,
+    ) -> None:
         self._session_maker = session_maker
         self._config = config
+        self._config_path = config_path
         self._lock = asyncio.Lock()
 
     @property
@@ -66,6 +73,14 @@ class PolicyEngine:
     @property
     def session_maker(self):
         return self._session_maker
+
+    async def reload(self) -> PolicyConfig:
+        if not self._config_path:
+            raise RuntimeError("PolicyEngine was not initialized with a config_path")
+        async with self._lock:
+            new_config = PolicyConfig.load(self._config_path)
+            self._config = new_config
+            return new_config
 
     async def _count_recent_events(
         self, tool_name: str, agent_id: Optional[str], window: timedelta

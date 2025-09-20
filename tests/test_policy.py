@@ -1,5 +1,5 @@
 import asyncio
-from datetime import timedelta
+from datetime import datetime, timedelta, timezone
 
 import pytest
 from cryptography.fernet import Fernet
@@ -96,3 +96,37 @@ async def test_policy_event_logging(tmp_path):
     assert events
     assert events[0].status == "error"
     assert events[0].error_message == "fail"
+
+    async with engine.session_maker() as session:
+        repo = EventRepository(session)
+        usage = await repo.aggregate_usage(datetime.now(timezone.utc) - timedelta(days=1))
+
+    assert usage
+    assert usage[0]["count"] >= 1
+
+
+@pytest.mark.asyncio
+async def test_policy_reload(tmp_path, monkeypatch):
+    config_path = tmp_path / "policy.yml"
+    config_path.write_text(
+        """rate_limits:\n  default:\n    max_calls: 1\n    window_seconds: 60\n"""
+    )
+    ctx = ContextManager()
+    mgr = AgentWalletManager(
+        ctx,
+        DummyAdapter(),
+        Fernet.generate_key().decode(),
+        database_url=f"sqlite+aiosqlite:///{tmp_path / 'policy_reload.db'}",
+        auto_migrate=True,
+    )
+    config = PolicyConfig.load(config_path)
+    engine = PolicyEngine(mgr.session_maker, config, config_path=str(config_path))
+    assert engine.config.default_rate_limit.max_calls == 1
+
+    config_path.write_text(
+        """rate_limits:\n  default:\n    max_calls: 5\n    window_seconds: 120\n"""
+    )
+
+    await engine.reload()
+    assert engine.config.default_rate_limit.max_calls == 5
+    assert engine.config.default_rate_limit.window_seconds == 120

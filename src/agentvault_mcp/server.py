@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 from typing import Any, Callable
+from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 
 from .core import ContextManager, logger
@@ -14,7 +15,13 @@ from .strategies import micro_tip_equal as _micro_tip_equal
 from .strategies import micro_tip_amounts as _micro_tip_amounts
 from .strategy_manager import StrategyManager
 from .ui import tipjar_page_html, dashboard_html
-from .policy import PolicyConfig, PolicyEngine, run_with_policy, extract_agent_id
+from .policy import (
+    PolicyConfig,
+    PolicyEngine,
+    run_with_policy,
+    extract_agent_id,
+    DEFAULT_POLICY_PATH,
+)
 from .db.repositories import EventRepository
 
 load_dotenv()
@@ -587,7 +594,8 @@ async def generate_dashboard_page() -> str:
             bal = "?"
         wallets.append({"agent_id": aid, "address": address, "balance_eth": bal})
     strategies = await _strategy_mgr.list_strategies()
-    events = []
+    events: list[dict[str, Any]] = []
+    usage: list[dict[str, Any]] = []
     if _policy_engine is not None:
         async with _policy_engine.session_maker() as session:
             repo = EventRepository(session)
@@ -601,7 +609,8 @@ async def generate_dashboard_page() -> str:
                 }
                 for rec in records
             ]
-    return dashboard_html(wallets, strategies, events)
+            usage = await repo.aggregate_usage(datetime.now(timezone.utc) - timedelta(hours=24))
+    return dashboard_html(wallets, strategies, events, usage)
 
 
 async def main() -> None:
@@ -660,6 +669,8 @@ async def main() -> None:
                     pass
 
     _context_mgr = ContextManager(max_tokens=int(os.getenv("MCP_MAX_TOKENS", 4096)))
+    policy_path = os.getenv("VAULTPILOT_POLICY_PATH", DEFAULT_POLICY_PATH)
+    policy_config = PolicyConfig.load(policy_path)
     # Register LLM adapter (OpenAI, Ollama, or a null fallback)
     if api_key:
         from .adapters.openai_adapter import OpenAIAdapter as _OpenAIAdapter
@@ -679,7 +690,9 @@ async def main() -> None:
     _context_mgr.register_adapter("web3", web3_adapter)
     _wallet_mgr = AgentWalletManager(_context_mgr, web3_adapter, encrypt_key)
     _strategy_mgr = StrategyManager(_wallet_mgr)
-    _policy_engine = PolicyEngine(_wallet_mgr.session_maker, PolicyConfig.load())
+    _policy_engine = PolicyEngine(
+        _wallet_mgr.session_maker, policy_config, config_path=policy_path
+    )
 
     logger.info("AgentVault MCP server starting")
     if not mcp_available:
