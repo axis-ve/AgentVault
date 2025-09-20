@@ -37,6 +37,8 @@ python -m agentvault_mcp.db.import_legacy \
   --strategy-store agentvault_strategies.json
 ```
 
+Consider copying `vaultpilot_policy.yml` and setting `VAULTPILOT_POLICY_PATH` if you need custom rate limits or access controls.
+
 ## Step 2: Basic Testing
 
 Test that everything works without any configuration:

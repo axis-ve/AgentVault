@@ -52,6 +52,19 @@ After installing dependencies, run the schema migrations once:
 python -m agentvault_mcp.db.cli upgrade  # applies migrations using VAULTPILOT_DATABASE_URL
 ```
 
+Policy enforcement is configured via `VAULTPILOT_POLICY_PATH` (defaults to `vaultpilot_policy.yml`). A sample structure:
+
+```yaml
+rate_limits:
+  default:
+    max_calls: 120
+    window_seconds: 60
+  tools:
+    execute_transfer:
+      max_calls: 5
+      window_seconds: 60
+```
+
 Migrating from the legacy JSON stores? Import them with:
 
 ```bash

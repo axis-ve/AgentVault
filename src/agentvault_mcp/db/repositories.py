@@ -5,6 +5,7 @@ from typing import Any, Iterable
 
 from sqlalchemy import select, update
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import func
 
 from .models import MCPEvent, Strategy, StrategyRun, Wallet
 
@@ -165,6 +166,7 @@ class EventRepository:
             request_payload=request_payload,
             response_payload=response_payload,
             error_message=error_message,
+            occurred_at=datetime.now(timezone.utc),
         )
         self.session.add(record)
         return record
@@ -174,3 +176,13 @@ class EventRepository:
             select(MCPEvent).order_by(MCPEvent.occurred_at.desc()).limit(limit)
         )
         return list(result.scalars())
+
+    async def count_events_since(
+        self, tool_name: str, agent_id: str | None, cutoff: datetime
+    ) -> int:
+        stmt = select(func.count(MCPEvent.id)).where(MCPEvent.tool_name == tool_name)
+        if agent_id is not None:
+            stmt = stmt.where(MCPEvent.agent_id == agent_id)
+        stmt = stmt.where(MCPEvent.occurred_at >= cutoff)
+        result = await self.session.execute(stmt)
+        return int(result.scalar_one())

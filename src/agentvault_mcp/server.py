@@ -1,6 +1,7 @@
 import asyncio
 import json
 import os
+from typing import Any, Callable
 from dotenv import load_dotenv
 
 from .core import ContextManager, logger
@@ -13,6 +14,7 @@ from .strategies import micro_tip_equal as _micro_tip_equal
 from .strategies import micro_tip_amounts as _micro_tip_amounts
 from .strategy_manager import StrategyManager
 from .ui import tipjar_page_html, dashboard_html
+from .policy import PolicyConfig, PolicyEngine, run_with_policy, extract_agent_id
 
 load_dotenv()
 
@@ -58,11 +60,51 @@ server = FastMCP("agentvault-mcp")
 _context_mgr: ContextManager | None = None
 _wallet_mgr: AgentWalletManager | None = None
 _strategy_mgr: StrategyManager | None = None
+_policy_engine: PolicyEngine | None = None
+
+
+async def _policy_execute(
+    tool_name: str,
+    agent_id: str | None,
+    request_payload: dict[str, Any] | None,
+    coro_factory: Callable[[], Any],
+) -> Any:
+    if _policy_engine is None:
+        return await coro_factory()
+    return await run_with_policy(
+        _policy_engine,
+        tool_name=tool_name,
+        agent_id=agent_id,
+        request_payload=request_payload,
+        call=coro_factory,
+    )
+
+
+def policy_guard(
+    tool_name: str,
+    *,
+    agent_field: str | None = None,
+    redact_fields: tuple[str, ...] = (),
+):
+    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
+            agent_id = None
+            if agent_field:
+                agent_id = kwargs.get(agent_field)
+            else:
+                agent_id = extract_agent_id(kwargs)
+            request_payload = {k: v for k, v in kwargs.items() if k not in redact_fields}
+            return await _policy_execute(tool_name, agent_id, request_payload, lambda: func(*args, **kwargs))
+
+        return wrapper
+
+    return decorator
 
 
 # Tool functions will be registered in main() after initialization
 
 @server.tool()
+@policy_guard("spin_up_wallet", agent_field="agent_id")
 async def spin_up_wallet(agent_id: str) -> str:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -70,6 +112,7 @@ async def spin_up_wallet(agent_id: str) -> str:
 
 
 @server.tool()
+@policy_guard("query_balance", agent_field="agent_id")
 async def query_balance(agent_id: str) -> float:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -77,6 +120,11 @@ async def query_balance(agent_id: str) -> float:
 
 
 @server.tool()
+@policy_guard(
+    "execute_transfer",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, confirmation_code: str | None = None, dry_run: bool = False) -> str | dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -85,7 +133,9 @@ async def execute_transfer(agent_id: str, to_address: str, amount_eth: float, co
         return await _wallet_mgr.simulate_transfer(agent_id, to_address, amount_eth)
     # Enforce limit via WalletManager; pass optional confirmation
     # Note: limit is configured via env AGENTVAULT_MAX_TX_ETH/AGENTVAULT_TX_CONFIRM_CODE
-    return await _wallet_mgr.execute_transfer(agent_id, to_address, amount_eth, confirmation_code)
+    return await _wallet_mgr.execute_transfer(
+        agent_id, to_address, amount_eth, confirmation_code
+    )
 
 
 @server.tool()
@@ -96,6 +146,7 @@ async def generate_response(user_message: str) -> str:
 
 
 @server.tool()
+@policy_guard("list_wallets", agent_field=None)
 async def list_wallets() -> dict[str, str]:
     """List agent_id to address mappings (no secrets)."""
     if _wallet_mgr is None:
@@ -104,6 +155,7 @@ async def list_wallets() -> dict[str, str]:
 
 
 @server.tool()
+@policy_guard("export_wallet_keystore", agent_field="agent_id", redact_fields=("passphrase",))
 async def export_wallet_keystore(agent_id: str, passphrase: str) -> str:
     """Export the agent's wallet as an encrypted V3 keystore JSON string.
 
@@ -122,6 +174,11 @@ async def generate_mnemonic(num_words: int = 12, language: str = "english") -> s
 
 
 @server.tool()
+@policy_guard(
+    "import_wallet_from_private_key",
+    agent_field="agent_id",
+    redact_fields=("private_key",),
+)
 async def import_wallet_from_private_key(
     agent_id: str, private_key: str, rotate: bool = False
 ) -> str:
@@ -133,6 +190,11 @@ async def import_wallet_from_private_key(
 
 
 @server.tool()
+@policy_guard(
+    "import_wallet_from_mnemonic",
+    agent_field="agent_id",
+    redact_fields=("mnemonic", "passphrase"),
+)
 async def import_wallet_from_mnemonic(
     agent_id: str,
     mnemonic: str,
@@ -152,6 +214,11 @@ async def import_wallet_from_mnemonic(
 
 
 @server.tool()
+@policy_guard(
+    "import_wallet_from_encrypted_json",
+    agent_field="agent_id",
+    redact_fields=("encrypted_json", "password"),
+)
 async def import_wallet_from_encrypted_json(
     agent_id: str, encrypted_json: str, password: str, rotate: bool = False
 ) -> str:
@@ -163,6 +230,7 @@ async def import_wallet_from_encrypted_json(
 
 
 @server.tool()
+@policy_guard("encrypt_wallet_keystore", agent_field="agent_id", redact_fields=("password",))
 async def encrypt_wallet_keystore(agent_id: str, password: str) -> str:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -170,6 +238,7 @@ async def encrypt_wallet_keystore(agent_id: str, password: str) -> str:
 
 
 @server.tool()
+@policy_guard("decrypt_wallet_keystore", agent_field=None, redact_fields=("encrypted_json", "password"))
 async def decrypt_wallet_keystore(encrypted_json: str, password: str) -> dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -177,6 +246,11 @@ async def decrypt_wallet_keystore(encrypted_json: str, password: str) -> dict:
 
 
 @server.tool()
+@policy_guard(
+    "export_wallet_private_key",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def export_wallet_private_key(agent_id: str, confirmation_code: str | None = None) -> str:
     """Export plaintext private key (hex). Strongly discouraged and gated.
 
@@ -189,6 +263,7 @@ async def export_wallet_private_key(agent_id: str, confirmation_code: str | None
 
 
 @server.tool()
+@policy_guard("sign_message", agent_field="agent_id", redact_fields=("message",))
 async def sign_message(agent_id: str, message: str) -> dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -203,6 +278,7 @@ async def verify_message(address: str, message: str, signature: str) -> dict:
 
 
 @server.tool()
+@policy_guard("sign_typed_data", agent_field="agent_id", redact_fields=("typed_data",))
 async def sign_typed_data(agent_id: str, typed_data: dict | str) -> dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -223,6 +299,11 @@ async def verify_typed_data(address: str, typed_data: dict | str, signature: str
 
 
 @server.tool()
+@policy_guard(
+    "simulate_transfer",
+    agent_field="agent_id",
+    redact_fields=(),
+)
 async def simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -> dict:
     """Estimate gas/fees for a transfer without broadcasting."""
     if _wallet_mgr is None:
@@ -231,6 +312,10 @@ async def simulate_transfer(agent_id: str, to_address: str, amount_eth: float) -
 
 
 @server.tool()
+@policy_guard(
+    "request_faucet_funds",
+    agent_field="agent_id",
+)
 async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -> dict:
     """Request testnet faucet funds and wait for balance to increase."""
     if _wallet_mgr is None:
@@ -239,6 +324,7 @@ async def request_faucet_funds(agent_id: str, amount_eth: float | None = None) -
 
 
 @server.tool()
+@policy_guard("provider_status", agent_field=None)
 async def provider_status() -> dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -246,6 +332,7 @@ async def provider_status() -> dict:
 
 
 @server.tool()
+@policy_guard("inspect_contract", agent_field=None)
 async def inspect_contract(address: str) -> dict:
     if _wallet_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -256,6 +343,11 @@ async def inspect_contract(address: str) -> dict:
 
 
 @server.tool()
+@policy_guard(
+    "send_when_gas_below",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def send_when_gas_below(
     agent_id: str,
     to_address: str,
@@ -282,6 +374,11 @@ async def send_when_gas_below(
 
 
 @server.tool()
+@policy_guard(
+    "dca_once",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def dca_once(
     agent_id: str,
     to_address: str,
@@ -305,6 +402,11 @@ async def dca_once(
 
 
 @server.tool()
+@policy_guard(
+    "scheduled_send_once",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def scheduled_send_once(
     agent_id: str,
     to_address: str,
@@ -327,6 +429,11 @@ async def scheduled_send_once(
 
 
 @server.tool()
+@policy_guard(
+    "micro_tip_equal",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def micro_tip_equal(
     agent_id: str,
     recipients: list[str],
@@ -347,6 +454,11 @@ async def micro_tip_equal(
 
 
 @server.tool()
+@policy_guard(
+    "micro_tip_amounts",
+    agent_field="agent_id",
+    redact_fields=("confirmation_code",),
+)
 async def micro_tip_amounts(
     agent_id: str,
     items: dict[str, float],
@@ -368,6 +480,7 @@ async def micro_tip_amounts(
 
 
 @server.tool()
+@policy_guard("create_strategy_dca", agent_field="agent_id")
 async def create_strategy_dca(
     label: str,
     agent_id: str,
@@ -391,6 +504,7 @@ async def create_strategy_dca(
 
 
 @server.tool()
+@policy_guard("start_strategy", agent_field=None)
 async def start_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -398,6 +512,7 @@ async def start_strategy(label: str) -> dict:
 
 
 @server.tool()
+@policy_guard("stop_strategy", agent_field=None)
 async def stop_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -405,6 +520,7 @@ async def stop_strategy(label: str) -> dict:
 
 
 @server.tool()
+@policy_guard("strategy_status", agent_field=None)
 async def strategy_status(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -412,6 +528,7 @@ async def strategy_status(label: str) -> dict:
 
 
 @server.tool()
+@policy_guard("tick_strategy", agent_field=None, redact_fields=("confirmation_code",))
 async def tick_strategy(
     label: str, dry_run: bool = False, confirmation_code: str | None = None
 ) -> dict:
@@ -423,6 +540,7 @@ async def tick_strategy(
 
 
 @server.tool()
+@policy_guard("list_strategies", agent_field="agent_id")
 async def list_strategies(agent_id: str | None = None) -> dict:
     """List all strategies or those for a specific agent_id."""
     if _strategy_mgr is None:
@@ -433,6 +551,7 @@ async def list_strategies(agent_id: str | None = None) -> dict:
 
 
 @server.tool()
+@policy_guard("delete_strategy", agent_field=None)
 async def delete_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
@@ -443,6 +562,7 @@ async def delete_strategy(label: str) -> dict:
 
 
 @server.tool()
+@policy_guard("generate_tipjar_page", agent_field="agent_id")
 async def generate_tipjar_page(agent_id: str, amount_eth: float | None = None) -> str:
     """Return a minimal tip jar HTML page for the agent's wallet."""
     if _wallet_mgr is None:
@@ -469,7 +589,7 @@ async def generate_dashboard_page() -> str:
 
 
 async def main() -> None:
-    global _context_mgr, _wallet_mgr
+    global _context_mgr, _wallet_mgr, _policy_engine
 
     api_key = os.getenv("OPENAI_API_KEY")
     # Default to a public Sepolia endpoint to support zero-setup; prefer explicit Alchemy config
@@ -543,6 +663,7 @@ async def main() -> None:
     _context_mgr.register_adapter("web3", web3_adapter)
     _wallet_mgr = AgentWalletManager(_context_mgr, web3_adapter, encrypt_key)
     _strategy_mgr = StrategyManager(_wallet_mgr)
+    _policy_engine = PolicyEngine(_wallet_mgr.session_maker, PolicyConfig.load())
 
     logger.info("AgentVault MCP server starting")
     if not mcp_available:
