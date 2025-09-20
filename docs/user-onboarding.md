@@ -24,6 +24,17 @@ source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 # Install dependencies
 pip install -r requirements.txt
 pip install -e .
+
+# Apply database migrations (uses VAULTPILOT_DATABASE_URL or defaults to SQLite)
+python -m agentvault_mcp.db.cli upgrade
+```
+
+If you previously used the legacy JSON stores, import them after migrating:
+
+```bash
+python -m agentvault_mcp.db.import_legacy \
+  --wallet-store agentvault_store.json \
+  --strategy-store agentvault_strategies.json
 ```
 
 ## Step 2: Basic Testing

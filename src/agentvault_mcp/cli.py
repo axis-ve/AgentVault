@@ -229,15 +229,15 @@ async def _cmd_dashboard(args):
     _, mgr = _init_managers()
     sm = StrategyManager(mgr)
     wallets = []
-    # Use in-memory wallets loaded from store
-    for aid, ws in mgr.wallets.items():
+    for aid, address in (await mgr.list_wallets()).items():
         try:
             bal = await mgr.query_balance(aid)
         except Exception:
             bal = "?"
-        wallets.append({"agent_id": aid, "address": ws.address, "balance_eth": bal})
+        wallets.append({"agent_id": aid, "address": address, "balance_eth": bal})
     out = args.out or "agentvault-dashboard.html"
-    path = write_dashboard_page(out, wallets, sm.list_strategies())
+    strategies = await sm.list_strategies()
+    path = write_dashboard_page(out, wallets, strategies)
     print({"page": path})
 
 

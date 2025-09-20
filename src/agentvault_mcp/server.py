@@ -379,7 +379,7 @@ async def create_strategy_dca(
 ) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
-    return _strategy_mgr.create_strategy_dca(
+    return await _strategy_mgr.create_strategy_dca(
         label,
         agent_id,
         to_address,
@@ -394,21 +394,21 @@ async def create_strategy_dca(
 async def start_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
-    return _strategy_mgr.start_strategy(label)
+    return await _strategy_mgr.start_strategy(label)
 
 
 @server.tool()
 async def stop_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
-    return _strategy_mgr.stop_strategy(label)
+    return await _strategy_mgr.stop_strategy(label)
 
 
 @server.tool()
 async def strategy_status(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
-    return _strategy_mgr.strategy_status(label)
+    return await _strategy_mgr.strategy_status(label)
 
 
 @server.tool()
@@ -428,15 +428,15 @@ async def list_strategies(agent_id: str | None = None) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
     if agent_id:
-        return _strategy_mgr.list_strategies_for_agent(agent_id)
-    return _strategy_mgr.list_strategies()
+        return await _strategy_mgr.list_strategies_for_agent(agent_id)
+    return await _strategy_mgr.list_strategies()
 
 
 @server.tool()
 async def delete_strategy(label: str) -> dict:
     if _strategy_mgr is None:
         raise RuntimeError("Server not initialized")
-    return _strategy_mgr.delete_strategy(label)
+    return await _strategy_mgr.delete_strategy(label)
 
 
 # -------- UI helpers (HTML returned directly; no filesystem writes) --------
@@ -464,7 +464,8 @@ async def generate_dashboard_page() -> str:
         except Exception:
             bal = "?"
         wallets.append({"agent_id": aid, "address": ws.address, "balance_eth": bal})
-    return dashboard_html(wallets, _strategy_mgr.list_strategies())
+    strategies = await _strategy_mgr.list_strategies()
+    return dashboard_html(wallets, strategies)
 
 
 async def main() -> None:

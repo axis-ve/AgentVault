@@ -6,7 +6,7 @@ from agentvault_mcp.wallet import AgentWalletManager
 
 @pytest.mark.asyncio
 async def test_context_trim():
-    mgr = ContextManager(max_tokens=50, trim_strategy="recency")
+    mgr = ContextManager(max_tokens=20, trim_strategy="recency")
     # Append many large messages; trim should happen internally
     for _ in range(10):
         await mgr.append_to_history("user", "a" * 10)
@@ -14,7 +14,7 @@ async def test_context_trim():
     assert len(mgr.schema.history) < 10
 
 @pytest.mark.asyncio
-async def test_wallet_spin_up():
+async def test_wallet_spin_up(tmp_path):
     class DummyEth:
         @property
         def chain_id(self):
@@ -36,58 +36,124 @@ async def test_wallet_spin_up():
     context_mgr = ContextManager()
     web3_adapter = DummyWeb3Adapter()
     encrypt_key = Fernet.generate_key().decode()
-    wallet_mgr = AgentWalletManager(context_mgr, web3_adapter, encrypt_key)
+    db_url = f"sqlite+aiosqlite:///{tmp_path / 'vaultpilot.db'}"
+    wallet_mgr = AgentWalletManager(context_mgr, web3_adapter, encrypt_key, database_url=db_url)
     address = await wallet_mgr.spin_up_wallet("test_agent")
     assert address.startswith("0x")
     assert "test_agent_wallet" in context_mgr.schema.state
 
 @pytest.mark.asyncio
-async def test_spend_limit_gate(monkeypatch):
+async def test_spend_limit_gate(monkeypatch, tmp_path):
     class W3Stub:
-        def __init__(self):
+        def __init__(self) -> None:
             class Eth:
-                async def get_transaction_count(self, *_): return 0
-                async def get_block(self, *_): return {"baseFeePerGas": 1000}
-                async def estimate_gas(self, *_): return 21000
-                async def wait_for_transaction_receipt(self, *_): return type("R", (), {"status": 1})
-                async def get_balance(self, *_): return 10**18  # 1 ETH
+                chain_id = 11155111
+
+                async def get_transaction_count(self, *_):
+                    return 0
+
+                async def get_block(self, *_):
+                    return {"baseFeePerGas": 1000}
+
+                async def estimate_gas(self, *_):
+                    return 21000
+
+                async def wait_for_transaction_receipt(self, *_):
+                    return type("R", (), {"status": 1})
+
+                async def get_balance(self, *_):
+                    return 10**18
+
                 @property
-                async def max_priority_fee(self): return 1000
-                async def send_raw_transaction(self, *_): return b"\x12"
+                async def max_priority_fee(self):
+                    return 1000
+
+                async def send_raw_transaction(self, *_):
+                    return b""
+
+            class _Account:
+                @staticmethod
+                def sign_transaction(*_args, **_kwargs):
+                    return type("Signed", (), {"rawTransaction": b""})()
+
             self.eth = Eth()
-        def is_address(self, a): return True
-        def to_wei(self, v, *_): return int(v * 10**18)
-        def from_wei(self, v, *_): return v / 10**18
+            self.eth.account = _Account()
+
+        def is_address(self, *_):
+            return True
+
+        def to_wei(self, v, *_):
+            return int(v * 10**18)
+
+        def from_wei(self, v, *_):
+            return v / 10**18
 
     class Web3AdapterStub:
-        def __init__(self): self.w3 = W3Stub()
-        async def ensure_connection(self): return True
-        async def get_nonce(self, *_): return 0
+        def __init__(self) -> None:
+            self.w3 = W3Stub()
+
+        async def ensure_connection(self) -> bool:
+            return True
+
+        async def get_nonce(self, *_):
+            return 0
+
+        async def get_block_latest(self):
+            return await self.w3.eth.get_block("latest")
+
+        async def get_balance(self, *_):
+            return 10**20
+
+        async def estimate_gas(self, *_):
+            return 21_000
+
+        async def max_priority_fee(self):
+            return 1_000_000_000
+
+        async def send_raw_transaction(self, *_):
+            return b""
+
+        async def wait_for_receipt(self, *_ , timeout=120):
+            return type("Receipt", (), {"status": 1})()
+
+        def is_address(self, *_):
+            return True
+
+        def to_wei(self, v, unit):
+            return self.w3.to_wei(v, unit)
+
+        def from_wei(self, v, unit):
+            return self.w3.from_wei(v, unit)
 
     context_mgr = ContextManager()
     encrypt_key = Fernet.generate_key().decode()
-    mgr = AgentWalletManager(context_mgr, Web3AdapterStub(), encrypt_key)
+    db_url = f"sqlite+aiosqlite:///{tmp_path / 'vaultpilot.db'}"
+    mgr = AgentWalletManager(context_mgr, Web3AdapterStub(), encrypt_key, database_url=db_url)
     aid = "agent_limit"
     await mgr.spin_up_wallet(aid)
-    # Gate above threshold
     import os
     os.environ["AGENTVAULT_MAX_TX_ETH"] = "0.1"
     with pytest.raises(Exception):
-        await mgr.execute_transfer(aid, "0x" + "1"*40, 0.2)
-    # Allow with correct code
+        await mgr.execute_transfer(aid, "0x" + "1" * 40, 0.2)
     os.environ["AGENTVAULT_TX_CONFIRM_CODE"] = "ok"
-    await mgr.execute_transfer(aid, "0x" + "1"*40, 0.2, confirmation_code="ok")
+    await mgr.execute_transfer(aid, "0x" + "1" * 40, 0.2, confirmation_code="ok")
+    os.environ.pop("AGENTVAULT_MAX_TX_ETH", None)
+    os.environ.pop("AGENTVAULT_TX_CONFIRM_CODE", None)
 
 @pytest.mark.asyncio
-async def test_keystore_export_roundtrip():
+async def test_keystore_export_roundtrip(tmp_path):
     class Web3AdapterStub:
         class _W3: eth = type("E", (), {"chain_id": 11155111})
         w3 = _W3()
         async def ensure_connection(self): return True
+        async def get_block_latest(self):
+            return {"baseFeePerGas": 0}
+        async def get_nonce(self, *_): return 0
 
     ctx = ContextManager()
     key = Fernet.generate_key().decode()
-    mgr = AgentWalletManager(ctx, Web3AdapterStub(), key)
+    db_url = f"sqlite+aiosqlite:///{tmp_path / 'vaultpilot.db'}"
+    mgr = AgentWalletManager(ctx, Web3AdapterStub(), key, database_url=db_url)
     aid = "k1"
     await mgr.spin_up_wallet(aid)
     ks = await mgr.export_wallet_keystore(aid, "pass")

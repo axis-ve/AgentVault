@@ -64,3 +64,4 @@ context.json
 # macOS
 .DS_Store
 agentvault_store.*
+vaultpilot.db

@@ -4,7 +4,7 @@ AgentVault MCP is an MCP-native toolkit that lets autonomous agents create and o
 
 ## Highlights
 
-- **Secure wallet orchestration** – Fernet-encrypted keystores persisted on disk, configurable limits, faucet helpers, and keystore exports for backup.
+- **Secure wallet orchestration** – Fernet-encrypted keystores persisted in the VaultPilot database, configurable limits, faucet helpers, and keystore exports for backup.
 - **Dynamic chain metadata** – Uniswap and Aave deployments are resolved per chain at startup (Ethereum, Base, Arbitrum, Sepolia) so new networks can be toggled via environment configuration without code changes.
 - **Universal Router support** – Sepolia swaps use Uniswap’s Universal Router with automatic Permit2 and ERC‑20 approvals before broadcasting real transactions.
 - **Strategy automation** – Stateless helpers (`dca_once`, `send_when_gas_below`, `micro_tip_*`) and a stateful scheduler (`StrategyManager`) for recurring operations.
@@ -39,13 +39,24 @@ AgentVault loads configuration from environment variables; create an `.env` file
 | Variable | Description | Default |
 | --- | --- | --- |
 | `WEB3_RPC_URL` | RPC endpoint (HTTP) | `https://ethereum-sepolia.publicnode.com` |
-| `ENCRYPT_KEY` | Base64 Fernet key. If omitted, a key/JSON store pair is created next to the store. | auto-generate |
-| `AGENTVAULT_STORE` | Path to wallet store JSON | `agentvault_store.json` |
-| `AGENTVAULT_STRATEGY_STORE` | Path to strategy schedule JSON | `agentvault_strategies.json` |
+| `ENCRYPT_KEY` | Base64 Fernet key. If omitted, a key sidecar and database are provisioned automatically. | auto-generate |
+| `VAULTPILOT_DATABASE_URL` | SQLAlchemy URL for the control-plane database (SQLite, Postgres, etc.). | `sqlite+aiosqlite:///vaultpilot.db` |
 | `AGENTVAULT_MAX_TX_ETH` | Spend threshold requiring confirmation codes | unset |
 | `AGENTVAULT_TX_CONFIRM_CODE` | Server-side confirmation code | unset |
 | `OPENAI_API_KEY` / `OPENAI_MODEL` | LLM response generation | unset |
 | `AGENTVAULT_FAUCET_URL` | Optional JSON faucet endpoint | unset |
+
+After installing dependencies, run the schema migrations once:
+
+```bash
+python -m agentvault_mcp.db.cli upgrade  # applies migrations using VAULTPILOT_DATABASE_URL
+```
+
+Migrating from the legacy JSON stores? Import them with:
+
+```bash
+python -m agentvault_mcp.db.import_legacy --wallet-store agentvault_store.json --strategy-store agentvault_strategies.json
+```
 
 Sepolia DeFi requires no extra setup. Mainnet/Base/Arbitrum reuse legacy V3 routers until Universal Router data is published.
 

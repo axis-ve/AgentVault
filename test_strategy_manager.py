@@ -9,12 +9,10 @@ from agentvault_mcp.strategy_manager import StrategyManager
 
 class _Web3:
     class Eth:
+        chain_id = 11155111
+
         async def get_block(self, *_):
             return {"baseFeePerGas": 1 * 10**9}
-
-        @property
-        async def chain_id(self):
-            return 11155111
 
     eth = Eth()
 
@@ -24,6 +22,13 @@ class _Web3:
         if unit == "ether":
             return v / 10**18
         return v
+
+    def to_wei(self, v, unit):
+        if unit == "ether":
+            return int(v * 10**18)
+        if unit == "gwei":
+            return int(v * 10**9)
+        return int(v)
 
 
 class _Web3Adapter:
@@ -36,6 +41,27 @@ class _Web3Adapter:
     async def get_nonce(self, *_):
         return 0
 
+    async def get_block_latest(self):
+        return await self.w3.eth.get_block("latest")
+
+    def from_wei(self, v, unit):
+        return self.w3.from_wei(v, unit)
+
+    def to_wei(self, v, unit):
+        return self.w3.to_wei(v, unit)
+
+    async def get_balance(self, *_):
+        return 10**20
+
+    async def estimate_gas(self, *_):
+        return 21_000
+
+    async def max_priority_fee(self):
+        return 1_000_000_000
+
+    def is_address(self, addr: str) -> bool:
+        return True
+
 
 @pytest.mark.asyncio
 async def test_strategy_lifecycle(tmp_path):
@@ -43,22 +69,22 @@ async def test_strategy_lifecycle(tmp_path):
     ctx = ContextManager()
     key = Fernet.generate_key().decode()
     web3 = _Web3Adapter()
-    mgr = AgentWalletManager(ctx, web3, key, persist_path=str(tmp_path / "store.json"))
+    db_url = f"sqlite+aiosqlite:///{tmp_path / 'vaultpilot.db'}"
+    mgr = AgentWalletManager(ctx, web3, key, database_url=db_url)
     await mgr.spin_up_wallet("agent")
 
     # Monkeypatch wallet methods to avoid RPC heavy ops
     async def fake_sim(agent_id, to, amt):
         return {"insufficient_funds": False}
 
-    async def fake_exec(agent_id, to, amt, code=None):
+    async def fake_exec(agent_id, to, amt, confirmation_code=None):
         return "0xabc"
 
     mgr.simulate_transfer = fake_sim  # type: ignore
     mgr.execute_transfer = fake_exec  # type: ignore
 
-    strat_path = str(tmp_path / "strategies.json")
-    sm = StrategyManager(mgr, store_path=strat_path)
-    s = sm.create_strategy_dca(
+    sm = StrategyManager(mgr)
+    s = await sm.create_strategy_dca(
         label="dca1",
         agent_id="agent",
         to_address="0x" + "1" * 40,
@@ -69,7 +95,7 @@ async def test_strategy_lifecycle(tmp_path):
     )
     assert s["label"] == "dca1"
 
-    s = sm.start_strategy("dca1")
+    s = await sm.start_strategy("dca1")
     assert s["enabled"] is True
 
     # Wait a moment to ensure strategy is due
@@ -79,11 +105,12 @@ async def test_strategy_lifecycle(tmp_path):
     res = await sm.tick_strategy("dca1", dry_run=True)
     assert res["action"] == "simulation"
 
+    await asyncio.sleep(1.1)
     res = await sm.tick_strategy("dca1")
     assert res["action"] == "sent"
     assert res["tx_hash"] == "0xabc"
 
-    s = sm.stop_strategy("dca1")
+    s = await sm.stop_strategy("dca1")
     assert s["enabled"] is False
     res = await sm.tick_strategy("dca1")
     assert res["action"] == "paused"
@@ -94,30 +121,31 @@ async def test_list_and_delete_strategies(tmp_path):
     ctx = ContextManager()
     key = Fernet.generate_key().decode()
     web3 = _Web3Adapter()
-    mgr = AgentWalletManager(ctx, web3, key, persist_path=str(tmp_path / "store.json"))
+    db_url = f"sqlite+aiosqlite:///{tmp_path / 'vaultpilot.db'}"
+    mgr = AgentWalletManager(ctx, web3, key, database_url=db_url)
     await mgr.spin_up_wallet("agent")
 
-    sm = StrategyManager(mgr, store_path=str(tmp_path / "strategies.json"))
-    sm.create_strategy_dca(
+    sm = StrategyManager(mgr)
+    await sm.create_strategy_dca(
         label="s1",
         agent_id="agent",
         to_address="0x" + "1" * 40,
         amount_eth=0.001,
         interval_seconds=60,
     )
-    sm.create_strategy_dca(
+    await sm.create_strategy_dca(
         label="s2",
         agent_id="agent",
         to_address="0x" + "2" * 40,
         amount_eth=0.002,
         interval_seconds=120,
     )
-    all_strats = sm.list_strategies()
+    all_strats = await sm.list_strategies()
     assert "s1" in all_strats and "s2" in all_strats
 
-    res = sm.delete_strategy("s1")
+    res = await sm.delete_strategy("s1")
     assert res["deleted"] == "s1"
-    all_strats = sm.list_strategies()
+    all_strats = await sm.list_strategies()
     assert "s1" not in all_strats and "s2" in all_strats
 import os
 import sys
