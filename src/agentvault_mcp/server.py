@@ -15,6 +15,7 @@ from .strategies import micro_tip_amounts as _micro_tip_amounts
 from .strategy_manager import StrategyManager
 from .ui import tipjar_page_html, dashboard_html
 from .policy import PolicyConfig, PolicyEngine, run_with_policy, extract_agent_id
+from .db.repositories import EventRepository
 
 load_dotenv()
 
@@ -578,14 +579,29 @@ async def generate_dashboard_page() -> str:
         raise RuntimeError("Server not initialized")
     # Build wallet summaries with balances when possible
     wallets = []
-    for aid, ws in _wallet_mgr.wallets.items():
+    wallet_map = await _wallet_mgr.list_wallets()
+    for aid, address in wallet_map.items():
         try:
             bal = await _wallet_mgr.query_balance(aid)
         except Exception:
             bal = "?"
-        wallets.append({"agent_id": aid, "address": ws.address, "balance_eth": bal})
+        wallets.append({"agent_id": aid, "address": address, "balance_eth": bal})
     strategies = await _strategy_mgr.list_strategies()
-    return dashboard_html(wallets, strategies)
+    events = []
+    if _policy_engine is not None:
+        async with _policy_engine.session_maker() as session:
+            repo = EventRepository(session)
+            records = await repo.list_events(50)
+            events = [
+                {
+                    "tool_name": rec.tool_name,
+                    "agent_id": rec.agent_id,
+                    "status": rec.status,
+                    "occurred_at": rec.occurred_at.isoformat() if rec.occurred_at else "",
+                }
+                for rec in records
+            ]
+    return dashboard_html(wallets, strategies, events)
 
 
 async def main() -> None:

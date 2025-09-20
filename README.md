@@ -74,6 +74,19 @@ python -m agentvault_mcp.db.import_legacy --wallet-store agentvault_store.json -
 Sepolia DeFi requires no extra setup. Mainnet/Base/Arbitrum reuse legacy V3 routers until Universal Router data is published.
 
 ## Usage
+## Admin API
+
+Start the admin API to inspect events and policies:
+
+```bash
+agentvault admin-api --host 0.0.0.0 --port 9900
+```
+
+Endpoints:
+- `GET /health` – service status
+- `GET /events?limit=100` – recent MCP tool events
+- `GET /policies` – current rate-limit configuration
+
 
 ### Start the MCP server
 

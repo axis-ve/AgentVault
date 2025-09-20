@@ -5,9 +5,14 @@ import asyncio
 import os
 from typing import Dict
 
+import uvicorn
+
 from .core import ContextManager, logger
 from .adapters.web3_adapter import Web3Adapter
 from .wallet import AgentWalletManager
+from .policy import PolicyConfig, PolicyEngine
+from .db.repositories import EventRepository
+from .admin_api import create_app
 from .strategies import (
     send_when_gas_below,
     dca_once,
@@ -29,7 +34,7 @@ def _resolve_alchemy_http_default() -> str | None:
     return f"https://eth-{network}.g.alchemy.com/v2/{key}"
 
 
-def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
+def _init_managers() -> tuple[ContextManager, AgentWalletManager, PolicyEngine]:
     rpc_url = os.getenv("WEB3_RPC_URL") or os.getenv("ALCHEMY_HTTP_URL") or _resolve_alchemy_http_default() or "https://ethereum-sepolia.publicnode.com"
     encrypt_key = os.getenv("ENCRYPT_KEY")
     from cryptography.fernet import Fernet
@@ -70,36 +75,37 @@ def _init_managers() -> tuple[ContextManager, AgentWalletManager]:
     ctx = ContextManager()
     w3 = Web3Adapter(rpc_url)
     mgr = AgentWalletManager(ctx, w3, encrypt_key)
-    return ctx, mgr
+    policy_engine = PolicyEngine(mgr.session_maker, PolicyConfig.load())
+    return ctx, mgr, policy_engine
 
 
 async def _cmd_create_wallet(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     addr = await mgr.spin_up_wallet(args.agent_id)
     print(addr)
 
 
 async def _cmd_list_wallets(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     mapping = await mgr.list_wallets()
     for aid, addr in mapping.items():
         print(f"{aid}: {addr}")
 
 
 async def _cmd_balance(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     bal = await mgr.query_balance(args.agent_id)
     print(bal)
 
 
 async def _cmd_simulate(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     sim = await mgr.simulate_transfer(args.agent_id, args.to, args.amount)
     print(sim)
 
 
 async def _cmd_send(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     if args.dry_run:
         sim = await mgr.simulate_transfer(args.agent_id, args.to, args.amount)
         print(sim)
@@ -111,25 +117,25 @@ async def _cmd_send(args):
 
 
 async def _cmd_faucet(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     res = await mgr.request_faucet_funds(args.agent_id, args.amount)
     print(res)
 
 
 async def _cmd_export_keystore(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     ks = await mgr.export_wallet_keystore(args.agent_id, args.passphrase)
     print(ks)
 
 
 async def _cmd_export_privkey(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     key = await mgr.export_wallet_private_key(args.agent_id, args.confirmation_code)
     print(key)
 
 
 async def _cmd_strategy_send_when_gas_below(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     res = await send_when_gas_below(
         mgr,
         args.agent_id,
@@ -143,7 +149,7 @@ async def _cmd_strategy_send_when_gas_below(args):
 
 
 async def _cmd_strategy_dca_once(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     res = await dca_once(
         mgr,
         args.agent_id,
@@ -157,7 +163,7 @@ async def _cmd_strategy_dca_once(args):
 
 
 async def _cmd_strategy_scheduled_once(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     res = await scheduled_send_once(
         mgr,
         args.agent_id,
@@ -171,7 +177,7 @@ async def _cmd_strategy_scheduled_once(args):
 
 
 async def _cmd_strategy_micro_equal(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     recipients = [x for x in args.recipients.split(",") if x]
     res = await micro_tip_equal(
         mgr,
@@ -197,7 +203,7 @@ def _parse_amounts(text: str) -> Dict[str, float]:
 
 
 async def _cmd_strategy_micro_amounts(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     items = _parse_amounts(args.items)
     res = await micro_tip_amounts(
         mgr,
@@ -210,7 +216,7 @@ async def _cmd_strategy_micro_amounts(args):
 
 
 async def _cmd_tipjar(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     addr = await mgr.spin_up_wallet(args.agent_id)
     out = args.out or f"tipjar-{args.agent_id}.png"
     path = generate_tipjar_qr(addr, out, args.amount)
@@ -218,7 +224,7 @@ async def _cmd_tipjar(args):
 
 
 async def _cmd_tipjar_page(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     addr = await mgr.spin_up_wallet(args.agent_id)
     out = args.out or f"tipjar-{args.agent_id}.html"
     path = write_tipjar_page(out, addr, args.amount)
@@ -226,10 +232,11 @@ async def _cmd_tipjar_page(args):
 
 
 async def _cmd_dashboard(args):
-    _, mgr = _init_managers()
+    _, mgr, policy_engine = _init_managers()
     sm = StrategyManager(mgr)
     wallets = []
-    for aid, address in (await mgr.list_wallets()).items():
+    wallet_map = await mgr.list_wallets()
+    for aid, address in wallet_map.items():
         try:
             bal = await mgr.query_balance(aid)
         except Exception:
@@ -237,20 +244,47 @@ async def _cmd_dashboard(args):
         wallets.append({"agent_id": aid, "address": address, "balance_eth": bal})
     out = args.out or "agentvault-dashboard.html"
     strategies = await sm.list_strategies()
-    path = write_dashboard_page(out, wallets, strategies)
+    async with policy_engine.session_maker() as session:
+        repo = EventRepository(session)
+        events = [
+            {
+                "tool_name": rec.tool_name,
+                "agent_id": rec.agent_id,
+                "status": rec.status,
+                "occurred_at": rec.occurred_at.isoformat() if rec.occurred_at else "",
+            }
+            for rec in await repo.list_events(50)
+        ]
+    path = write_dashboard_page(out, wallets, strategies, events)
     print({"page": path})
 
 
 async def _cmd_provider_status(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     info = await mgr.provider_status()
     print(info)
 
 
 async def _cmd_inspect_contract(args):
-    _, mgr = _init_managers()
+    _, mgr, _ = _init_managers()
     details = await mgr.inspect_contract(args.address)
     print(details)
+
+
+async def _cmd_admin_api(args):
+    _, mgr, policy_engine = _init_managers()
+    sm = StrategyManager(mgr)
+    app = create_app(policy_engine)
+
+    config = uvicorn.Config(
+        app,
+        host=args.host,
+        port=args.port,
+        log_level=args.log_level,
+        reload=args.reload,
+    )
+    server = uvicorn.Server(config)
+    await server.serve()
 
 
 def main() -> None:  # pragma: no cover
@@ -368,6 +402,13 @@ def main() -> None:  # pragma: no cover
     s = sub.add_parser("inspect-contract")
     s.add_argument("address")
     s.set_defaults(func=_cmd_inspect_contract)
+
+    api = sub.add_parser("admin-api")
+    api.add_argument("--host", default="127.0.0.1")
+    api.add_argument("--port", type=int, default=9900)
+    api.add_argument("--log-level", default="info")
+    api.add_argument("--reload", action="store_true")
+    api.set_defaults(func=_cmd_admin_api)
 
     args = p.parse_args()
     asyncio.run(args.func(args))

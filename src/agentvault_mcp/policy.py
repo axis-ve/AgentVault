@@ -59,6 +59,14 @@ class PolicyEngine:
         self._config = config
         self._lock = asyncio.Lock()
 
+    @property
+    def config(self) -> PolicyConfig:
+        return self._config
+
+    @property
+    def session_maker(self):
+        return self._session_maker
+
     async def _count_recent_events(
         self, tool_name: str, agent_id: Optional[str], window: timedelta
     ) -> int:

@@ -32,7 +32,7 @@ def test_dashboard_html_contains_sections():
             "enabled": True,
         }
     }
-    html = dashboard_html(wallets, strategies)
+    html = dashboard_html(wallets, strategies, [])
     assert "Wallets" in html and "Strategies" in html
     assert "0x" in html
     assert "Toggle Theme" in html
