@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import {
   BoltIcon,
@@ -26,6 +26,12 @@ interface Strategy {
 
 interface StrategyMap {
   [label: string]: Strategy;
+}
+
+interface AgentOption {
+  id: string;
+  wallet_address: string;
+  balance_eth: number;
 }
 
 interface CreateStrategyForm {
@@ -67,6 +73,20 @@ const Strategies: React.FC = () => {
     }
     return Object.entries(data).map(([label, value]) => ({ ...value, label }));
   }, [data]);
+
+  const { data: agents } = useQuery<AgentOption[]>({
+    queryKey: ['agents'],
+    queryFn: () => apiFetch<AgentOption[]>('/agents'),
+    staleTime: 30000,
+  });
+
+  const agentOptions = useMemo(() => agents ?? [], [agents]);
+
+  useEffect(() => {
+    if (agentOptions.length > 0 && !form.agent_id) {
+      setForm((prev) => ({ ...prev, agent_id: agentOptions[0].id }));
+    }
+  }, [agentOptions, form.agent_id]);
 
   const resetFeedback = () => {
     setMessage(null);
@@ -285,15 +305,20 @@ const Strategies: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Agent ID</label>
-                <input
-                  type="text"
+                <label className="block text-sm font-medium text-gray-700 mb-1">Agent</label>
+                <select
                   value={form.agent_id}
                   onChange={(e) => setForm((prev) => ({ ...prev, agent_id: e.target.value }))}
                   className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm shadow-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                  placeholder="marketing-bot"
                   required
-                />
+                >
+                  {agentOptions.length === 0 && <option value="">No agents available</option>}
+                  {agentOptions.map((agent) => (
+                    <option key={agent.id} value={agent.id}>
+                      {agent.id} ({agent.balance_eth.toFixed(4)} ETH)
+                    </option>
+                  ))}
+                </select>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Address</label>

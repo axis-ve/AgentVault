@@ -98,6 +98,7 @@ class TransferRequest(BaseModel):
     to_address: str
     amount_eth: float
     confirmation_code: Optional[str] = None
+    dry_run: bool = False
 
 
 class StrategyCreate(BaseModel):
@@ -108,6 +109,10 @@ class StrategyCreate(BaseModel):
     interval_seconds: int
     max_base_fee_gwei: Optional[float] = None
     daily_cap_eth: Optional[float] = None
+
+
+class FaucetRequest(BaseModel):
+    amount_eth: Optional[float] = None
 
 
 # Mock user database (replace with real persistence when auth added)
@@ -464,9 +469,21 @@ async def get_agent_balance(agent_id: str, token_data: dict = Depends(verify_tok
 async def execute_transfer(transfer: TransferRequest, token_data: dict = Depends(verify_token)):
     wallet_mgr = get_wallet_manager()
     try:
-        simulation = await wallet_mgr.simulate_transfer(transfer.agent_id, transfer.to_address, transfer.amount_eth)
+        simulation = await wallet_mgr.simulate_transfer(
+            transfer.agent_id,
+            transfer.to_address,
+            transfer.amount_eth,
+        )
         if simulation.get("insufficient_funds"):
             raise HTTPException(status_code=400, detail="Insufficient funds for amount + fees")
+
+        if transfer.dry_run:
+            return {
+                "success": True,
+                "dry_run": True,
+                "simulation": simulation,
+            }
+
         tx_hash = await wallet_mgr.execute_transfer(
             transfer.agent_id,
             transfer.to_address,
@@ -484,6 +501,19 @@ async def execute_transfer(transfer: TransferRequest, token_data: dict = Depends
         "to_address": transfer.to_address,
         "estimated_fee_eth": simulation.get("estimated_fee_eth"),
     }
+
+
+@app.post("/agents/{agent_id}/faucet")
+async def request_faucet(agent_id: str, faucet: FaucetRequest, token_data: dict = Depends(verify_token)):
+    wallet_mgr = get_wallet_manager()
+    try:
+        result = await wallet_mgr.request_faucet_funds(
+            agent_id,
+            amount_eth=faucet.amount_eth,
+        )
+        return result
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=f"Faucet request failed: {exc}")
 
 
 @app.get("/strategies")

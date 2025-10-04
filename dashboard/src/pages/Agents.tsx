@@ -1,6 +1,14 @@
 import React, { useMemo, useState } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { CpuChipIcon, ClockIcon, CheckCircleIcon, PlusIcon, XMarkIcon } from '@heroicons/react/24/outline';
+import {
+  CpuChipIcon,
+  ClockIcon,
+  CheckCircleIcon,
+  PlusIcon,
+  XMarkIcon,
+  ClipboardIcon,
+  BeakerIcon,
+} from '@heroicons/react/24/outline';
 import { apiFetch } from '../utils/api';
 
 interface Agent {
@@ -67,6 +75,36 @@ const Agents: React.FC = () => {
   };
 
   const agentList = useMemo(() => agents ?? [], [agents]);
+
+  const faucetMutation = useMutation({
+    mutationFn: ({ agentId, amount }: { agentId: string; amount?: number }) =>
+      apiFetch(`/agents/${encodeURIComponent(agentId)}/faucet`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount_eth: amount }),
+      }),
+    onSuccess: (_data, variables) => {
+      setFeedback(`Faucet request sent for ${variables.agentId}. Check balance shortly.`);
+      setErrorMessage(null);
+      queryClient.invalidateQueries({ queryKey: ['agents'] });
+    },
+    onError: (err: unknown) => {
+      const message = err instanceof Error ? err.message : 'Faucet request failed.';
+      setErrorMessage(message);
+      setFeedback(null);
+    },
+  });
+
+  const copyToClipboard = async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setFeedback('Address copied to clipboard');
+      setErrorMessage(null);
+    } catch (err) {
+      setErrorMessage('Unable to copy address');
+      setFeedback(null);
+    }
+  };
 
   if (isLoading) {
     return <div className="p-6">Loading agents...</div>;
@@ -142,12 +180,37 @@ const Agents: React.FC = () => {
 
             <p className="text-gray-600 text-sm mb-4">{agent.description}</p>
 
-            <div className="text-xs text-gray-500 space-y-1">
-              <p>
-                Wallet: {agent.wallet_address.slice(0, 6)}...{agent.wallet_address.slice(-4)}
-              </p>
+            <div className="space-y-3 text-sm text-gray-600">
+              <div>
+                <div className="flex items-center justify-between">
+                  <span>Wallet</span>
+                  <button
+                    onClick={() => copyToClipboard(agent.wallet_address)}
+                    className="inline-flex items-center gap-1 rounded-md border border-gray-200 px-2 py-1 text-xs text-gray-600 hover:bg-gray-100"
+                  >
+                    <ClipboardIcon className="h-4 w-4" /> Copy
+                  </button>
+                </div>
+                <p className="mt-1 break-all text-xs text-gray-500">{agent.wallet_address}</p>
+              </div>
+              <p>Balance: {agent.balance_eth.toFixed(4)} ETH</p>
               <p>Created: {new Date(agent.created_at).toLocaleDateString()}</p>
               {agent.last_active && <p>Last active: {new Date(agent.last_active).toLocaleString()}</p>}
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                onClick={() => queryClient.invalidateQueries({ queryKey: ['agents'] })}
+                className="rounded-md border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100"
+              >
+                Refresh Balance
+              </button>
+              <button
+                onClick={() => faucetMutation.mutate({ agentId: agent.id })}
+                className="inline-flex items-center gap-1 rounded-md border border-blue-200 bg-blue-50 px-3 py-1 text-xs font-medium text-blue-700 hover:bg-blue-100"
+              >
+                <BeakerIcon className="h-4 w-4" /> Request Faucet
+              </button>
             </div>
           </div>
         ))}
