@@ -4,7 +4,6 @@ web3>=7.13.0,<8
 eth-account>=0.13.7,<0.14
 eth-abi>=5.2.0,<6
 eth-utils>=5.0.0,<6
-web3-ethereum-defi>=0.33,<0.34
 SQLAlchemy>=2.0.32,<3
 aiosqlite>=0.20.0,<1
 alembic>=1.13.2,<2
@@ -18,3 +17,4 @@ cryptography==42.0.5
 structlog==23.2.0
 python-dotenv==1.0.0
 httpx==0.25.2
+PyJWT>=2.9.0,<3

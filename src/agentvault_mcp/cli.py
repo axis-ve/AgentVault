@@ -26,57 +26,25 @@ from .strategy_manager import StrategyManager
 from .ui import write_tipjar_page, write_dashboard_page
 
 
-def _resolve_alchemy_http_default() -> str | None:
-    key = os.getenv("ALCHEMY_API_KEY")
-    if not key:
-        return None
-    network = os.getenv("ALCHEMY_NETWORK", "sepolia").strip()
-    # Default to Ethereum Sepolia family; user can override fully via ALCHEMY_HTTP_URL
-    return f"https://eth-{network}.g.alchemy.com/v2/{key}"
-
-
 def _init_managers() -> tuple[ContextManager, AgentWalletManager, PolicyEngine]:
-    rpc_url = os.getenv("WEB3_RPC_URL") or os.getenv("ALCHEMY_HTTP_URL") or _resolve_alchemy_http_default() or "https://ethereum-sepolia.publicnode.com"
-    encrypt_key = os.getenv("ENCRYPT_KEY")
-    from cryptography.fernet import Fernet
-    store_path = os.getenv("AGENTVAULT_STORE", "agentvault_store.json")
-    key_path = os.path.splitext(store_path)[0] + ".key"
-    if not encrypt_key:
-        # Auto-generate or reuse sidecar key
-        if os.path.exists(key_path):
-            with open(key_path, "rb") as f:
-                encrypt_key = f.read().decode()
-        else:
-            encrypt_key = Fernet.generate_key().decode()
-            with open(key_path, "wb") as f:
-                f.write(encrypt_key.encode())
-            try:
-                os.chmod(key_path, 0o600)
-            except Exception:
-                pass
-    else:
-        # Validate provided key; if invalid, fall back to sidecar or generate
-        try:
-            Fernet(encrypt_key.encode())
-        except Exception:
-            logger.warning(
-                "Invalid ENCRYPT_KEY provided; falling back to sidecar or generated key"
-            )
-            if os.path.exists(key_path):
-                with open(key_path, "rb") as f:
-                    encrypt_key = f.read().decode()
-            else:
-                encrypt_key = Fernet.generate_key().decode()
-                with open(key_path, "wb") as f:
-                    f.write(encrypt_key.encode())
-                try:
-                    os.chmod(key_path, 0o600)
-                except Exception:
-                    pass
-    ctx = ContextManager()
+    from .config import (
+        get_rpc_url,
+        get_or_create_encrypt_key,
+        get_context_config,
+        get_database_url,
+        get_policy_path,
+        get_openai_api_key,
+        get_ollama_config,
+    )
+
+    rpc_url = get_rpc_url()
+    encrypt_key = get_or_create_encrypt_key()
+    context_config = get_context_config()
+    ctx = ContextManager(**context_config)
     w3 = Web3Adapter(rpc_url)
-    mgr = AgentWalletManager(ctx, w3, encrypt_key)
-    policy_path = os.getenv("VAULTPILOT_POLICY_PATH", DEFAULT_POLICY_PATH)
+    database_url = get_database_url()
+    mgr = AgentWalletManager(ctx, w3, encrypt_key, database_url=database_url)
+    policy_path = get_policy_path()
     policy_config = PolicyConfig.load(policy_path)
     policy_engine = PolicyEngine(mgr.session_maker, policy_config, config_path=policy_path)
     return ctx, mgr, policy_engine
@@ -259,7 +227,7 @@ async def _cmd_dashboard(args):
             for rec in await repo.list_events(50)
         ]
         usage = await repo.aggregate_usage(datetime.now(timezone.utc) - timedelta(hours=24))
-    path = write_dashboard_page(out, wallets, strategies, events, usage)
+    path = write_dashboard_page(out, wallets, strategies, events)
     print({"page": path})
 
 
@@ -276,6 +244,8 @@ async def _cmd_inspect_contract(args):
 
 
 async def _cmd_admin_api(args):
+    from .config import get_admin_api_config
+
     _, mgr, policy_engine = _init_managers()
     app = create_app(policy_engine)
 

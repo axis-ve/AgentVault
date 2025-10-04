@@ -1,108 +1,266 @@
 [
     {
-        "label": "asyncio",
-        "kind": 6,
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "importPath": "asyncio",
-        "description": "asyncio",
-        "detail": "asyncio",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "os",
-        "kind": 6,
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "importPath": "os",
-        "description": "os",
-        "detail": "os",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "ContextManager",
-        "importPath": "agentvault_mcp.core",
-        "description": "agentvault_mcp.core",
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.core",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "ContextManager",
-        "importPath": "agentvault_mcp.core",
-        "description": "agentvault_mcp.core",
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.core",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "ContextManager",
-        "importPath": "agentvault_mcp.core",
-        "description": "agentvault_mcp.core",
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.core",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "ContextManager",
-        "importPath": "agentvault_mcp.core",
-        "description": "agentvault_mcp.core",
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.core",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "ContextManager",
-        "importPath": "agentvault_mcp.core",
-        "description": "agentvault_mcp.core",
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.core",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "Web3Adapter",
-        "importPath": "agentvault_mcp.adapters.web3_adapter",
-        "description": "agentvault_mcp.adapters.web3_adapter",
+        "label": "status",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.adapters.web3_adapter",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "AgentWalletManager",
-        "importPath": "agentvault_mcp.wallet",
-        "description": "agentvault_mcp.wallet",
+        "label": "FastAPI",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.wallet",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "AgentWalletManager",
-        "importPath": "agentvault_mcp.wallet",
-        "description": "agentvault_mcp.wallet",
+        "label": "Depends",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.wallet",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "AgentWalletManager",
-        "importPath": "agentvault_mcp.wallet",
-        "description": "agentvault_mcp.wallet",
+        "label": "Query",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.wallet",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "AgentWalletManager",
-        "importPath": "agentvault_mcp.wallet",
-        "description": "agentvault_mcp.wallet",
+        "label": "HTTPException",
+        "importPath": "fastapi",
+        "description": "fastapi",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.wallet",
+        "detail": "fastapi",
         "documentation": {}
     },
     {
-        "label": "AgentWalletManager",
-        "importPath": "agentvault_mcp.wallet",
-        "description": "agentvault_mcp.wallet",
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
         "isExtraImport": true,
-        "detail": "agentvault_mcp.wallet",
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "CORSMiddleware",
+        "importPath": "fastapi.middleware.cors",
+        "description": "fastapi.middleware.cors",
+        "isExtraImport": true,
+        "detail": "fastapi.middleware.cors",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBearer",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPAuthorizationCredentials",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPAuthorizationCredentials",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "HTTPBearer",
+        "importPath": "fastapi.security",
+        "description": "fastapi.security",
+        "isExtraImport": true,
+        "detail": "fastapi.security",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "Field",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "field_validator",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "BaseModel",
+        "importPath": "pydantic",
+        "description": "pydantic",
+        "isExtraImport": true,
+        "detail": "pydantic",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "List",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
         "documentation": {}
     },
     {
@@ -131,6 +289,62 @@
     },
     {
         "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Iterable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
         "importPath": "typing",
         "description": "typing",
         "isExtraImport": true,
@@ -258,6 +472,54 @@
         "documentation": {}
     },
     {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Optional",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Callable",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Any",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
         "label": "Dict",
         "importPath": "typing",
         "description": "typing",
@@ -330,7 +592,7 @@
         "documentation": {}
     },
     {
-        "label": "Dict",
+        "label": "Any",
         "importPath": "typing",
         "description": "typing",
         "isExtraImport": true,
@@ -343,6 +605,709 @@
         "description": "typing",
         "isExtraImport": true,
         "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "Dict",
+        "importPath": "typing",
+        "description": "typing",
+        "isExtraImport": true,
+        "detail": "typing",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "date",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "datetime",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timedelta",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "timezone",
+        "importPath": "datetime",
+        "description": "datetime",
+        "isExtraImport": true,
+        "detail": "datetime",
+        "documentation": {}
+    },
+    {
+        "label": "jwt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "jwt",
+        "description": "jwt",
+        "detail": "jwt",
+        "documentation": {}
+    },
+    {
+        "label": "bcrypt",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "bcrypt",
+        "description": "bcrypt",
+        "detail": "bcrypt",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "annotations",
+        "importPath": "__future__",
+        "description": "__future__",
+        "isExtraImport": true,
+        "detail": "__future__",
+        "documentation": {}
+    },
+    {
+        "label": "asyncio",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "asyncio",
+        "description": "asyncio",
+        "detail": "asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "Path",
+        "importPath": "pathlib",
+        "description": "pathlib",
+        "isExtraImport": true,
+        "detail": "pathlib",
+        "documentation": {}
+    },
+    {
+        "label": "uuid",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uuid",
+        "description": "uuid",
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "uuid4",
+        "importPath": "uuid",
+        "description": "uuid",
+        "isExtraImport": true,
+        "detail": "uuid",
+        "documentation": {}
+    },
+    {
+        "label": "sys",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "sys",
+        "description": "sys",
+        "detail": "sys",
+        "documentation": {}
+    },
+    {
+        "label": "Web3Adapter",
+        "importPath": "src.agentvault_mcp.adapters.web3_adapter",
+        "description": "src.agentvault_mcp.adapters.web3_adapter",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.adapters.web3_adapter",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "src.agentvault_mcp.core",
+        "description": "src.agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "MCPEvent",
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "EventRepository",
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "WalletRepository",
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyManager",
+        "importPath": "src.agentvault_mcp.strategy_manager",
+        "description": "src.agentvault_mcp.strategy_manager",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "src.agentvault_mcp.wallet",
+        "description": "src.agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "src.agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "json",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "json",
+        "description": "json",
+        "detail": "json",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "ContextManager",
+        "importPath": "agentvault_mcp.core",
+        "description": "agentvault_mcp.core",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.core",
+        "documentation": {}
+    },
+    {
+        "label": "Web3Adapter",
+        "importPath": "agentvault_mcp.adapters.web3_adapter",
+        "description": "agentvault_mcp.adapters.web3_adapter",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.adapters.web3_adapter",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
+        "documentation": {}
+    },
+    {
+        "label": "AgentWalletManager",
+        "importPath": "agentvault_mcp.wallet",
+        "description": "agentvault_mcp.wallet",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.wallet",
         "documentation": {}
     },
     {
@@ -412,67 +1377,204 @@
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "alembic",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "op",
+        "importPath": "alembic",
+        "description": "alembic",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "alembic",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "context",
+        "importPath": "alembic",
+        "description": "alembic",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "alembic",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "command",
+        "importPath": "alembic",
+        "description": "alembic",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "alembic",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "sqlalchemy",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "__future__",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "create_engine",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "JSON",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "sqlalchemy",
         "documentation": {}
     },
     {
-        "label": "annotations",
-        "importPath": "__future__",
-        "description": "__future__",
+        "label": "Boolean",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
         "isExtraImport": true,
-        "detail": "__future__",
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Date",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "DateTime",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Float",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Integer",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "LargeBinary",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "String",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "Text",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "UniqueConstraint",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "select",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "update",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "func",
+        "importPath": "sqlalchemy",
+        "description": "sqlalchemy",
+        "isExtraImport": true,
+        "detail": "sqlalchemy",
+        "documentation": {}
+    },
+    {
+        "label": "fileConfig",
+        "importPath": "logging.config",
+        "description": "logging.config",
+        "isExtraImport": true,
+        "detail": "logging.config",
+        "documentation": {}
+    },
+    {
+        "label": "Connection",
+        "importPath": "sqlalchemy.engine",
+        "description": "sqlalchemy.engine",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.engine",
+        "documentation": {}
+    },
+    {
+        "label": "Engine",
+        "importPath": "sqlalchemy.engine",
+        "description": "sqlalchemy.engine",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.engine",
+        "documentation": {}
+    },
+    {
+        "label": "get_sync_engine",
+        "importPath": "agentvault_mcp.db.engine",
+        "description": "agentvault_mcp.db.engine",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "importPath": "agentvault_mcp.db",
+        "description": "agentvault_mcp.db",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.db",
         "documentation": {}
     },
     {
@@ -482,6 +1584,175 @@
         "importPath": "argparse",
         "description": "argparse",
         "detail": "argparse",
+        "documentation": {}
+    },
+    {
+        "label": "Config",
+        "importPath": "alembic.config",
+        "description": "alembic.config",
+        "isExtraImport": true,
+        "detail": "alembic.config",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "lru_cache",
+        "importPath": "functools",
+        "description": "functools",
+        "isExtraImport": true,
+        "detail": "functools",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncEngine",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncSession",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "async_sessionmaker",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "create_async_engine",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "AsyncSession",
+        "importPath": "sqlalchemy.ext.asyncio",
+        "description": "sqlalchemy.ext.asyncio",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.ext.asyncio",
+        "documentation": {}
+    },
+    {
+        "label": "DeclarativeBase",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "Mapped",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "mapped_column",
+        "importPath": "sqlalchemy.orm",
+        "description": "sqlalchemy.orm",
+        "isExtraImport": true,
+        "detail": "sqlalchemy.orm",
+        "documentation": {}
+    },
+    {
+        "label": "uvicorn",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "uvicorn",
+        "description": "uvicorn",
+        "detail": "uvicorn",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "InvalidToken",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "InvalidToken",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
+        "documentation": {}
+    },
+    {
+        "label": "Fernet",
+        "importPath": "cryptography.fernet",
+        "description": "cryptography.fernet",
+        "isExtraImport": true,
+        "detail": "cryptography.fernet",
         "documentation": {}
     },
     {
@@ -500,47 +1771,6 @@
         "importPath": "structlog",
         "description": "structlog",
         "detail": "structlog",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "Field",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "field_validator",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "BaseModel",
-        "importPath": "pydantic",
-        "description": "pydantic",
-        "isExtraImport": true,
-        "detail": "pydantic",
-        "documentation": {}
-    },
-    {
-        "label": "json",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "json",
-        "description": "json",
-        "detail": "json",
         "documentation": {}
     },
     {
@@ -634,15 +1864,6 @@
         "documentation": {}
     },
     {
-        "label": "sys",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "sys",
-        "description": "sys",
-        "detail": "sys",
-        "documentation": {}
-    },
-    {
         "label": "dataclass",
         "importPath": "dataclasses",
         "description": "dataclasses",
@@ -667,75 +1888,20 @@
         "documentation": {}
     },
     {
-        "label": "lru_cache",
-        "importPath": "functools",
-        "description": "functools",
+        "label": "dataclass",
+        "importPath": "dataclasses",
+        "description": "dataclasses",
         "isExtraImport": true,
-        "detail": "functools",
+        "detail": "dataclasses",
         "documentation": {}
     },
     {
-        "label": "load_dotenv",
-        "importPath": "dotenv",
-        "description": "dotenv",
+        "label": "yaml",
+        "kind": 6,
         "isExtraImport": true,
-        "detail": "dotenv",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timezone",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "datetime",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timezone",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "timedelta",
-        "importPath": "datetime",
-        "description": "datetime",
-        "isExtraImport": true,
-        "detail": "datetime",
-        "documentation": {}
-    },
-    {
-        "label": "Path",
-        "importPath": "pathlib",
-        "description": "pathlib",
-        "isExtraImport": true,
-        "detail": "pathlib",
-        "documentation": {}
-    },
-    {
-        "label": "Path",
-        "importPath": "pathlib",
-        "description": "pathlib",
-        "isExtraImport": true,
-        "detail": "pathlib",
+        "importPath": "yaml",
+        "description": "yaml",
+        "detail": "yaml",
         "documentation": {}
     },
     {
@@ -754,63 +1920,6 @@
         "importPath": "io",
         "description": "io",
         "detail": "io",
-        "documentation": {}
-    },
-    {
-        "label": "tempfile",
-        "kind": 6,
-        "isExtraImport": true,
-        "importPath": "tempfile",
-        "description": "tempfile",
-        "detail": "tempfile",
-        "documentation": {}
-    },
-    {
-        "label": "Fernet",
-        "importPath": "cryptography.fernet",
-        "description": "cryptography.fernet",
-        "isExtraImport": true,
-        "detail": "cryptography.fernet",
-        "documentation": {}
-    },
-    {
-        "label": "InvalidToken",
-        "importPath": "cryptography.fernet",
-        "description": "cryptography.fernet",
-        "isExtraImport": true,
-        "detail": "cryptography.fernet",
-        "documentation": {}
-    },
-    {
-        "label": "Fernet",
-        "importPath": "cryptography.fernet",
-        "description": "cryptography.fernet",
-        "isExtraImport": true,
-        "detail": "cryptography.fernet",
-        "documentation": {}
-    },
-    {
-        "label": "Fernet",
-        "importPath": "cryptography.fernet",
-        "description": "cryptography.fernet",
-        "isExtraImport": true,
-        "detail": "cryptography.fernet",
-        "documentation": {}
-    },
-    {
-        "label": "Fernet",
-        "importPath": "cryptography.fernet",
-        "description": "cryptography.fernet",
-        "isExtraImport": true,
-        "detail": "cryptography.fernet",
-        "documentation": {}
-    },
-    {
-        "label": "Fernet",
-        "importPath": "cryptography.fernet",
-        "description": "cryptography.fernet",
-        "isExtraImport": true,
-        "detail": "cryptography.fernet",
         "documentation": {}
     },
     {
@@ -852,6 +1961,46 @@
         "description": "agentvault_mcp.guardrail",
         "isExtraImport": true,
         "detail": "agentvault_mcp.guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "PolicyConfig",
+        "importPath": "agentvault_mcp.policy",
+        "description": "agentvault_mcp.policy",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "PolicyEngine",
+        "importPath": "agentvault_mcp.policy",
+        "description": "agentvault_mcp.policy",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "RateLimitRule",
+        "importPath": "agentvault_mcp.policy",
+        "description": "agentvault_mcp.policy",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "run_with_policy",
+        "importPath": "agentvault_mcp.policy",
+        "description": "agentvault_mcp.policy",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "EventRepository",
+        "importPath": "agentvault_mcp.db.repositories",
+        "description": "agentvault_mcp.db.repositories",
+        "isExtraImport": true,
+        "detail": "agentvault_mcp.db.repositories",
         "documentation": {}
     },
     {
@@ -927,6 +2076,339 @@
         "documentation": {}
     },
     {
+        "label": "User",
+        "kind": 6,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "class User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None\n    token_balance: float = 0\n    total_usage: int = 0\n    is_active: bool = True\n    created_at: datetime\n    last_login: Optional[datetime] = None\nclass Agent(BaseModel):",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "Agent",
+        "kind": 6,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "class Agent(BaseModel):\n    id: str\n    name: str\n    description: str\n    wallet_address: str\n    status: str\n    created_at: datetime\n    last_active: Optional[datetime] = None\nclass UsageStats(BaseModel):\n    total_requests: int",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "UsageStats",
+        "kind": 6,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "class UsageStats(BaseModel):\n    total_requests: int\n    total_cost: float\n    daily_usage: List[Dict[str, Any]]\n    monthly_usage: List[Dict[str, Any]]\nclass BillingHistory(BaseModel):\n    id: str\n    amount: float\n    description: str\n    timestamp: datetime",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "BillingHistory",
+        "kind": 6,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "class BillingHistory(BaseModel):\n    id: str\n    amount: float\n    description: str\n    timestamp: datetime\n    status: str\nclass AirdropInfo(BaseModel):\n    eligible: bool\n    amount: float\n    next_claim: Optional[datetime]",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "AirdropInfo",
+        "kind": 6,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "class AirdropInfo(BaseModel):\n    eligible: bool\n    amount: float\n    next_claim: Optional[datetime]\n    total_claimed: float\n# Mock data storage (in production, use a database)\nusers_db = {}\nagents_db = {}\nusage_db = {}\nbilling_db = {}",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "create_access_token",
+        "kind": 2,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "def create_access_token(data: dict):\n    to_encode = data.copy()\n    expire = datetime.utcnow() + timedelta(days=7)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt\ndef verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):\n    try:\n        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])\n        return payload",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "verify_token",
+        "kind": 2,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "def verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):\n    try:\n        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])\n        return payload\n    except jwt.PyJWTError:\n        raise HTTPException(\n            status_code=status.HTTP_401_UNAUTHORIZED,\n            detail=\"Invalid authentication credentials\"\n        )\n# API Endpoints",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "app = FastAPI(\n    title=\"AgentVault Dashboard API\",\n    description=\"Backend API for AgentVault crypto platform\",\n    version=\"1.0.0\"\n)\n# CORS middleware\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=[\"http://localhost:3000\", \"http://localhost:3001\"],\n    allow_credentials=True,",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "security",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "security = HTTPBearer()\nSECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", \"your-secret-key\")\nALGORITHM = \"HS256\"\n# Models\nclass User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None\n    token_balance: float = 0\n    total_usage: int = 0",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", \"your-secret-key\")\nALGORITHM = \"HS256\"\n# Models\nclass User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None\n    token_balance: float = 0\n    total_usage: int = 0\n    is_active: bool = True",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "ALGORITHM",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "ALGORITHM = \"HS256\"\n# Models\nclass User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None\n    token_balance: float = 0\n    total_usage: int = 0\n    is_active: bool = True\n    created_at: datetime",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "users_db",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "users_db = {}\nagents_db = {}\nusage_db = {}\nbilling_db = {}\n# Authentication\ndef create_access_token(data: dict):\n    to_encode = data.copy()\n    expire = datetime.utcnow() + timedelta(days=7)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "agents_db",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "agents_db = {}\nusage_db = {}\nbilling_db = {}\n# Authentication\ndef create_access_token(data: dict):\n    to_encode = data.copy()\n    expire = datetime.utcnow() + timedelta(days=7)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "usage_db",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "usage_db = {}\nbilling_db = {}\n# Authentication\ndef create_access_token(data: dict):\n    to_encode = data.copy()\n    expire = datetime.utcnow() + timedelta(days=7)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt\ndef verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "billing_db",
+        "kind": 5,
+        "importPath": "dashboard.backend.main",
+        "description": "dashboard.backend.main",
+        "peekOfCode": "billing_db = {}\n# Authentication\ndef create_access_token(data: dict):\n    to_encode = data.copy()\n    expire = datetime.utcnow() + timedelta(days=7)\n    to_encode.update({\"exp\": expire})\n    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\n    return encoded_jwt\ndef verify_token(credentials: HTTPAuthorizationCredentials = Depends(security)):\n    try:",
+        "detail": "dashboard.backend.main",
+        "documentation": {}
+    },
+    {
+        "label": "User",
+        "kind": 6,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "class User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None\n    token_balance: float = 0\n    total_usage: int = 0\n    is_active: bool = True\n    created_at: datetime\n    last_login: Optional[datetime] = None\nclass AgentCreate(BaseModel):",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "AgentCreate",
+        "kind": 6,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "class AgentCreate(BaseModel):\n    name: str\n    description: str\nclass Agent(BaseModel):\n    id: str\n    name: str\n    description: str\n    wallet_address: str\n    balance_eth: float\n    status: str",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "Agent",
+        "kind": 6,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "class Agent(BaseModel):\n    id: str\n    name: str\n    description: str\n    wallet_address: str\n    balance_eth: float\n    status: str\n    created_at: datetime\n    last_active: Optional[datetime] = None\nclass TransferRequest(BaseModel):",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "TransferRequest",
+        "kind": 6,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "class TransferRequest(BaseModel):\n    agent_id: str\n    to_address: str\n    amount_eth: float\n    confirmation_code: Optional[str] = None\nclass StrategyCreate(BaseModel):\n    label: str\n    agent_id: str\n    to_address: str\n    amount_eth: float",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyCreate",
+        "kind": 6,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "class StrategyCreate(BaseModel):\n    label: str\n    agent_id: str\n    to_address: str\n    amount_eth: float\n    interval_seconds: int\n    max_base_fee_gwei: Optional[float] = None\n    daily_cap_eth: Optional[float] = None\n# Mock user database (replace with real persistence when auth added)\nMOCK_USERS = {",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "get_wallet_manager",
+        "kind": 2,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "def get_wallet_manager() -> AgentWalletManager:\n    global _wallet_manager\n    if _wallet_manager is None:\n        ctx = ContextManager()\n        rpc_url = os.getenv(\"WEB3_RPC_URL\", \"https://ethereum-sepolia.publicnode.com\")\n        web3_adapter = Web3Adapter(rpc_url)\n        encrypt_key = os.getenv(\"ENCRYPT_KEY\")\n        if not encrypt_key:\n            raise RuntimeError(\"ENCRYPT_KEY not set in environment\")\n        database_url = os.getenv(\"VAULTPILOT_DATABASE_URL\", \"sqlite+aiosqlite:///./agentvault.db\")",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "get_strategy_manager",
+        "kind": 2,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "def get_strategy_manager() -> StrategyManager:\n    global _strategy_manager\n    if _strategy_manager is None:\n        _strategy_manager = StrategyManager(get_wallet_manager())\n    return _strategy_manager\nasync def _load_events(limit: int = MAX_EVENTS_FETCH) -> List[MCPEvent]:\n    wallet_mgr = get_wallet_manager()\n    async with wallet_mgr.session_maker() as session:\n        repo = EventRepository(session, wallet_mgr.tenant_id)\n        return await repo.list_events(limit)",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "create_access_token",
+        "kind": 2,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "def create_access_token(data: dict) -> str:\n    to_encode = data.copy()\n    expire = datetime.utcnow() + timedelta(days=7)\n    to_encode.update({\"exp\": expire})\n    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)\nasync def verify_token(credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)) -> dict:\n    if credentials is None:\n        if ALLOW_ANON:\n            return _default_user()\n        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=\"Authentication required\")",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "app = FastAPI(\n    title=\"AgentVault Dashboard API\",\n    description=\"Backend API for AgentVault - Integrated with MCP Server\",\n    version=\"1.0.0\",\n)\n# CORS middleware\napp.add_middleware(\n    CORSMiddleware,\n    allow_origins=os.getenv(\"AGENTVAULT_DASHBOARD_ORIGINS\", \"http://localhost:3000\").split(\",\"),\n    allow_credentials=True,",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "security",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "security = HTTPBearer(auto_error=False)\nSECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", \"dev-secret-key\")\nALGORITHM = \"HS256\"\nALLOW_ANON = os.getenv(\"AGENTVAULT_DASHBOARD_ALLOW_ANON\", \"1\") == \"1\"\n# Usage & billing constants\nCOST_PER_EVENT = float(os.getenv(\"AGENTVAULT_COST_PER_EVENT\", \"0.01\"))\nAIR_DROP_RATE = float(os.getenv(\"AGENTVAULT_AIRDROP_RATE\", \"0.05\"))\nMAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "SECRET_KEY",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "SECRET_KEY = os.getenv(\"JWT_SECRET_KEY\", \"dev-secret-key\")\nALGORITHM = \"HS256\"\nALLOW_ANON = os.getenv(\"AGENTVAULT_DASHBOARD_ALLOW_ANON\", \"1\") == \"1\"\n# Usage & billing constants\nCOST_PER_EVENT = float(os.getenv(\"AGENTVAULT_COST_PER_EVENT\", \"0.01\"))\nAIR_DROP_RATE = float(os.getenv(\"AGENTVAULT_AIRDROP_RATE\", \"0.05\"))\nMAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}\nCLAIM_LOCK = asyncio.Lock()",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "ALGORITHM",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "ALGORITHM = \"HS256\"\nALLOW_ANON = os.getenv(\"AGENTVAULT_DASHBOARD_ALLOW_ANON\", \"1\") == \"1\"\n# Usage & billing constants\nCOST_PER_EVENT = float(os.getenv(\"AGENTVAULT_COST_PER_EVENT\", \"0.01\"))\nAIR_DROP_RATE = float(os.getenv(\"AGENTVAULT_AIRDROP_RATE\", \"0.05\"))\nMAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}\nCLAIM_LOCK = asyncio.Lock()\n_wallet_manager: Optional[AgentWalletManager] = None",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "ALLOW_ANON",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "ALLOW_ANON = os.getenv(\"AGENTVAULT_DASHBOARD_ALLOW_ANON\", \"1\") == \"1\"\n# Usage & billing constants\nCOST_PER_EVENT = float(os.getenv(\"AGENTVAULT_COST_PER_EVENT\", \"0.01\"))\nAIR_DROP_RATE = float(os.getenv(\"AGENTVAULT_AIRDROP_RATE\", \"0.05\"))\nMAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}\nCLAIM_LOCK = asyncio.Lock()\n_wallet_manager: Optional[AgentWalletManager] = None\n_strategy_manager: Optional[StrategyManager] = None",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "COST_PER_EVENT",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "COST_PER_EVENT = float(os.getenv(\"AGENTVAULT_COST_PER_EVENT\", \"0.01\"))\nAIR_DROP_RATE = float(os.getenv(\"AGENTVAULT_AIRDROP_RATE\", \"0.05\"))\nMAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}\nCLAIM_LOCK = asyncio.Lock()\n_wallet_manager: Optional[AgentWalletManager] = None\n_strategy_manager: Optional[StrategyManager] = None\nclass User(BaseModel):\n    id: str",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "AIR_DROP_RATE",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "AIR_DROP_RATE = float(os.getenv(\"AGENTVAULT_AIRDROP_RATE\", \"0.05\"))\nMAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}\nCLAIM_LOCK = asyncio.Lock()\n_wallet_manager: Optional[AgentWalletManager] = None\n_strategy_manager: Optional[StrategyManager] = None\nclass User(BaseModel):\n    id: str\n    email: str",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_EVENTS_FETCH",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "MAX_EVENTS_FETCH = int(os.getenv(\"AGENTVAULT_MAX_EVENTS_FETCH\", \"1000\"))\n# Airdrop in-memory state (dev only)\nCLAIM_STATE: Dict[str, Dict[str, Any]] = {}\nCLAIM_LOCK = asyncio.Lock()\n_wallet_manager: Optional[AgentWalletManager] = None\n_strategy_manager: Optional[StrategyManager] = None\nclass User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "CLAIM_LOCK",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "CLAIM_LOCK = asyncio.Lock()\n_wallet_manager: Optional[AgentWalletManager] = None\n_strategy_manager: Optional[StrategyManager] = None\nclass User(BaseModel):\n    id: str\n    email: str\n    wallet_address: Optional[str] = None\n    token_balance: float = 0\n    total_usage: int = 0\n    is_active: bool = True",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "MOCK_USERS",
+        "kind": 5,
+        "importPath": "dashboard.backend.main_integrated",
+        "description": "dashboard.backend.main_integrated",
+        "peekOfCode": "MOCK_USERS = {\n    \"demo@agentvault.com\": {\n        \"id\": \"user-demo\",\n        \"email\": \"demo@agentvault.com\",\n        \"password\": \"demo123\",  # In production: store hashed password\n    }\n}\n# ---------------------------------------------------------------------------\n# Initialization helpers\n# ---------------------------------------------------------------------------",
+        "detail": "dashboard.backend.main_integrated",
+        "documentation": {}
+    },
+    {
+        "label": "_Known",
+        "kind": 6,
+        "importPath": "dashboard.node_modules.flatted.python.flatted",
+        "description": "dashboard.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _Known:\n    def __init__(self):\n        self.key = []\n        self.value = []\nclass _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0",
+        "detail": "dashboard.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "_String",
+        "kind": 6,
+        "importPath": "dashboard.node_modules.flatted.python.flatted",
+        "description": "dashboard.node_modules.flatted.python.flatted",
+        "peekOfCode": "class _String:\n    def __init__(self, value):\n        self.value = value\ndef _array_keys(value):\n    keys = []\n    i = 0\n    for _ in value:\n        keys.append(i)\n        i += 1\n    return keys",
+        "detail": "dashboard.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "parse",
+        "kind": 2,
+        "importPath": "dashboard.node_modules.flatted.python.flatted",
+        "description": "dashboard.node_modules.flatted.python.flatted",
+        "peekOfCode": "def parse(value, *args, **kwargs):\n    json = _json.loads(value, *args, **kwargs)\n    wrapped = []\n    for value in json:\n        wrapped.append(_wrap(value))\n    input = []\n    for value in wrapped:\n        if isinstance(value, _String):\n            input.append(value.value)\n        else:",
+        "detail": "dashboard.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
+        "label": "stringify",
+        "kind": 2,
+        "importPath": "dashboard.node_modules.flatted.python.flatted",
+        "description": "dashboard.node_modules.flatted.python.flatted",
+        "peekOfCode": "def stringify(value, *args, **kwargs):\n    known = _Known()\n    input = []\n    output = []\n    i = int(_index(known, input, value))\n    while i < len(input):\n        output.append(_transform(known, input, input[i]))\n        i += 1\n    return _json.dumps(output, *args, **kwargs)",
+        "detail": "dashboard.node_modules.flatted.python.flatted",
+        "documentation": {}
+    },
+    {
         "label": "OllamaAdapter",
         "kind": 6,
         "importPath": "src.agentvault_mcp.adapters.ollama_adapter",
@@ -954,12 +2436,669 @@
         "documentation": {}
     },
     {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "description": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "peekOfCode": "def upgrade() -> None:\n    op.create_table(\n        \"wallets\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"agent_id\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"address\", sa.String(length=42), nullable=False),\n        sa.Column(\"encrypted_privkey\", sa.LargeBinary(), nullable=False),\n        sa.Column(\"chain_id\", sa.Integer(), nullable=False),\n        sa.Column(\"last_nonce\", sa.Integer()),\n        sa.Column(\"metadata_json\", sa.JSON(), nullable=True),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "description": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "peekOfCode": "def downgrade() -> None:\n    op.drop_table(\"mcp_events\")\n    op.drop_table(\"strategy_runs\")\n    op.drop_table(\"strategies\")\n    op.drop_table(\"wallets\")",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "revision",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "description": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "peekOfCode": "revision = \"0001_initial\"\ndown_revision = None\nbranch_labels = None\ndepends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"wallets\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"agent_id\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"address\", sa.String(length=42), nullable=False),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "down_revision",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "description": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "peekOfCode": "down_revision = None\nbranch_labels = None\ndepends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"wallets\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"agent_id\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"address\", sa.String(length=42), nullable=False),\n        sa.Column(\"encrypted_privkey\", sa.LargeBinary(), nullable=False),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "branch_labels",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "description": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "peekOfCode": "branch_labels = None\ndepends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"wallets\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"agent_id\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"address\", sa.String(length=42), nullable=False),\n        sa.Column(\"encrypted_privkey\", sa.LargeBinary(), nullable=False),\n        sa.Column(\"chain_id\", sa.Integer(), nullable=False),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "depends_on",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "description": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "peekOfCode": "depends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"wallets\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"agent_id\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"address\", sa.String(length=42), nullable=False),\n        sa.Column(\"encrypted_privkey\", sa.LargeBinary(), nullable=False),\n        sa.Column(\"chain_id\", sa.Integer(), nullable=False),\n        sa.Column(\"last_nonce\", sa.Integer()),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0001_initial",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "description": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "peekOfCode": "def upgrade() -> None:\n    op.create_table(\n        \"tenants\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"name\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"plan\", sa.String(length=64), nullable=False, server_default=\"starter\"),\n        sa.Column(\"api_key_hash\", sa.String(length=128), nullable=False),\n        sa.Column(\"metadata_json\", sa.JSON(), nullable=True),\n        sa.Column(\"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now()),\n    )",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "description": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "peekOfCode": "def downgrade() -> None:\n    with op.batch_alter_table(\"mcp_events\") as batch:\n        batch.drop_index(\"ix_mcp_events_tenant_id\")\n        batch.drop_column(\"tenant_id\")\n    with op.batch_alter_table(\"strategy_runs\") as batch:\n        batch.drop_index(\"ix_strategy_runs_tenant_id\")\n        batch.drop_column(\"tenant_id\")\n    with op.batch_alter_table(\"strategies\") as batch:\n        batch.drop_index(\"ix_strategies_tenant_id\")\n        batch.drop_column(\"tenant_id\")",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "documentation": {}
+    },
+    {
+        "label": "revision",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "description": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "peekOfCode": "revision = \"0002_multi_tenant\"\ndown_revision = \"0001_initial\"\nbranch_labels = None\ndepends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"tenants\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"name\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"plan\", sa.String(length=64), nullable=False, server_default=\"starter\"),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "documentation": {}
+    },
+    {
+        "label": "down_revision",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "description": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "peekOfCode": "down_revision = \"0001_initial\"\nbranch_labels = None\ndepends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"tenants\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"name\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"plan\", sa.String(length=64), nullable=False, server_default=\"starter\"),\n        sa.Column(\"api_key_hash\", sa.String(length=128), nullable=False),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "documentation": {}
+    },
+    {
+        "label": "branch_labels",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "description": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "peekOfCode": "branch_labels = None\ndepends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"tenants\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"name\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"plan\", sa.String(length=64), nullable=False, server_default=\"starter\"),\n        sa.Column(\"api_key_hash\", sa.String(length=128), nullable=False),\n        sa.Column(\"metadata_json\", sa.JSON(), nullable=True),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "documentation": {}
+    },
+    {
+        "label": "depends_on",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "description": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "peekOfCode": "depends_on = None\ndef upgrade() -> None:\n    op.create_table(\n        \"tenants\",\n        sa.Column(\"id\", sa.String(length=36), primary_key=True),\n        sa.Column(\"name\", sa.String(length=255), nullable=False, unique=True),\n        sa.Column(\"plan\", sa.String(length=64), nullable=False, server_default=\"starter\"),\n        sa.Column(\"api_key_hash\", sa.String(length=128), nullable=False),\n        sa.Column(\"metadata_json\", sa.JSON(), nullable=True),\n        sa.Column(\"created_at\", sa.DateTime(timezone=True), server_default=sa.func.now()),",
+        "detail": "src.agentvault_mcp.db.migrations.versions.0002_multi_tenant",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_offline",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.migrations.env",
+        "description": "src.agentvault_mcp.db.migrations.env",
+        "peekOfCode": "def run_migrations_offline() -> None:\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(url=url, target_metadata=target_metadata, literal_binds=True)\n    with context.begin_transaction():\n        context.run_migrations()\ndef run_migrations_online() -> None:\n    url = config.get_main_option(\"sqlalchemy.url\")\n    engine = get_sync_engine(url)\n    with engine.connect() as connection:\n        context.configure(connection=connection, target_metadata=target_metadata, render_as_batch=True)",
+        "detail": "src.agentvault_mcp.db.migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "run_migrations_online",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.migrations.env",
+        "description": "src.agentvault_mcp.db.migrations.env",
+        "peekOfCode": "def run_migrations_online() -> None:\n    url = config.get_main_option(\"sqlalchemy.url\")\n    engine = get_sync_engine(url)\n    with engine.connect() as connection:\n        context.configure(connection=connection, target_metadata=target_metadata, render_as_batch=True)\n        with context.begin_transaction():\n            context.run_migrations()\nif context.is_offline_mode():\n    run_migrations_offline()\nelse:",
+        "detail": "src.agentvault_mcp.db.migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "config",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.env",
+        "description": "src.agentvault_mcp.db.migrations.env",
+        "peekOfCode": "config = context.config\nif config.config_file_name is not None:\n    fileConfig(config.config_file_name)\ntarget_metadata = Base.metadata\ndef run_migrations_offline() -> None:\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(url=url, target_metadata=target_metadata, literal_binds=True)\n    with context.begin_transaction():\n        context.run_migrations()\ndef run_migrations_online() -> None:",
+        "detail": "src.agentvault_mcp.db.migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "target_metadata",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.migrations.env",
+        "description": "src.agentvault_mcp.db.migrations.env",
+        "peekOfCode": "target_metadata = Base.metadata\ndef run_migrations_offline() -> None:\n    url = config.get_main_option(\"sqlalchemy.url\")\n    context.configure(url=url, target_metadata=target_metadata, literal_binds=True)\n    with context.begin_transaction():\n        context.run_migrations()\ndef run_migrations_online() -> None:\n    url = config.get_main_option(\"sqlalchemy.url\")\n    engine = get_sync_engine(url)\n    with engine.connect() as connection:",
+        "detail": "src.agentvault_mcp.db.migrations.env",
+        "documentation": {}
+    },
+    {
+        "label": "upgrade",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.cli",
+        "description": "src.agentvault_mcp.db.cli",
+        "peekOfCode": "def upgrade(database_url: str | None = None, revision: str = \"head\") -> None:\n    cfg = _resolve_alembic_config(database_url)\n    command.upgrade(cfg, revision)\ndef downgrade(database_url: str | None = None, revision: str = \"-1\") -> None:\n    cfg = _resolve_alembic_config(database_url)\n    command.downgrade(cfg, revision)\ndef stamp(database_url: str | None = None, revision: str = \"head\") -> None:\n    cfg = _resolve_alembic_config(database_url)\n    command.stamp(cfg, revision)\ndef main() -> None:",
+        "detail": "src.agentvault_mcp.db.cli",
+        "documentation": {}
+    },
+    {
+        "label": "downgrade",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.cli",
+        "description": "src.agentvault_mcp.db.cli",
+        "peekOfCode": "def downgrade(database_url: str | None = None, revision: str = \"-1\") -> None:\n    cfg = _resolve_alembic_config(database_url)\n    command.downgrade(cfg, revision)\ndef stamp(database_url: str | None = None, revision: str = \"head\") -> None:\n    cfg = _resolve_alembic_config(database_url)\n    command.stamp(cfg, revision)\ndef main() -> None:\n    parser = argparse.ArgumentParser(description=\"VaultPilot database migration utility\")\n    parser.add_argument(\"action\", choices=[\"upgrade\", \"downgrade\", \"stamp\"], help=\"Migration command\")\n    parser.add_argument(\"revision\", nargs=\"?\", default=\"head\", help=\"Target revision\")",
+        "detail": "src.agentvault_mcp.db.cli",
+        "documentation": {}
+    },
+    {
+        "label": "stamp",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.cli",
+        "description": "src.agentvault_mcp.db.cli",
+        "peekOfCode": "def stamp(database_url: str | None = None, revision: str = \"head\") -> None:\n    cfg = _resolve_alembic_config(database_url)\n    command.stamp(cfg, revision)\ndef main() -> None:\n    parser = argparse.ArgumentParser(description=\"VaultPilot database migration utility\")\n    parser.add_argument(\"action\", choices=[\"upgrade\", \"downgrade\", \"stamp\"], help=\"Migration command\")\n    parser.add_argument(\"revision\", nargs=\"?\", default=\"head\", help=\"Target revision\")\n    parser.add_argument(\"--database-url\", dest=\"database_url\")\n    args = parser.parse_args()\n    if args.action == \"upgrade\":",
+        "detail": "src.agentvault_mcp.db.cli",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.cli",
+        "description": "src.agentvault_mcp.db.cli",
+        "peekOfCode": "def main() -> None:\n    parser = argparse.ArgumentParser(description=\"VaultPilot database migration utility\")\n    parser.add_argument(\"action\", choices=[\"upgrade\", \"downgrade\", \"stamp\"], help=\"Migration command\")\n    parser.add_argument(\"revision\", nargs=\"?\", default=\"head\", help=\"Target revision\")\n    parser.add_argument(\"--database-url\", dest=\"database_url\")\n    args = parser.parse_args()\n    if args.action == \"upgrade\":\n        upgrade(args.database_url, args.revision)\n    elif args.action == \"downgrade\":\n        downgrade(args.database_url, args.revision)",
+        "detail": "src.agentvault_mcp.db.cli",
+        "documentation": {}
+    },
+    {
+        "label": "get_async_engine",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.engine",
+        "description": "src.agentvault_mcp.db.engine",
+        "peekOfCode": "def get_async_engine(database_url: Optional[str] = None) -> AsyncEngine:\n    url = _coerce_database_url(database_url)\n    return create_async_engine(url, pool_pre_ping=True, future=True)\n@lru_cache\ndef get_sync_engine(database_url: Optional[str] = None) -> Engine:\n    url = _coerce_database_url(database_url)\n    if url.startswith(\"sqlite+aiosqlite\"):\n        url = url.replace(\"sqlite+aiosqlite\", \"sqlite+pysqlite\")\n    return create_engine(url, pool_pre_ping=True, future=True)\n@lru_cache",
+        "detail": "src.agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "get_sync_engine",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.engine",
+        "description": "src.agentvault_mcp.db.engine",
+        "peekOfCode": "def get_sync_engine(database_url: Optional[str] = None) -> Engine:\n    url = _coerce_database_url(database_url)\n    if url.startswith(\"sqlite+aiosqlite\"):\n        url = url.replace(\"sqlite+aiosqlite\", \"sqlite+pysqlite\")\n    return create_engine(url, pool_pre_ping=True, future=True)\n@lru_cache\ndef get_session_maker(database_url: Optional[str] = None) -> async_sessionmaker[AsyncSession]:\n    engine = get_async_engine(database_url)\n    return async_sessionmaker(engine, expire_on_commit=False, autoflush=False)\n__all__ = [",
+        "detail": "src.agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "get_session_maker",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.engine",
+        "description": "src.agentvault_mcp.db.engine",
+        "peekOfCode": "def get_session_maker(database_url: Optional[str] = None) -> async_sessionmaker[AsyncSession]:\n    engine = get_async_engine(database_url)\n    return async_sessionmaker(engine, expire_on_commit=False, autoflush=False)\n__all__ = [\n    \"get_async_engine\",\n    \"get_sync_engine\",\n    \"get_session_maker\",\n]",
+        "detail": "src.agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "_DEFAULT_DB_URL",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.engine",
+        "description": "src.agentvault_mcp.db.engine",
+        "peekOfCode": "_DEFAULT_DB_URL = \"sqlite+aiosqlite:///vaultpilot.db\"\n_SYNC_SQLITE_FALLBACK = \"sqlite+pysqlite:///vaultpilot.db\"\ndef _coerce_database_url(url: Optional[str]) -> str:\n    if url:\n        return url\n    return os.getenv(\"VAULTPILOT_DATABASE_URL\", _DEFAULT_DB_URL)\n@lru_cache\ndef get_async_engine(database_url: Optional[str] = None) -> AsyncEngine:\n    url = _coerce_database_url(database_url)\n    return create_async_engine(url, pool_pre_ping=True, future=True)",
+        "detail": "src.agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "_SYNC_SQLITE_FALLBACK",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.engine",
+        "description": "src.agentvault_mcp.db.engine",
+        "peekOfCode": "_SYNC_SQLITE_FALLBACK = \"sqlite+pysqlite:///vaultpilot.db\"\ndef _coerce_database_url(url: Optional[str]) -> str:\n    if url:\n        return url\n    return os.getenv(\"VAULTPILOT_DATABASE_URL\", _DEFAULT_DB_URL)\n@lru_cache\ndef get_async_engine(database_url: Optional[str] = None) -> AsyncEngine:\n    url = _coerce_database_url(database_url)\n    return create_async_engine(url, pool_pre_ping=True, future=True)\n@lru_cache",
+        "detail": "src.agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "__all__",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.engine",
+        "description": "src.agentvault_mcp.db.engine",
+        "peekOfCode": "__all__ = [\n    \"get_async_engine\",\n    \"get_sync_engine\",\n    \"get_session_maker\",\n]",
+        "detail": "src.agentvault_mcp.db.engine",
+        "documentation": {}
+    },
+    {
+        "label": "import_legacy_data",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.import_legacy",
+        "description": "src.agentvault_mcp.db.import_legacy",
+        "peekOfCode": "def import_legacy_data(\n    *,\n    wallet_store: Path | None,\n    strategy_store: Path | None,\n    database_url: str | None = None,\n) -> Dict[str, int]:\n    \"\"\"Import legacy JSON stores into the VaultPilot database.\"\"\"\n    upgrade(database_url)\n    session_maker = get_session_maker(database_url)\n    summary = {",
+        "detail": "src.agentvault_mcp.db.import_legacy",
+        "documentation": {}
+    },
+    {
+        "label": "main",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.db.import_legacy",
+        "description": "src.agentvault_mcp.db.import_legacy",
+        "peekOfCode": "def main() -> None:\n    parser = argparse.ArgumentParser(description=\"Import legacy AgentVault JSON stores into the database\")\n    parser.add_argument(\"--wallet-store\", type=Path, default=Path(\"agentvault_store.json\"))\n    parser.add_argument(\"--strategy-store\", type=Path, default=Path(\"agentvault_strategies.json\"))\n    parser.add_argument(\"--database-url\")\n    args = parser.parse_args()\n    summary = import_legacy_data(\n        wallet_store=args.wallet_store,\n        strategy_store=args.strategy_store,\n        database_url=args.database_url,",
+        "detail": "src.agentvault_mcp.db.import_legacy",
+        "documentation": {}
+    },
+    {
+        "label": "Base",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "class Base(DeclarativeBase):\n    pass\nUUID_TYPE = String(36)\ndef _uuid_str() -> str:\n    return str(uuid.uuid4())\nclass Wallet(Base):\n    __tablename__ = \"wallets\"\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default=\"default\")\n    agent_id: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Wallet",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "class Wallet(Base):\n    __tablename__ = \"wallets\"\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default=\"default\")\n    agent_id: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)\n    address: Mapped[str] = mapped_column(String(42), nullable=False)\n    encrypted_privkey: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)\n    chain_id: Mapped[int] = mapped_column(Integer, nullable=False)\n    last_nonce: Mapped[int | None] = mapped_column(Integer)\n    metadata_json: Mapped[dict | None] = mapped_column(JSON, default=dict)",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Strategy",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "class Strategy(Base):\n    __tablename__ = \"strategies\"\n    __table_args__ = (UniqueConstraint(\"label\"),)\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default=\"default\")\n    label: Mapped[str] = mapped_column(String(255), nullable=False)\n    agent_id: Mapped[str] = mapped_column(String(255), nullable=False)\n    strategy_type: Mapped[str] = mapped_column(String(64), nullable=False)\n    to_address: Mapped[str] = mapped_column(String(64), nullable=False)\n    amount_eth: Mapped[float] = mapped_column(Float, nullable=False)",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyRun",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "class StrategyRun(Base):\n    __tablename__ = \"strategy_runs\"\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    strategy_id: Mapped[str] = mapped_column(String(36), nullable=False)\n    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default=\"default\")\n    run_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=func.now)\n    result: Mapped[str] = mapped_column(String(32), nullable=False)\n    tx_hash: Mapped[str | None] = mapped_column(String(120))\n    detail: Mapped[dict | None] = mapped_column(JSON)\nclass MCPEvent(Base):",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "MCPEvent",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "class MCPEvent(Base):\n    __tablename__ = \"mcp_events\"\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default=\"default\")\n    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())\n    tool_name: Mapped[str] = mapped_column(String(255), nullable=False)\n    agent_id: Mapped[str | None] = mapped_column(String(255))\n    status: Mapped[str] = mapped_column(String(32), nullable=False)\n    request_payload: Mapped[dict | None] = mapped_column(JSON)\n    response_payload: Mapped[dict | None] = mapped_column(JSON)",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "Tenant",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "class Tenant(Base):\n    __tablename__ = \"tenants\"\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)\n    plan: Mapped[str] = mapped_column(String(64), nullable=False, default=\"starter\")\n    api_key_hash: Mapped[str] = mapped_column(String(128), nullable=False)\n    metadata_json: Mapped[dict | None] = mapped_column(JSON, default=dict)\n    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "UUID_TYPE",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.db.models",
+        "description": "src.agentvault_mcp.db.models",
+        "peekOfCode": "UUID_TYPE = String(36)\ndef _uuid_str() -> str:\n    return str(uuid.uuid4())\nclass Wallet(Base):\n    __tablename__ = \"wallets\"\n    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)\n    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default=\"default\")\n    agent_id: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)\n    address: Mapped[str] = mapped_column(String(42), nullable=False)\n    encrypted_privkey: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)",
+        "detail": "src.agentvault_mcp.db.models",
+        "documentation": {}
+    },
+    {
+        "label": "WalletRepository",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "peekOfCode": "class WalletRepository:\n    def __init__(self, session: AsyncSession, tenant_id: str) -> None:\n        self.session = session\n        self.tenant_id = tenant_id\n    async def list_wallets(self) -> list[Wallet]:\n        result = await self.session.execute(\n            select(Wallet).where(Wallet.tenant_id == self.tenant_id)\n        )\n        return list(result.scalars().all())\n    async def get_by_agent_id(self, agent_id: str) -> Wallet | None:",
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyRepository",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "peekOfCode": "class StrategyRepository:\n    def __init__(self, session: AsyncSession, tenant_id: str) -> None:\n        self.session = session\n        self.tenant_id = tenant_id\n    async def list_strategies(self, agent_id: str | None = None) -> list[Strategy]:\n        stmt = select(Strategy).where(Strategy.tenant_id == self.tenant_id)\n        if agent_id:\n            stmt = stmt.where(Strategy.agent_id == agent_id)\n        result = await self.session.execute(stmt.order_by(Strategy.label))\n        return list(result.scalars().all())",
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "StrategyRunRepository",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "peekOfCode": "class StrategyRunRepository:\n     def __init__(self, session: AsyncSession, tenant_id: str) -> None:\n         self.session = session\n         self.tenant_id = tenant_id\n     async def add_run(\n         self,\n         *,\n         strategy_id: str,\n         result: str,\n         tx_hash: str | None,",
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "EventRepository",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "peekOfCode": "class EventRepository:\n     def __init__(self, session: AsyncSession, tenant_id: str | None = None) -> None:\n         self.session = session\n         self.tenant_id = tenant_id\n     async def record_event(\n         self,\n         *,\n         tool_name: str,\n         agent_id: str | None,\n         status: str,",
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "TenantRepository",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.db.repositories",
+        "description": "src.agentvault_mcp.db.repositories",
+        "peekOfCode": "class TenantRepository:\n     def __init__(self, session: AsyncSession) -> None:\n         self.session = session\n     async def list_tenants(self) -> list[Tenant]:\n         result = await self.session.execute(select(Tenant).order_by(Tenant.created_at))\n         return list(result.scalars().all())\n     async def get_by_id(self, tenant_id: str) -> Tenant | None:\n         stmt = select(Tenant).where(Tenant.id == tenant_id)\n         result = await self.session.execute(stmt)\n         return result.scalar_one_or_none()",
+        "detail": "src.agentvault_mcp.db.repositories",
+        "documentation": {}
+    },
+    {
+        "label": "EventModel",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.admin_api",
+        "description": "src.agentvault_mcp.admin_api",
+        "peekOfCode": "class EventModel(BaseModel):\n    id: str\n    occurred_at: str\n    tool_name: str\n    agent_id: Optional[str]\n    status: str\n    request_payload: Optional[dict[str, Any]]\n    response_payload: Optional[dict[str, Any]]\n    error_message: Optional[str]\nclass PolicyModel(BaseModel):",
+        "detail": "src.agentvault_mcp.admin_api",
+        "documentation": {}
+    },
+    {
+        "label": "PolicyModel",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.admin_api",
+        "description": "src.agentvault_mcp.admin_api",
+        "peekOfCode": "class PolicyModel(BaseModel):\n    default_rate_limit: dict[str, Any]\n    tool_overrides: dict[str, dict[str, Any]]\nclass UsageRecord(BaseModel):\n    agent_id: Optional[str]\n    tool_name: str\n    count: int\ndef create_app(policy_engine: PolicyEngine) -> FastAPI:\n    app = FastAPI(title=\"VaultPilot Admin API\", version=\"0.1\")\n    def get_policy_engine() -> PolicyEngine:",
+        "detail": "src.agentvault_mcp.admin_api",
+        "documentation": {}
+    },
+    {
+        "label": "UsageRecord",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.admin_api",
+        "description": "src.agentvault_mcp.admin_api",
+        "peekOfCode": "class UsageRecord(BaseModel):\n    agent_id: Optional[str]\n    tool_name: str\n    count: int\ndef create_app(policy_engine: PolicyEngine) -> FastAPI:\n    app = FastAPI(title=\"VaultPilot Admin API\", version=\"0.1\")\n    def get_policy_engine() -> PolicyEngine:\n        return policy_engine\n    async def get_event_repo(engine: PolicyEngine = Depends(get_policy_engine)) -> EventRepository:\n        session = engine.session_maker()",
+        "detail": "src.agentvault_mcp.admin_api",
+        "documentation": {}
+    },
+    {
+        "label": "create_app",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.admin_api",
+        "description": "src.agentvault_mcp.admin_api",
+        "peekOfCode": "def create_app(policy_engine: PolicyEngine) -> FastAPI:\n    app = FastAPI(title=\"VaultPilot Admin API\", version=\"0.1\")\n    def get_policy_engine() -> PolicyEngine:\n        return policy_engine\n    async def get_event_repo(engine: PolicyEngine = Depends(get_policy_engine)) -> EventRepository:\n        session = engine.session_maker()\n        try:\n            repo = EventRepository(session)\n            yield repo\n        finally:",
+        "detail": "src.agentvault_mcp.admin_api",
+        "documentation": {}
+    },
+    {
         "label": "main",
         "kind": 2,
         "importPath": "src.agentvault_mcp.cli",
         "description": "src.agentvault_mcp.cli",
         "peekOfCode": "def main() -> None:  # pragma: no cover\n    p = argparse.ArgumentParser(prog=\"agentvault\", description=\"AgentVault CLI\")\n    sub = p.add_subparsers(dest=\"cmd\", required=True)\n    s = sub.add_parser(\"create-wallet\")\n    s.add_argument(\"agent_id\")\n    s.set_defaults(func=_cmd_create_wallet)\n    s = sub.add_parser(\"list-wallets\")\n    s.set_defaults(func=_cmd_list_wallets)\n    s = sub.add_parser(\"balance\")\n    s.add_argument(\"agent_id\")",
         "detail": "src.agentvault_mcp.cli",
+        "documentation": {}
+    },
+    {
+        "label": "get_rpc_url",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable\n    2. ALCHEMY_HTTP_URL environment variable\n    3. Auto-generated Alchemy URL from ALCHEMY_API_KEY + ALCHEMY_NETWORK\n    4. Default public Sepolia endpoint\n    \"\"\"\n    # Check explicit environment variables first\n    rpc_url = os.getenv(\"WEB3_RPC_URL\") or os.getenv(\"ALCHEMY_HTTP_URL\")",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_or_create_encrypt_key",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_or_create_encrypt_key() -> str:\n    \"\"\"Get encryption key or create/persist one if not provided.\n    Returns:\n        Valid Fernet encryption key as string\n    Raises:\n        RuntimeError: If provided key is invalid and no fallback available\n    \"\"\"\n    encrypt_key = os.getenv(\"ENCRYPT_KEY\")\n    store_path = os.getenv(\"AGENTVAULT_STORE\", DEFAULT_STORE_PATH)\n    key_path = os.path.splitext(store_path)[0] + \".key\"",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_context_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_context_config() -> dict:\n    \"\"\"Get context management configuration.\"\"\"\n    return {\n        \"max_tokens\": int(os.getenv(\"MCP_MAX_TOKENS\", DEFAULT_MAX_TOKENS)),\n        \"completion_max_tokens\": DEFAULT_COMPLETION_TOKENS,\n        \"trim_threshold\": CONTEXT_TRIM_THRESHOLD,\n        \"trim_target\": CONTEXT_TRIM_TARGET,\n    }\ndef get_database_url() -> str:\n    \"\"\"Get database URL from environment or use default.\"\"\"",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_database_url",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_database_url() -> str:\n    \"\"\"Get database URL from environment or use default.\"\"\"\n    return os.getenv(\"VAULTPILOT_DATABASE_URL\", \"sqlite+aiosqlite:///vaultpilot.db\")\ndef get_policy_path() -> str:\n    \"\"\"Get policy configuration file path.\"\"\"\n    return os.getenv(\"VAULTPILOT_POLICY_PATH\", \"vaultpilot_policy.yml\")\ndef get_openai_api_key() -> str | None:\n    \"\"\"Get OpenAI API key from environment.\"\"\"\n    return os.getenv(\"OPENAI_API_KEY\")\ndef get_openai_model() -> str:",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_policy_path",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_policy_path() -> str:\n    \"\"\"Get policy configuration file path.\"\"\"\n    return os.getenv(\"VAULTPILOT_POLICY_PATH\", \"vaultpilot_policy.yml\")\ndef get_openai_api_key() -> str | None:\n    \"\"\"Get OpenAI API key from environment.\"\"\"\n    return os.getenv(\"OPENAI_API_KEY\")\ndef get_openai_model() -> str:\n    \"\"\"Get OpenAI model name from environment.\"\"\"\n    return os.getenv(\"OPENAI_MODEL\", \"gpt-4o-mini\")\ndef get_ollama_config() -> tuple[str, str]:",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_openai_api_key",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_openai_api_key() -> str | None:\n    \"\"\"Get OpenAI API key from environment.\"\"\"\n    return os.getenv(\"OPENAI_API_KEY\")\ndef get_openai_model() -> str:\n    \"\"\"Get OpenAI model name from environment.\"\"\"\n    return os.getenv(\"OPENAI_MODEL\", \"gpt-4o-mini\")\ndef get_ollama_config() -> tuple[str, str]:\n    \"\"\"Get Ollama host and model configuration.\"\"\"\n    host = os.getenv(\"OLLAMA_HOST\", \"http://127.0.0.1:11434\").rstrip(\"/\")\n    model = os.getenv(\"OLLAMA_MODEL\", \"llama3.1:8b\")",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_openai_model",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_openai_model() -> str:\n    \"\"\"Get OpenAI model name from environment.\"\"\"\n    return os.getenv(\"OPENAI_MODEL\", \"gpt-4o-mini\")\ndef get_ollama_config() -> tuple[str, str]:\n    \"\"\"Get Ollama host and model configuration.\"\"\"\n    host = os.getenv(\"OLLAMA_HOST\", \"http://127.0.0.1:11434\").rstrip(\"/\")\n    model = os.getenv(\"OLLAMA_MODEL\", \"llama3.1:8b\")\n    return host, model\ndef get_log_level() -> str:\n    \"\"\"Get logging level from environment.\"\"\"",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_ollama_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_ollama_config() -> tuple[str, str]:\n    \"\"\"Get Ollama host and model configuration.\"\"\"\n    host = os.getenv(\"OLLAMA_HOST\", \"http://127.0.0.1:11434\").rstrip(\"/\")\n    model = os.getenv(\"OLLAMA_MODEL\", \"llama3.1:8b\")\n    return host, model\ndef get_log_level() -> str:\n    \"\"\"Get logging level from environment.\"\"\"\n    return os.getenv(\"LOG_LEVEL\", \"INFO\").upper()\ndef get_admin_api_config() -> dict:\n    \"\"\"Get admin API server configuration.\"\"\"",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_log_level",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_log_level() -> str:\n    \"\"\"Get logging level from environment.\"\"\"\n    return os.getenv(\"LOG_LEVEL\", \"INFO\").upper()\ndef get_admin_api_config() -> dict:\n    \"\"\"Get admin API server configuration.\"\"\"\n    return {\n        \"host\": os.getenv(\"ADMIN_API_HOST\", \"127.0.0.1\"),\n        \"port\": int(os.getenv(\"ADMIN_API_PORT\", \"9900\")),\n        \"log_level\": os.getenv(\"ADMIN_API_LOG_LEVEL\", \"info\"),\n        \"reload\": os.getenv(\"ADMIN_API_RELOAD\", \"false\").lower() == \"true\",",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_admin_api_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_admin_api_config() -> dict:\n    \"\"\"Get admin API server configuration.\"\"\"\n    return {\n        \"host\": os.getenv(\"ADMIN_API_HOST\", \"127.0.0.1\"),\n        \"port\": int(os.getenv(\"ADMIN_API_PORT\", \"9900\")),\n        \"log_level\": os.getenv(\"ADMIN_API_LOG_LEVEL\", \"info\"),\n        \"reload\": os.getenv(\"ADMIN_API_RELOAD\", \"false\").lower() == \"true\",\n    }\ndef get_rate_limit_config() -> dict:\n    \"\"\"Get rate limiting configuration.\"\"\"",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_rate_limit_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_rate_limit_config() -> dict:\n    \"\"\"Get rate limiting configuration.\"\"\"\n    return {\n        \"calls\": int(os.getenv(\"RATE_LIMIT_CALLS\", DEFAULT_RATE_LIMIT_CALLS)),\n        \"window\": int(os.getenv(\"RATE_LIMIT_WINDOW\", DEFAULT_RATE_LIMIT_WINDOW)),\n    }\ndef get_wallet_config() -> dict:\n    \"\"\"Get wallet-specific configuration.\"\"\"\n    return {\n        \"max_transaction_eth\": get_max_transaction_eth(),",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_wallet_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_wallet_config() -> dict:\n    \"\"\"Get wallet-specific configuration.\"\"\"\n    return {\n        \"max_transaction_eth\": get_max_transaction_eth(),\n        \"confirmation_code\": get_confirmation_code(),\n        \"export_confirmation_code\": get_export_confirmation_code(),\n        \"allow_plaintext_export\": should_allow_plaintext_export(),\n        \"faucet_url\": get_faucet_url(),\n        \"store_path\": os.getenv(\"AGENTVAULT_STORE\", DEFAULT_STORE_PATH),\n    }",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_ui_config",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_ui_config() -> dict:\n    \"\"\"Get UI generation configuration.\"\"\"\n    return {\n        \"qr_size\": int(os.getenv(\"QR_SIZE\", \"256\")),\n        \"qr_border\": int(os.getenv(\"QR_BORDER\", \"4\")),\n        \"dashboard_refresh_seconds\": int(os.getenv(\"DASHBOARD_REFRESH_SECONDS\", \"30\")),\n    }\ndef get_max_transaction_eth() -> float | None:\n    \"\"\"Get maximum transaction amount requiring confirmation.\"\"\"\n    max_tx_env = os.getenv(\"AGENTVAULT_MAX_TX_ETH\")",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_max_transaction_eth",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_max_transaction_eth() -> float | None:\n    \"\"\"Get maximum transaction amount requiring confirmation.\"\"\"\n    max_tx_env = os.getenv(\"AGENTVAULT_MAX_TX_ETH\")\n    if not max_tx_env:\n        return None\n    try:\n        return float(max_tx_env)\n    except ValueError:\n        logger.warning(f\"Invalid AGENTVAULT_MAX_TX_ETH value: {max_tx_env}\")\n        return None",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_confirmation_code",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_confirmation_code() -> str | None:\n    \"\"\"Get transaction confirmation code.\"\"\"\n    return os.getenv(\"AGENTVAULT_TX_CONFIRM_CODE\")\ndef get_export_confirmation_code() -> str | None:\n    \"\"\"Get export confirmation code.\"\"\"\n    return os.getenv(\"AGENTVAULT_EXPORT_CODE\")\ndef should_allow_plaintext_export() -> bool:\n    \"\"\"Check if plaintext key export is allowed.\"\"\"\n    return os.getenv(\"AGENTVAULT_ALLOW_PLAINTEXT_EXPORT\") == \"1\"\ndef get_faucet_url() -> str | None:",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_export_confirmation_code",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_export_confirmation_code() -> str | None:\n    \"\"\"Get export confirmation code.\"\"\"\n    return os.getenv(\"AGENTVAULT_EXPORT_CODE\")\ndef should_allow_plaintext_export() -> bool:\n    \"\"\"Check if plaintext key export is allowed.\"\"\"\n    return os.getenv(\"AGENTVAULT_ALLOW_PLAINTEXT_EXPORT\") == \"1\"\ndef get_faucet_url() -> str | None:\n    \"\"\"Get faucet endpoint URL.\"\"\"\n    return os.getenv(\"AGENTVAULT_FAUCET_URL\")",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "should_allow_plaintext_export",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def should_allow_plaintext_export() -> bool:\n    \"\"\"Check if plaintext key export is allowed.\"\"\"\n    return os.getenv(\"AGENTVAULT_ALLOW_PLAINTEXT_EXPORT\") == \"1\"\ndef get_faucet_url() -> str | None:\n    \"\"\"Get faucet endpoint URL.\"\"\"\n    return os.getenv(\"AGENTVAULT_FAUCET_URL\")",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "get_faucet_url",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "def get_faucet_url() -> str | None:\n    \"\"\"Get faucet endpoint URL.\"\"\"\n    return os.getenv(\"AGENTVAULT_FAUCET_URL\")",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_RPC_URL",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "DEFAULT_RPC_URL = \"https://ethereum-sepolia.publicnode.com\"\nDEFAULT_STORE_PATH = \"agentvault_store.json\"\nKEY_FILE_PERMISSIONS = 0o600\nRECEIPT_TIMEOUT_SECONDS = 120\nMAX_BACKOFF_DELAY = 2.0\nCONTEXT_TRIM_THRESHOLD = 0.9\nCONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_STORE_PATH",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "DEFAULT_STORE_PATH = \"agentvault_store.json\"\nKEY_FILE_PERMISSIONS = 0o600\nRECEIPT_TIMEOUT_SECONDS = 120\nMAX_BACKOFF_DELAY = 2.0\nCONTEXT_TRIM_THRESHOLD = 0.9\nCONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "KEY_FILE_PERMISSIONS",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "KEY_FILE_PERMISSIONS = 0o600\nRECEIPT_TIMEOUT_SECONDS = 120\nMAX_BACKOFF_DELAY = 2.0\nCONTEXT_TRIM_THRESHOLD = 0.9\nCONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "RECEIPT_TIMEOUT_SECONDS",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "RECEIPT_TIMEOUT_SECONDS = 120\nMAX_BACKOFF_DELAY = 2.0\nCONTEXT_TRIM_THRESHOLD = 0.9\nCONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "MAX_BACKOFF_DELAY",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "MAX_BACKOFF_DELAY = 2.0\nCONTEXT_TRIM_THRESHOLD = 0.9\nCONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "CONTEXT_TRIM_THRESHOLD",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "CONTEXT_TRIM_THRESHOLD = 0.9\nCONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "CONTEXT_TRIM_TARGET",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "CONTEXT_TRIM_TARGET = 0.8\nDEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable\n    2. ALCHEMY_HTTP_URL environment variable",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_MAX_TOKENS",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "DEFAULT_MAX_TOKENS = 4096\nDEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable\n    2. ALCHEMY_HTTP_URL environment variable\n    3. Auto-generated Alchemy URL from ALCHEMY_API_KEY + ALCHEMY_NETWORK",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_COMPLETION_TOKENS",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "DEFAULT_COMPLETION_TOKENS = 512\nDEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable\n    2. ALCHEMY_HTTP_URL environment variable\n    3. Auto-generated Alchemy URL from ALCHEMY_API_KEY + ALCHEMY_NETWORK\n    4. Default public Sepolia endpoint",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_RATE_LIMIT_CALLS",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "DEFAULT_RATE_LIMIT_CALLS = 120\nDEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable\n    2. ALCHEMY_HTTP_URL environment variable\n    3. Auto-generated Alchemy URL from ALCHEMY_API_KEY + ALCHEMY_NETWORK\n    4. Default public Sepolia endpoint\n    \"\"\"",
+        "detail": "src.agentvault_mcp.config",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_RATE_LIMIT_WINDOW",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.config",
+        "description": "src.agentvault_mcp.config",
+        "peekOfCode": "DEFAULT_RATE_LIMIT_WINDOW = 60\ndef get_rpc_url() -> str:\n    \"\"\"Get RPC URL with proper fallback chain.\n    Priority order:\n    1. WEB3_RPC_URL environment variable\n    2. ALCHEMY_HTTP_URL environment variable\n    3. Auto-generated Alchemy URL from ALCHEMY_API_KEY + ALCHEMY_NETWORK\n    4. Default public Sepolia endpoint\n    \"\"\"\n    # Check explicit environment variables first",
+        "detail": "src.agentvault_mcp.config",
         "documentation": {}
     },
     {
@@ -1134,6 +3273,60 @@
         "documentation": {}
     },
     {
+        "label": "RateLimitRule",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.policy",
+        "description": "src.agentvault_mcp.policy",
+        "peekOfCode": "class RateLimitRule:\n    max_calls: int\n    window_seconds: int\n    @classmethod\n    def from_dict(cls, data: Dict[str, Any]) -> \"RateLimitRule\":\n        return cls(\n            max_calls=int(data.get(\"max_calls\", 60)),\n            window_seconds=int(data.get(\"window_seconds\", 60)),\n        )\n@dataclass",
+        "detail": "src.agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "PolicyConfig",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.policy",
+        "description": "src.agentvault_mcp.policy",
+        "peekOfCode": "class PolicyConfig:\n    default_rate_limit: RateLimitRule\n    tool_overrides: Dict[str, RateLimitRule]\n    @classmethod\n    def load(cls, path: Optional[str] = None) -> \"PolicyConfig\":\n        path_obj = Path(path or os.getenv(\"VAULTPILOT_POLICY_PATH\", DEFAULT_POLICY_PATH))\n        if not path_obj.exists():\n            return cls(\n                default_rate_limit=RateLimitRule(max_calls=120, window_seconds=60),\n                tool_overrides={},",
+        "detail": "src.agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "PolicyEngine",
+        "kind": 6,
+        "importPath": "src.agentvault_mcp.policy",
+        "description": "src.agentvault_mcp.policy",
+        "peekOfCode": "class PolicyEngine:\n    def __init__(\n        self,\n        session_maker,\n        config: PolicyConfig,\n        *,\n        config_path: Optional[str] = None,\n    ) -> None:\n        self._session_maker = session_maker\n        self._config = config",
+        "detail": "src.agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "extract_agent_id",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.policy",
+        "description": "src.agentvault_mcp.policy",
+        "peekOfCode": "def extract_agent_id(kwargs: Dict[str, Any]) -> Optional[str]:\n    for key in (\"agent_id\", \"agent\", \"address\"):\n        if key in kwargs and isinstance(kwargs[key], str):\n            return kwargs[key]\n    return None\nasync def run_with_policy(\n    engine: PolicyEngine,\n    *,\n    tool_name: str,\n    agent_id: Optional[str],",
+        "detail": "src.agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "DEFAULT_POLICY_PATH",
+        "kind": 5,
+        "importPath": "src.agentvault_mcp.policy",
+        "description": "src.agentvault_mcp.policy",
+        "peekOfCode": "DEFAULT_POLICY_PATH = \"vaultpilot_policy.yml\"\n@dataclass\nclass RateLimitRule:\n    max_calls: int\n    window_seconds: int\n    @classmethod\n    def from_dict(cls, data: Dict[str, Any]) -> \"RateLimitRule\":\n        return cls(\n            max_calls=int(data.get(\"max_calls\", 60)),\n            window_seconds=int(data.get(\"window_seconds\", 60)),",
+        "detail": "src.agentvault_mcp.policy",
+        "documentation": {}
+    },
+    {
+        "label": "policy_guard",
+        "kind": 2,
+        "importPath": "src.agentvault_mcp.server",
+        "description": "src.agentvault_mcp.server",
+        "peekOfCode": "def policy_guard(\n    tool_name: str,\n    *,\n    agent_field: str | None = None,\n    redact_fields: tuple[str, ...] = (),\n):\n    def decorator(func: Callable[..., Any]) -> Callable[..., Any]:\n        async def wrapper(*args: Any, **kwargs: Any) -> Any:\n            agent_id = None\n            if agent_field:",
+        "detail": "src.agentvault_mcp.server",
+        "documentation": {}
+    },
+    {
         "label": "cli",
         "kind": 2,
         "importPath": "src.agentvault_mcp.server",
@@ -1147,7 +3340,7 @@
         "kind": 5,
         "importPath": "src.agentvault_mcp.server",
         "description": "src.agentvault_mcp.server",
-        "peekOfCode": "server = FastMCP(\"agentvault-mcp\")\n_context_mgr: ContextManager | None = None\n_wallet_mgr: AgentWalletManager | None = None\n_strategy_mgr: StrategyManager | None = None\n# Tool functions will be registered in main() after initialization\n@server.tool()\nasync def spin_up_wallet(agent_id: str) -> str:\n    if _wallet_mgr is None:\n        raise RuntimeError(\"Server not initialized\")\n    return await _wallet_mgr.spin_up_wallet(agent_id)",
+        "peekOfCode": "server = FastMCP(\"agentvault-mcp\")\n_context_mgr: ContextManager | None = None\n_wallet_mgr: AgentWalletManager | None = None\n_strategy_mgr: StrategyManager | None = None\n_policy_engine: PolicyEngine | None = None\nasync def _policy_execute(\n    tool_name: str,\n    agent_id: str | None,\n    request_payload: dict[str, Any] | None,\n    coro_factory: Callable[[], Any],",
         "detail": "src.agentvault_mcp.server",
         "documentation": {}
     },
@@ -1156,7 +3349,7 @@
         "kind": 6,
         "importPath": "src.agentvault_mcp.strategy_manager",
         "description": "src.agentvault_mcp.strategy_manager",
-        "peekOfCode": "class DcaStrategy:\n    label: str\n    agent_id: str\n    to_address: str\n    amount_eth: float\n    interval_seconds: int\n    enabled: bool = False\n    max_base_fee_gwei: Optional[float] = None\n    daily_cap_eth: Optional[float] = None\n    next_run_at: Optional[str] = None  # ISO8601",
+        "peekOfCode": "class DcaStrategy:\n    label: str\n    agent_id: str\n    to_address: str\n    amount_eth: float\n    interval_seconds: int\n    enabled: bool = False\n    max_base_fee_gwei: Optional[float] = None\n    daily_cap_eth: Optional[float] = None\n    next_run_at: Optional[str] = None",
         "detail": "src.agentvault_mcp.strategy_manager",
         "documentation": {}
     },
@@ -1165,7 +3358,7 @@
         "kind": 6,
         "importPath": "src.agentvault_mcp.strategy_manager",
         "description": "src.agentvault_mcp.strategy_manager",
-        "peekOfCode": "class StrategyManager:\n    def __init__(self, wallet: AgentWalletManager, store_path: Optional[str] = None):\n        self.wallet = wallet\n        path = store_path or os.getenv(\n            \"AGENTVAULT_STRATEGY_STORE\", \"agentvault_strategies.json\"\n        )\n        self.path = Path(path).resolve()\n        self._locks: Dict[str, asyncio.Lock] = {}\n        self._strategies: Dict[str, DcaStrategy] = {}\n        self._load()",
+        "peekOfCode": "class StrategyManager:\n    def __init__(self, wallet: AgentWalletManager):\n        self.wallet = wallet\n        self.session_maker = wallet.session_maker\n        self._locks: Dict[str, asyncio.Lock] = {}\n    def _get_lock(self, label: str) -> asyncio.Lock:\n        if label not in self._locks:\n            self._locks[label] = asyncio.Lock()\n        return self._locks[label]\n    def _record_to_strategy(self, record: Strategy) -> DcaStrategy:",
         "detail": "src.agentvault_mcp.strategy_manager",
         "documentation": {}
     },
@@ -1210,7 +3403,7 @@
         "kind": 2,
         "importPath": "src.agentvault_mcp.ui",
         "description": "src.agentvault_mcp.ui",
-        "peekOfCode": "def eth_uri(address: str, amount_eth: Optional[float] = None) -> str:\n    if amount_eth is None:\n        return f\"ethereum:{address}\"\n    wei = int(amount_eth * 10**18)\n    return f\"ethereum:{address}?value={wei}\"\ndef dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -> str:\n    w_rows = \"\".join(\n        f\"<div class='card'>\"\n        f\"<div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>\"\n        f\"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div>\"",
+        "peekOfCode": "def eth_uri(address: str, amount_eth: Optional[float] = None) -> str:\n    if amount_eth is None:\n        return f\"ethereum:{address}\"\n    wei = int(amount_eth * 10**18)\n    return f\"ethereum:{address}?value={wei}\"\ndef dashboard_html(\n    wallets: List[Dict[str, str]],\n    strategies: Dict[str, Dict],\n    events: Optional[List[Dict[str, Any]]] = None,\n    usage: Optional[List[Dict[str, Any]]] = None,",
         "detail": "src.agentvault_mcp.ui",
         "documentation": {}
     },
@@ -1219,7 +3412,7 @@
         "kind": 2,
         "importPath": "src.agentvault_mcp.ui",
         "description": "src.agentvault_mcp.ui",
-        "peekOfCode": "def dashboard_html(wallets: List[Dict[str, str]], strategies: Dict[str, Dict]) -> str:\n    w_rows = \"\".join(\n        f\"<div class='card'>\"\n        f\"<div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>\"\n        f\"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div>\"\n        f\"<button class='btn small' onclick=\\\"_avCopy('{w.get('address')}', this)\\\">Copy</button></div>\"\n        f\"<div class='row'><div class='label'>Balance</div><div class='mono'>{w.get('balance_eth','?')} ETH</div></div>\"\n        f\"</div>\"\n        for w in wallets\n    )",
+        "peekOfCode": "def dashboard_html(\n    wallets: List[Dict[str, str]],\n    strategies: Dict[str, Dict],\n    events: Optional[List[Dict[str, Any]]] = None,\n    usage: Optional[List[Dict[str, Any]]] = None,\n) -> str:\n    w_rows = \"\".join(\n        f\"<div class='card'>\"\n        f\"<div class='row'><div class='label'>Agent</div><div class='mono'>{w.get('agent_id')}</div></div>\"\n        f\"<div class='row'><div class='label'>Address</div><div class='mono'>{w.get('address')}</div>\"",
         "detail": "src.agentvault_mcp.ui",
         "documentation": {}
     },
@@ -1228,7 +3421,7 @@
         "kind": 2,
         "importPath": "src.agentvault_mcp.ui",
         "description": "src.agentvault_mcp.ui",
-        "peekOfCode": "def write_dashboard_page(\n    path: str, wallets: List[Dict[str, str]], strategies: Dict[str, Dict]\n) -> str:\n    html = dashboard_html(wallets, strategies)\n    with open(path, \"w\", encoding=\"utf-8\") as f:\n        f.write(html)\n    return path",
+        "peekOfCode": "def write_dashboard_page(\n    path: str,\n    wallets: List[Dict[str, str]],\n    strategies: Dict[str, Dict],\n    events: Optional[List[Dict[str, Any]]] = None,\n) -> str:\n    html = dashboard_html(wallets, strategies, events)\n    with open(path, \"w\", encoding=\"utf-8\") as f:\n        f.write(html)\n    return path",
         "detail": "src.agentvault_mcp.ui",
         "documentation": {}
     },
@@ -1246,7 +3439,7 @@
         "kind": 6,
         "importPath": "src.agentvault_mcp.wallet",
         "description": "src.agentvault_mcp.wallet",
-        "peekOfCode": "class WalletState(BaseModel):\n    address: str\n    encrypted_privkey: bytes\n    chain_id: int\n    last_nonce: int | None = None\nclass AgentWalletManager:\n    \"\"\"Wallet-specific MCP layer: Secure, async wallet ops with context integration.\"\"\"\n    def __init__(\n        self,\n        context_manager: ContextManager,",
+        "peekOfCode": "class WalletState(BaseModel):\n    wallet_id: str\n    address: str\n    encrypted_privkey: bytes\n    chain_id: int\n    last_nonce: int | None = None\nclass AgentWalletManager:\n    \"\"\"Wallet-specific MCP layer: Secure, async wallet ops with context integration.\"\"\"\n    def __init__(\n        self,",
         "detail": "src.agentvault_mcp.wallet",
         "documentation": {}
     },
@@ -1255,7 +3448,7 @@
         "kind": 6,
         "importPath": "src.agentvault_mcp.wallet",
         "description": "src.agentvault_mcp.wallet",
-        "peekOfCode": "class AgentWalletManager:\n    \"\"\"Wallet-specific MCP layer: Secure, async wallet ops with context integration.\"\"\"\n    def __init__(\n        self,\n        context_manager: ContextManager,\n        web3_adapter: Web3Adapter,\n        encrypt_key: str,\n        persist_path: str | None = None,\n        logger=logger,\n    ):",
+        "peekOfCode": "class AgentWalletManager:\n    \"\"\"Wallet-specific MCP layer: Secure, async wallet ops with context integration.\"\"\"\n    def __init__(\n        self,\n        context_manager: ContextManager,\n        web3_adapter: Web3Adapter,\n        encrypt_key: str,\n        *,\n        database_url: str | None = None,\n        tenant_id: str = \"default\",",
         "detail": "src.agentvault_mcp.wallet",
         "documentation": {}
     },
@@ -1269,74 +3462,101 @@
         "documentation": {}
     },
     {
+        "label": "test_guardrail_ok_with_patch",
+        "kind": 2,
+        "importPath": "tests.test_guardrail",
+        "description": "tests.test_guardrail",
+        "peekOfCode": "def test_guardrail_ok_with_patch():\n    txt = (\n        \"*** Begin Patch\\n*** Update File: a.py\\n@@\\n- a\\n+ b\\n*** End Patch\\n\"\n    )\n    assert check_text(txt) == []\ndef test_guardrail_flags_banned_and_missing_patch():\n    txt = \"This is a TODO with ... and no patch\"\n    issues = check_text(txt)\n    assert any(\"banned\" in i for i in issues)\n    assert any(\"no unified diff\" in i for i in issues)",
+        "detail": "tests.test_guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "test_guardrail_flags_banned_and_missing_patch",
+        "kind": 2,
+        "importPath": "tests.test_guardrail",
+        "description": "tests.test_guardrail",
+        "peekOfCode": "def test_guardrail_flags_banned_and_missing_patch():\n    txt = \"This is a TODO with ... and no patch\"\n    issues = check_text(txt)\n    assert any(\"banned\" in i for i in issues)\n    assert any(\"no unified diff\" in i for i in issues)",
+        "detail": "tests.test_guardrail",
+        "documentation": {}
+    },
+    {
+        "label": "DummyWeb3",
+        "kind": 6,
+        "importPath": "tests.test_policy",
+        "description": "tests.test_policy",
+        "peekOfCode": "class DummyWeb3:\n    class Eth:\n        chain_id = 11155111\n    eth = Eth()\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\nclass DummyAdapter:\n    def __init__(self):",
+        "detail": "tests.test_policy",
+        "documentation": {}
+    },
+    {
+        "label": "DummyAdapter",
+        "kind": 6,
+        "importPath": "tests.test_policy",
+        "description": "tests.test_policy",
+        "peekOfCode": "class DummyAdapter:\n    def __init__(self):\n        self.w3 = DummyWeb3()\n    async def ensure_connection(self):\n        return True\ndef _make_engine(tmp_path):\n    ctx = ContextManager()\n    mgr = AgentWalletManager(\n        ctx,\n        DummyAdapter(),",
+        "detail": "tests.test_policy",
+        "documentation": {}
+    },
+    {
+        "label": "_W3",
+        "kind": 6,
+        "importPath": "tests.test_strategies",
+        "description": "tests.test_strategies",
+        "peekOfCode": "class _W3:\n    def __init__(self, base_fee_wei: int):\n        class Eth:\n            def __init__(self, base_fee):\n                self._base_fee = base_fee\n                self.chain_id = 11155111\n            async def get_block(self, *_):\n                return {\"baseFeePerGas\": self._base_fee}\n        self.eth = Eth(base_fee_wei)\n    def from_wei(self, v, unit):",
+        "detail": "tests.test_strategies",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3Adapter",
+        "kind": 6,
+        "importPath": "tests.test_strategies",
+        "description": "tests.test_strategies",
+        "peekOfCode": "class _Web3Adapter:\n    def __init__(self, base_fee_wei: int):\n        self.w3 = _W3(base_fee_wei)\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\n    async def get_block_latest(self):\n        return await self.w3.eth.get_block(\"latest\")\n    def from_wei(self, v, unit):",
+        "detail": "tests.test_strategies",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3",
+        "kind": 6,
+        "importPath": "tests.test_strategy_manager",
+        "description": "tests.test_strategy_manager",
+        "peekOfCode": "class _Web3:\n    class Eth:\n        chain_id = 11155111\n        async def get_block(self, *_):\n            return {\"baseFeePerGas\": 1 * 10**9}\n    eth = Eth()\n    def from_wei(self, v, unit):\n        if unit == \"gwei\":\n            return v / 10**9\n        if unit == \"ether\":",
+        "detail": "tests.test_strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "_Web3Adapter",
+        "kind": 6,
+        "importPath": "tests.test_strategy_manager",
+        "description": "tests.test_strategy_manager",
+        "peekOfCode": "class _Web3Adapter:\n    def __init__(self):\n        self.w3 = _Web3()\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\n    async def get_block_latest(self):\n        return await self.w3.eth.get_block(\"latest\")\n    def from_wei(self, v, unit):",
+        "detail": "tests.test_strategy_manager",
+        "documentation": {}
+    },
+    {
+        "label": "test_tipjar_page_html_contains_svg_and_uri",
+        "kind": 2,
+        "importPath": "tests.test_ui",
+        "description": "tests.test_ui",
+        "peekOfCode": "def test_tipjar_page_html_contains_svg_and_uri():\n    html = tipjar_page_html(\"0x\" + \"1\" * 40, 0.01)\n    assert \"ethereum:\" in html\n    assert \"<svg\" in html\n    assert \"Toggle Theme\" in html\n    assert \"Copy\" in html\n@pytest.mark.skipif(not _HAS_SEGNO, reason=\"segno not installed; UI tests optional\")\ndef test_dashboard_html_contains_sections():\n    wallets = [\n        {\"agent_id\": \"a\", \"address\": \"0x\" + \"1\" * 40, \"balance_eth\": 0.0},",
+        "detail": "tests.test_ui",
+        "documentation": {}
+    },
+    {
+        "label": "test_dashboard_html_contains_sections",
+        "kind": 2,
+        "importPath": "tests.test_ui",
+        "description": "tests.test_ui",
+        "peekOfCode": "def test_dashboard_html_contains_sections():\n    wallets = [\n        {\"agent_id\": \"a\", \"address\": \"0x\" + \"1\" * 40, \"balance_eth\": 0.0},\n        {\"agent_id\": \"b\", \"address\": \"0x\" + \"2\" * 40, \"balance_eth\": 1.23},\n    ]\n    strategies = {\n        \"s1\": {\n            \"agent_id\": \"a\",\n            \"to_address\": \"0x\" + \"3\" * 40,\n            \"amount_eth\": 0.1,",
+        "detail": "tests.test_ui",
+        "documentation": {}
+    },
+    {
         "label": "_Web3AdapterStub",
         "kind": 6,
         "importPath": "tests.test_wallet_extended",
         "description": "tests.test_wallet_extended",
-        "peekOfCode": "class _Web3AdapterStub:\n    class _W3:\n        class eth:\n            chain_id = 11155111\n            @staticmethod\n            async def get_block(identifier):\n                return {\n                    \"baseFeePerGas\": 0,\n                    \"number\": 100,\n                    \"timestamp\": 1700000000,",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_import_private_key_and_sign",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_import_private_key_and_sign(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        priv = \"0xfb4222fce02fa5e3d33ec08294b5fbeee428028532133116ff1d84fe8be9719f\"\n        address = await mgr.import_wallet_from_private_key(\"imported\", priv)\n        assert address == \"0xC4504EE5091e093499a0586Ca7525A0F20520747\"\n        sign = await mgr.sign_message(\"imported\", \"hello\")\n        verify = await mgr.verify_message(address, \"hello\", sign[\"signature\"])\n        assert verify[\"valid\"]\n    asyncio.run(runner())",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_encrypt_and_decrypt_keystore",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_encrypt_and_decrypt_keystore(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        priv = \"0xfb4222fce02fa5e3d33ec08294b5fbeee428028532133116ff1d84fe8be9719f\"\n        await mgr.import_wallet_from_private_key(\"imported\", priv)\n        encrypted = await mgr.encrypt_wallet_json(\"imported\", \"pass123\")\n        data = await mgr.decrypt_wallet_json(encrypted, \"pass123\")\n        assert data[\"address\"].lower() == \"0xc4504ee5091e093499a0586ca7525a0f20520747\".lower()\n        assert data[\"private_key\"].lower() == priv.lower()\n    asyncio.run(runner())",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_sign_typed_data",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_sign_typed_data(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        priv = \"0xfb4222fce02fa5e3d33ec08294b5fbeee428028532133116ff1d84fe8be9719f\"\n        address = await mgr.import_wallet_from_private_key(\"imported\", priv)\n        typed_data = {\n            \"types\": {\n                \"EIP712Domain\": [\n                    {\"name\": \"name\", \"type\": \"string\"},\n                    {\"name\": \"version\", \"type\": \"string\"},",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_generate_mnemonic",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_generate_mnemonic(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        phrase = await mgr.generate_mnemonic()\n        assert isinstance(phrase, str)\n        assert len(phrase.split()) == 12\n    asyncio.run(runner())\ndef test_provider_status(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_provider_status",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_provider_status(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        info = await mgr.provider_status()\n        assert info[\"chain_id\"] == 11155111\n        assert info[\"latest_block_number\"] == 321\n        assert info[\"rpc_url\"] == \"http://stub\"\n    asyncio.run(runner())\ndef test_inspect_contract(tmp_path):\n    async def runner():",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_inspect_contract",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_inspect_contract(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        data = await mgr.inspect_contract(CONTRACT_ADDR)\n        assert data[\"is_contract\"] is True\n        assert data[\"bytecode_length\"] > 0\n        assert data[\"erc20_metadata\"][\"symbol\"] == \"TOK\"\n    asyncio.run(runner())\ndef test_inspect_contract_for_eoa(tmp_path):\n    async def runner():",
-        "detail": "tests.test_wallet_extended",
-        "documentation": {}
-    },
-    {
-        "label": "test_inspect_contract_for_eoa",
-        "kind": 2,
-        "importPath": "tests.test_wallet_extended",
-        "description": "tests.test_wallet_extended",
-        "peekOfCode": "def test_inspect_contract_for_eoa(tmp_path):\n    async def runner():\n        mgr = _make_manager(tmp_path)\n        data = await mgr.inspect_contract(\"0x1111111111111111111111111111111111111111\")\n        assert data[\"is_contract\"] is False\n        assert data[\"bytecode_length\"] == 0\n    asyncio.run(runner())",
+        "peekOfCode": "class _Web3AdapterStub:\n    class _W3:\n        class eth:\n            chain_id = 11155111\n            chain_id = 11155111\n            @staticmethod\n            async def get_block(identifier):\n                return {\n                    \"baseFeePerGas\": 0,\n                    \"number\": 100,",
         "detail": "tests.test_wallet_extended",
         "documentation": {}
     },
@@ -1345,80 +3565,26 @@
         "kind": 5,
         "importPath": "tests.test_wallet_extended",
         "description": "tests.test_wallet_extended",
-        "peekOfCode": "CONTRACT_ADDR = \"0x2222222222222222222222222222222222222222\"\nclass _Web3AdapterStub:\n    class _W3:\n        class eth:\n            chain_id = 11155111\n            @staticmethod\n            async def get_block(identifier):\n                return {\n                    \"baseFeePerGas\": 0,\n                    \"number\": 100,",
+        "peekOfCode": "CONTRACT_ADDR = \"0x2222222222222222222222222222222222222222\"\nclass _Web3AdapterStub:\n    class _W3:\n        class eth:\n            chain_id = 11155111\n            chain_id = 11155111\n            @staticmethod\n            async def get_block(identifier):\n                return {\n                    \"baseFeePerGas\": 0,",
         "detail": "tests.test_wallet_extended",
         "documentation": {}
     },
     {
-        "label": "test_guardrail_ok_with_patch",
+        "label": "anyio_backend",
         "kind": 2,
-        "importPath": "test_guardrail",
-        "description": "test_guardrail",
-        "peekOfCode": "def test_guardrail_ok_with_patch():\n    txt = (\n        \"*** Begin Patch\\n*** Update File: a.py\\n@@\\n- a\\n+ b\\n*** End Patch\\n\"\n    )\n    assert check_text(txt) == []\ndef test_guardrail_flags_banned_and_missing_patch():\n    txt = \"This is a TODO with ... and no patch\"\n    issues = check_text(txt)\n    assert any(\"banned\" in i for i in issues)\n    assert any(\"no unified diff\" in i for i in issues)",
-        "detail": "test_guardrail",
+        "importPath": "conftest",
+        "description": "conftest",
+        "peekOfCode": "def anyio_backend():\n    return \"asyncio\"",
+        "detail": "conftest",
         "documentation": {}
     },
     {
-        "label": "test_guardrail_flags_banned_and_missing_patch",
-        "kind": 2,
-        "importPath": "test_guardrail",
-        "description": "test_guardrail",
-        "peekOfCode": "def test_guardrail_flags_banned_and_missing_patch():\n    txt = \"This is a TODO with ... and no patch\"\n    issues = check_text(txt)\n    assert any(\"banned\" in i for i in issues)\n    assert any(\"no unified diff\" in i for i in issues)",
-        "detail": "test_guardrail",
-        "documentation": {}
-    },
-    {
-        "label": "_W3",
-        "kind": 6,
-        "importPath": "test_strategies",
-        "description": "test_strategies",
-        "peekOfCode": "class _W3:\n    def __init__(self, base_fee_wei: int):\n        class Eth:\n            def __init__(self, base_fee):\n                self._base_fee = base_fee\n            async def get_block(self, *_):\n                return {\"baseFeePerGas\": self._base_fee}\n        self.eth = Eth(base_fee_wei)\n    def from_wei(self, v, unit):\n        if unit == \"gwei\":",
-        "detail": "test_strategies",
-        "documentation": {}
-    },
-    {
-        "label": "_Web3Adapter",
-        "kind": 6,
-        "importPath": "test_strategies",
-        "description": "test_strategies",
-        "peekOfCode": "class _Web3Adapter:\n    def __init__(self, base_fee_wei: int):\n        self.w3 = _W3(base_fee_wei)\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\n@pytest.mark.asyncio\nasync def test_send_when_gas_below_waits():\n    ctx = ContextManager()",
-        "detail": "test_strategies",
-        "documentation": {}
-    },
-    {
-        "label": "_Web3",
-        "kind": 6,
-        "importPath": "test_strategy_manager",
-        "description": "test_strategy_manager",
-        "peekOfCode": "class _Web3:\n    class Eth:\n        async def get_block(self, *_):\n            return {\"baseFeePerGas\": 1 * 10**9}\n        @property\n        async def chain_id(self):\n            return 11155111\n    eth = Eth()\n    def from_wei(self, v, unit):\n        if unit == \"gwei\":",
-        "detail": "test_strategy_manager",
-        "documentation": {}
-    },
-    {
-        "label": "_Web3Adapter",
-        "kind": 6,
-        "importPath": "test_strategy_manager",
-        "description": "test_strategy_manager",
-        "peekOfCode": "class _Web3Adapter:\n    def __init__(self):\n        self.w3 = _Web3()\n    async def ensure_connection(self):\n        return True\n    async def get_nonce(self, *_):\n        return 0\n@pytest.mark.asyncio\nasync def test_strategy_lifecycle(tmp_path):\n    # Wallet manager with stub web3",
-        "detail": "test_strategy_manager",
-        "documentation": {}
-    },
-    {
-        "label": "test_tipjar_page_html_contains_svg_and_uri",
-        "kind": 2,
-        "importPath": "test_ui",
-        "description": "test_ui",
-        "peekOfCode": "def test_tipjar_page_html_contains_svg_and_uri():\n    html = tipjar_page_html(\"0x\" + \"1\" * 40, 0.01)\n    assert \"ethereum:\" in html\n    assert \"<svg\" in html\n    assert \"Toggle Theme\" in html\n    assert \"Copy\" in html\n@pytest.mark.skipif(not _HAS_SEGNO, reason=\"segno not installed; UI tests optional\")\ndef test_dashboard_html_contains_sections():\n    wallets = [\n        {\"agent_id\": \"a\", \"address\": \"0x\" + \"1\" * 40, \"balance_eth\": 0.0},",
-        "detail": "test_ui",
-        "documentation": {}
-    },
-    {
-        "label": "test_dashboard_html_contains_sections",
-        "kind": 2,
-        "importPath": "test_ui",
-        "description": "test_ui",
-        "peekOfCode": "def test_dashboard_html_contains_sections():\n    wallets = [\n        {\"agent_id\": \"a\", \"address\": \"0x\" + \"1\" * 40, \"balance_eth\": 0.0},\n        {\"agent_id\": \"b\", \"address\": \"0x\" + \"2\" * 40, \"balance_eth\": 1.23},\n    ]\n    strategies = {\n        \"s1\": {\n            \"agent_id\": \"a\",\n            \"to_address\": \"0x\" + \"3\" * 40,\n            \"amount_eth\": 0.1,",
-        "detail": "test_ui",
+        "label": "pytest_plugins",
+        "kind": 5,
+        "importPath": "conftest",
+        "description": "conftest",
+        "peekOfCode": "pytest_plugins = (\"pytest_asyncio.plugin\",)\nimport pytest\n@pytest.fixture(scope=\"session\")\ndef anyio_backend():\n    return \"asyncio\"",
+        "detail": "conftest",
         "documentation": {}
     }
 ]

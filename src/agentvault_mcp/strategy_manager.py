@@ -113,13 +113,13 @@ class StrategyManager:
 
     async def list_strategies(self) -> Dict[str, Dict[str, Any]]:
         async with self.session_maker() as session:
-            repo = StrategyRepository(session)
+            repo = StrategyRepository(session, self.wallet.tenant_id)
             records = await repo.list_strategies()
         return {record.label: asdict(self._record_to_strategy(record)) for record in records}
 
     async def list_strategies_for_agent(self, agent_id: str) -> Dict[str, Dict[str, Any]]:
         async with self.session_maker() as session:
-            repo = StrategyRepository(session)
+            repo = StrategyRepository(session, self.wallet.tenant_id)
             records = await repo.list_strategies(agent_id=agent_id)
         return {record.label: asdict(self._record_to_strategy(record)) for record in records}
 
@@ -136,7 +136,7 @@ class StrategyManager:
     ) -> Dict[str, Any]:
         async with self.session_maker() as session:
             async with session.begin():
-                repo = StrategyRepository(session)
+                repo = StrategyRepository(session, self.wallet.tenant_id)
                 existing = await repo.get_by_label(label)
                 if existing:
                     raise WalletError(f"Strategy '{label}' already exists")
@@ -162,7 +162,7 @@ class StrategyManager:
     async def start_strategy(self, label: str) -> Dict[str, Any]:
         async with self.session_maker() as session:
             async with session.begin():
-                repo = StrategyRepository(session)
+                repo = StrategyRepository(session, self.wallet.tenant_id)
                 record = await repo.get_by_label(label)
                 if not record:
                     raise WalletError(f"Strategy '{label}' not found")
@@ -175,7 +175,7 @@ class StrategyManager:
     async def stop_strategy(self, label: str) -> Dict[str, Any]:
         async with self.session_maker() as session:
             async with session.begin():
-                repo = StrategyRepository(session)
+                repo = StrategyRepository(session, self.wallet.tenant_id)
                 record = await repo.get_by_label(label)
                 if not record:
                     raise WalletError(f"Strategy '{label}' not found")
@@ -187,7 +187,7 @@ class StrategyManager:
     async def delete_strategy(self, label: str) -> Dict[str, Any]:
         async with self.session_maker() as session:
             async with session.begin():
-                repo = StrategyRepository(session)
+                repo = StrategyRepository(session, self.wallet.tenant_id)
                 record = await repo.delete_strategy(label)
                 if not record:
                     raise WalletError(f"Strategy '{label}' not found")
@@ -196,7 +196,7 @@ class StrategyManager:
 
     async def strategy_status(self, label: str) -> Dict[str, Any]:
         async with self.session_maker() as session:
-            repo = StrategyRepository(session)
+            repo = StrategyRepository(session, self.wallet.tenant_id)
             record = await repo.get_by_label(label)
         if not record:
             raise WalletError(f"Strategy '{label}' not found")
@@ -213,8 +213,8 @@ class StrategyManager:
         async with lock:
             async with self.session_maker() as session:
                 async with session.begin():
-                    repo = StrategyRepository(session)
-                    run_repo = StrategyRunRepository(session)
+                    repo = StrategyRepository(session, self.wallet.tenant_id)
+                    run_repo = StrategyRunRepository(session, self.wallet.tenant_id)
                     record = await repo.get_by_label(label)
                     if not record:
                         raise WalletError(f"Strategy '{label}' not found")

@@ -62,6 +62,7 @@ class AgentWalletManager:
         encrypt_key: str,
         *,
         database_url: str | None = None,
+        tenant_id: str = "default",
         auto_migrate: bool = True,
         logger=logger,
     ):
@@ -77,6 +78,7 @@ class AgentWalletManager:
         self._locks: Dict[str, asyncio.Lock] = {}
         self.wallets: Dict[str, WalletState] = {}
         self.database_url = database_url
+        self.tenant_id = tenant_id
         self.session_maker = get_session_maker(database_url)
         if auto_migrate:
             try:
@@ -94,7 +96,7 @@ class AgentWalletManager:
         if agent_id in self.wallets:
             return True
         async with self.session_maker() as session:
-            repo = WalletRepository(session)
+            repo = WalletRepository(session, self.tenant_id)
             record = await repo.get_by_agent_id(agent_id)
             return record is not None
 
@@ -106,7 +108,7 @@ class AgentWalletManager:
 
     async def _hydrate_wallet_from_db(self, agent_id: str) -> WalletState:
         async with self.session_maker() as session:
-            repo = WalletRepository(session)
+            repo = WalletRepository(session, self.tenant_id)
             record = await repo.get_by_agent_id(agent_id)
             if not record:
                 raise WalletError(f"No wallet for {agent_id}.")
@@ -143,7 +145,7 @@ class AgentWalletManager:
         encrypted_privkey = self.encryptor.encrypt(bytes(account.key))
         async with self.session_maker() as session:
             async with session.begin():
-                repo = WalletRepository(session)
+                repo = WalletRepository(session, self.tenant_id)
                 record = await repo.upsert_wallet(
                     agent_id=agent_id,
                     address=account.address,
@@ -239,7 +241,7 @@ class AgentWalletManager:
             keystore = Account.encrypt(privkey, password)
         except InvalidToken:
             raise WalletError("Decryption failed—check encrypt key.")
-        except Exception as exc:  # pragma: no cover
+        except Exception as exc:  # pragma: no cover - depends on eth-account internals
             raise WalletError(f"Failed to encrypt wallet: {exc}") from exc
         import json as _json
 
@@ -360,7 +362,7 @@ class AgentWalletManager:
 
             async with self.session_maker() as session:
                 async with session.begin():
-                    repo = WalletRepository(session)
+                    repo = WalletRepository(session, self.tenant_id)
                     await repo.update_last_nonce(agent_id, state.last_nonce)
 
             await self.context.append_to_history(
@@ -384,7 +386,7 @@ class AgentWalletManager:
 
     async def list_wallets(self) -> dict[str, str]:
         async with self.session_maker() as session:
-            repo = WalletRepository(session)
+            repo = WalletRepository(session, self.tenant_id)
             records = await repo.list_wallets()
         result: dict[str, str] = {}
         for record in records:

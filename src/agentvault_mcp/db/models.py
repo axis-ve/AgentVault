@@ -22,6 +22,7 @@ class Wallet(Base):
     __tablename__ = "wallets"
 
     id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)
+    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default="default")
     agent_id: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     address: Mapped[str] = mapped_column(String(42), nullable=False)
     encrypted_privkey: Mapped[bytes] = mapped_column(LargeBinary, nullable=False)
@@ -39,6 +40,7 @@ class Strategy(Base):
     __table_args__ = (UniqueConstraint("label"),)
 
     id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)
+    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default="default")
     label: Mapped[str] = mapped_column(String(255), nullable=False)
     agent_id: Mapped[str] = mapped_column(String(255), nullable=False)
     strategy_type: Mapped[str] = mapped_column(String(64), nullable=False)
@@ -65,6 +67,7 @@ class StrategyRun(Base):
 
     id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)
     strategy_id: Mapped[str] = mapped_column(String(36), nullable=False)
+    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default="default")
     run_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=func.now)
     result: Mapped[str] = mapped_column(String(32), nullable=False)
     tx_hash: Mapped[str | None] = mapped_column(String(120))
@@ -75,6 +78,7 @@ class MCPEvent(Base):
     __tablename__ = "mcp_events"
 
     id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)
+    tenant_id: Mapped[str] = mapped_column(String(36), nullable=False, index=True, default="default")
     occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     tool_name: Mapped[str] = mapped_column(String(255), nullable=False)
     agent_id: Mapped[str | None] = mapped_column(String(255))
@@ -82,3 +86,14 @@ class MCPEvent(Base):
     request_payload: Mapped[dict | None] = mapped_column(JSON)
     response_payload: Mapped[dict | None] = mapped_column(JSON)
     error_message: Mapped[str | None] = mapped_column(Text)
+
+
+class Tenant(Base):
+    __tablename__ = "tenants"
+
+    id: Mapped[str] = mapped_column(UUID_TYPE, primary_key=True, default=_uuid_str)
+    name: Mapped[str] = mapped_column(String(255), nullable=False, unique=True)
+    plan: Mapped[str] = mapped_column(String(64), nullable=False, default="starter")
+    api_key_hash: Mapped[str] = mapped_column(String(128), nullable=False)
+    metadata_json: Mapped[dict | None] = mapped_column(JSON, default=dict)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
